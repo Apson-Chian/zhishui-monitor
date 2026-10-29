@@ -1,0 +1,4 @@
+qa/*.png
+qa/*.json
+*.zip
+.DS_Store
