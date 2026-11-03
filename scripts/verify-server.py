@@ -1,5 +1,6 @@
 """Verify public HTTPS delivery against the exact local static runtime."""
 from concurrent.futures import ThreadPoolExecutor
+import argparse
 import hashlib
 import json
 from pathlib import Path
@@ -7,7 +8,9 @@ from urllib.error import HTTPError
 from urllib.request import Request, urlopen
 
 root = Path(__file__).resolve().parent.parent
-base = 'https://apsonchian.ltd/zhishui/'
+parser = argparse.ArgumentParser()
+parser.add_argument('--base-url', choices=['https://apsonchian.ltd/zhishui/', 'https://apsonchian.ltd/zhishui-glass/'], default='https://apsonchian.ltd/zhishui/')
+base = parser.parse_args().base_url
 
 def get(url):
     request = Request(url, headers={'Accept-Encoding': 'identity', 'User-Agent': 'Zhishui-Deployment-Check/1.0'})
@@ -45,5 +48,5 @@ for endpoint in ['/', '/ai-odyssey/', '/v79/']:
     old_sites[endpoint] = get('https://apsonchian.ltd' + endpoint)[0]
 report = {'status': 'verified', 'url': base, 'runtime': checks,
           'canonical_redirect': 'passed', 'missing_asset_404': 'passed', 'existing_sites': old_sites}
-(root / 'qa/server-deployment.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
+(root / ('qa/server-deployment-glass.json' if '/zhishui-glass/' in base else 'qa/server-deployment.json')).write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
 print(json.dumps(report, ensure_ascii=False))

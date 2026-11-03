@@ -84,7 +84,7 @@ let resolveRequest;
 prepareAIImage = async () => 'data:image/jpeg;base64,test';
 fetch = () => new Promise(resolve=>resolveRequest=resolve);
 const first = detect();
-await Promise.resolve();
+for(let i=0;i<6;i++)await Promise.resolve();
 assert.equal(state.detecting,true);
 loadSample('inspection');
 resolveRequest({ok:true,json:async()=>({status:'ok',summary:'旧图片结果',findings:[{name:'旧目标',explanation:'旧结果',box:null}]})});

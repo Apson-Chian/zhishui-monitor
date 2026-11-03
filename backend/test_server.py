@@ -35,6 +35,28 @@ class GatewayTest(unittest.TestCase):
             self.assertEqual(e.exception.status,429)
             reserve('another-address')
             self.assertNotIn(b'test-address',Path(d,'usage.sqlite3').read_bytes())
+    def test_compatible_vision_request_and_result(self):
+        class Response:
+            def __enter__(self): return self
+            def __exit__(self, *args): pass
+            def read(self, limit):
+                content=json.dumps({'scene':'water','summary':'可见水面。','findings':[{'name':'水面','explanation':'有连续水面。','box':None}]})
+                return json.dumps({'choices':[{'message':{'content':content}}]}).encode()
+        with patch.dict(os.environ,{'VISION_API_KEY':'test-only'}),patch('urllib.request.urlopen',return_value=Response()) as request:
+            result=analyze(b'fixture-image')
+            self.assertEqual(result['status'],'ok')
+            call=request.call_args
+            self.assertEqual(call.kwargs['timeout'],35)
+            req=call.args[0]
+            self.assertEqual(req.get_header('Authorization'),'Bearer test-only')
+            self.assertTrue(req.full_url.endswith('/v1/chat/completions'))
+            body=json.loads(req.data)
+            self.assertEqual(body['model'],'dots_webdev_1022')
+            self.assertEqual(body['max_tokens'],900)
+            image=body['messages'][0]['content'][0]
+            self.assertEqual(image['type'],'image_url')
+            self.assertTrue(image['image_url']['url'].startswith('data:image/jpeg;base64,'))
+
     def test_unavailable_does_not_fabricate(self):
         with patch.dict(os.environ,{'VISION_API_KEY':''}):
             with self.assertRaises(ClientError) as e:analyze(b'')

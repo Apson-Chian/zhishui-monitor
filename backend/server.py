@@ -14,8 +14,8 @@ import time
 import urllib.error
 import urllib.request
 
-API_URL = 'https://note3-prev-api.askdiandian.com/v1/messages'
-MODEL = 'dots3-note-prev'
+API_URL = os.environ.get('VISION_API_URL', 'https://note3-prev-api.askdiandian.com/v1/chat/completions')
+MODEL = os.environ.get('VISION_MODEL', 'dots_webdev_1022')
 MAX_BODY = 3 * 1024 * 1024
 MAX_IMAGE = 2 * 1024 * 1024
 LIMIT = threading.BoundedSemaphore(2)
@@ -80,17 +80,19 @@ def analyze(raw):
     key = os.environ.get('VISION_API_KEY', '')
     if not key:
         raise ClientError(503, '识别暂未就绪，请稍后再试。')
-    body = {'model': MODEL, 'max_tokens': 1800, 'stream': False, 'thinking': {'type': 'disabled'},
+    body = {'model': MODEL, 'max_tokens': 900, 'stream': False,
             'messages': [{'role': 'user', 'content': [
-                {'type': 'image', 'source': {'type': 'base64', 'media_type': 'image/jpeg', 'data': base64.b64encode(raw).decode()}},
+                {'type': 'image_url', 'image_url': {'url': 'data:image/jpeg;base64,' + base64.b64encode(raw).decode()}},
                 {'type': 'text', 'text': PROMPT}]}]}
     req = urllib.request.Request(API_URL, data=json.dumps(body).encode(), headers={
-        'api-key': key, 'anthropic-version': '2023-06-01', 'Content-Type': 'application/json'})
+        'Authorization': 'Bearer ' + key, 'Content-Type': 'application/json'})
     try:
-        with urllib.request.urlopen(req, timeout=65) as response:
+        with urllib.request.urlopen(req, timeout=35) as response:
             data = json.loads(response.read(128 * 1024))
-        text = ''.join(c.get('text', '') for c in data.get('content', []) if c.get('type') == 'text')
-        return normalize(text)
+        choices = data.get('choices', [])
+        if not choices or not isinstance(choices[0].get('message', {}).get('content'), str):
+            raise ClientError(502, '本次结果未能完整生成，请重试。')
+        return normalize(choices[0]['message']['content'])
     except ClientError:
         raise
     except urllib.error.HTTPError as error:
