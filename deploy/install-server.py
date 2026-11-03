@@ -63,9 +63,17 @@ def run(*command):
     return subprocess.run(command, check=True, capture_output=True, timeout=30)
 
 def response(path):
-    return run('curl', '--fail', '--silent', '--show-error', '--max-time', '12',
-               '--header', 'Accept-Encoding: identity', '--resolve',
-               'apsonchian.ltd:443:127.0.0.1', 'https://apsonchian.ltd' + path).stdout
+    # A graceful reload can briefly accept a fresh TLS connection in an old worker.
+    # Retry bounded delivery failures; checksums still have to match exactly.
+    for attempt in range(4):
+        try:
+            return run('curl', '--fail', '--silent', '--show-error', '--max-time', '12',
+                       '--header', 'Accept-Encoding: identity', '--resolve',
+                       'apsonchian.ltd:443:127.0.0.1', 'https://apsonchian.ltd' + path).stdout
+        except subprocess.CalledProcessError:
+            if attempt == 3:
+                raise
+            time.sleep(.3)
 
 run('nginx', '-t')
 for path in ['/', '/ai-odyssey/', '/v79/']:
