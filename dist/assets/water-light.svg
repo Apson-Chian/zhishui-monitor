@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" fill="none">
+ <defs><linearGradient id="wash" x1="0" y1="0" x2="1300" y2="1100" gradientUnits="userSpaceOnUse"><stop stop-color="#f5f8f7"/><stop offset=".5" stop-color="#e8f0ee"/><stop offset="1" stop-color="#f3f6f4"/></linearGradient><filter id="soft" x="-25%" y="-100%" width="150%" height="300%"><feGaussianBlur stdDeviation="22"/></filter></defs>
+ <path fill="url(#wash)" d="M0 0h1600v1100H0z"/>
+ <g filter="url(#soft)" stroke="#aac8c6" stroke-width="34" opacity=".28"><path d="M-180 380C170 155 300 530 678 360S1260 205 1780 480"/><path d="M-120 850C240 580 590 1010 960 805S1360 655 1750 820"/></g>
+ <g stroke="#9fbfbe" stroke-opacity=".16" stroke-width="1.1"><path d="M-140 345C210 120 340 495 718 325S1300 170 1820 445"/><path d="M-150 364C200 139 330 514 708 344S1290 189 1810 464"/><path d="M-160 386C190 161 320 536 698 366S1280 211 1800 486"/><path d="M-170 410C180 185 310 560 688 390S1270 235 1790 510"/><path d="M-160 815C200 545 550 975 920 770S1320 620 1710 785"/><path d="M-150 839C210 569 560 999 930 794S1330 644 1720 809"/><path d="M-140 865C220 595 570 1025 940 820S1340 670 1730 835"/></g>
+</svg>

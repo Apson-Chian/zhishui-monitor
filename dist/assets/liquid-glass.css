@@ -1,0 +1,132 @@
+/* Branch material: translucent reading surfaces, clear controls and a restrained rim. */
+:root{--font:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;--page:#edf3f1;--ink:#203e43;--muted:#58706f;--line:#638e862b;--glass-solid:#f5f8f7;--glass-tint:rgb(249 253 252 / 58%);--glass-dense:rgb(250 253 252 / 78%);--glass-edge:rgb(255 255 255 / 80%);--glass-shadow:0 12px 34px #193e4510,0 2px 5px #193e4506,inset 0 1px 1px #fff,inset 0 -1px 1px #467d7812;--glass-filter:blur(18px) saturate(112%)}
+body{background:#edf3f1 url('./water-light.svg') center top/1600px 1100px repeat-y;background-attachment:fixed;color:var(--ink)}
+h1,h2,h3,.knowledge-title{font-family:var(--font);letter-spacing:-.025em;font-weight:600}
+.cinematic-copy h1,.page-heading h1,.knowledge-heading h1,.lab-heading h1{font-weight:600;letter-spacing:-.045em}
+.sidebar{background:rgb(249 253 252 / 70%);border-color:#638e861c;box-shadow:0 1px 0 #fff8;-webkit-backdrop-filter:blur(22px) saturate(112%);backdrop-filter:blur(22px) saturate(112%)}
+.nav-link{font-weight:450;color:#52706f}.nav-link.active{font-weight:600}.nav-link.active::after{height:2px;box-shadow:none}
+.cinematic-hero,.home-discovery,.home-entries{background:transparent}
+.hero-atmosphere,.orbital-halo,.card-water-lines,.card-book-art,.card-city-art{display:none}
+.cinematic-hero{border-bottom:0;gap:28px 56px;padding-top:64px}
+.cinematic-copy h1{font-size:clamp(54px,5.9vw,80px);line-height:1.2;color:#244a50}
+.luminous-title{color:#376e75;background:none;-webkit-text-fill-color:currentColor;text-shadow:none}
+.hero-bottom{border-color:#567f7626}.hero-scene{border-color:#fff9;border-radius:30px;background:#ecf5f0;box-shadow:var(--glass-shadow)}
+/* The material is on the surface; foreground text is never filtered. */
+:is(.panel,.feature-card,.stat-card,.monitor-location-panel,.sandbox-panel,.pollution-map-panel,.pollution-point-card,.monitor-analysis-link,.lab-result-card,.lab-run-panel):not(.detail-card-slot),
+.home-discovery-card,.home-task-grid>a,.knowledge-index .knowledge-grid{
+ border:1px solid #ffffffb3;border-radius:22px;background:var(--glass-solid);box-shadow:var(--glass-shadow);color:var(--ink)
+}
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+ :is(.panel,.feature-card,.stat-card,.monitor-location-panel,.sandbox-panel,.pollution-map-panel,.pollution-point-card,.monitor-analysis-link,.lab-result-card,.lab-run-panel):not(.detail-card-slot),
+ .home-discovery-card,.home-task-grid>a,.knowledge-index .knowledge-grid{background:linear-gradient(132deg,#ffffff40,transparent 54%),var(--glass-tint);-webkit-backdrop-filter:var(--glass-filter);backdrop-filter:var(--glass-filter)}
+}
+/* Dense inner sections share the outer sheet rather than stacking blur layers. */
+.panel .panel,.monitor-console .monitor-table-page>.panel>.panel{background:transparent;-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none}
+.detail-card-slot{-webkit-backdrop-filter:none;backdrop-filter:none}
+.monitor-console{--monitor-line:#73978b2b;--monitor-surface:rgb(250 253 252 / 54%);--monitor-soft:rgb(235 244 239 / 42%);--monitor-ink:#244a46;--monitor-muted:#597168;--monitor-radius:22px}
+.monitor-console :is(.panel,.sandbox-panel,.pollution-map-panel,.pollution-point-card,.monitor-location-panel):not(.detail-card-slot){background:linear-gradient(132deg,#ffffff40,transparent 54%),var(--glass-tint);border-color:#ffffffb3;box-shadow:var(--glass-shadow)}
+.monitor-console :is(.selected-water,.monitor-selection-tools,.monitor-selection-panel){background:transparent}
+.monitor-console .monitor-selection-panel{background:rgb(247 251 248 / 25%)}
+.monitor-console :is(.sandbox-inputs,.gate-control,#sandbox-result,.pollution-metrics>div,.ledger-entry){background:rgb(249 253 251 / 38%);border-color:#7e9e8d26;border-radius:16px;box-shadow:inset 0 1px 0 #ffffff9c}
+.monitor-console .water-readings strong,.monitor-console .chart-summary strong{color:#244e50}
+.monitor-console .monitor-tool-tabs,.lab-tabs,.monitor-console .segmented,.monitor-console .atlas-controls>div{background:rgb(218 232 225 / 45%);border-color:#fff9;box-shadow:inset 0 1px 1px #ffffff9c}
+.monitor-console .monitor-tool-tabs [aria-selected="true"],.lab-tabs button[aria-selected="true"],.monitor-console .segmented .active{background:rgb(255 255 255 / 77%);box-shadow:0 2px 5px #244d4310,inset 0 1px 0 #fff;color:#21666a}
+.monitor-console .monitor-tool-tabs{border-radius:16px}.monitor-console .monitor-tool-tabs button{font-size:16px;border-radius:11px}
+.btn,.monitor-console .btn,.detail-card-trigger{background:rgb(255 255 255 / 45%);border-color:#81a29740;border-radius:12px;color:#315e5a;box-shadow:inset 0 1px 0 #ffffffad}
+.btn.primary,.monitor-console .btn.primary,.monitor-console .playback-button,.detail-card-dialog .detail-card-footer .btn{background:#286f76;border-color:#286f76;color:#fff;box-shadow:inset 0 1px 1px #ffffff36,0 3px 8px #24596012}
+.btn.text{background:none;box-shadow:none;border-color:transparent}
+.monitor-console :is(select,input:not([type=range]):not([type=checkbox])),.lab-controls input:not([type=range]),.lab-observation-form :is(select,textarea),.knowledge-heading .search-box{background:rgb(255 255 255 / 54%);border-color:#8ca99d4d;border-radius:11px;color:#244e4e;box-shadow:inset 0 1px 1px #fff}
+.monitor-selection-meta .detail-card-trigger,.monitor-console .monitor-record-filters button{background:rgb(255 255 255 / 40%);border-color:#7e9e8d30}
+.monitor-record-filters button[aria-pressed="true"]{background:#d3e9e1b3;color:#245d5a;border-color:#679e8e66}
+/* A single real photograph sits behind the two home entrances. */
+.home-discovery{position:relative;gap:20px;padding-top:44px;padding-bottom:22px}
+.home-discovery::before{content:'';position:absolute;inset:44px max(var(--gutter),calc((100vw - var(--content-width))/2)) 22px;border-radius:30px;background:linear-gradient(100deg,#e7f2ebd9,#eaf3f0ab),url('./photos/qinhuai.jpg') center 54%/cover;pointer-events:none}
+.home-discovery-card{z-index:1;isolation:auto;min-height:190px;padding:28px 32px;row-gap:24px;background:linear-gradient(132deg,#ffffff45,#f7fffc26);color:#244d50}
+.home-discovery-card.discovery-city,.home-discovery-card.discovery-knowledge{background:linear-gradient(132deg,#ffffff45,#f7fffc26);border-color:#fffc;color:#244d50}
+.home-discovery-title{font-size:26px;font-weight:600;letter-spacing:-.03em}
+.home-discovery-icon,.discovery-city .home-discovery-icon,.discovery-knowledge .home-discovery-icon{color:#336c6b;background:#ffffff69;border:1px solid #ffffffb3;box-shadow:inset 0 1px 1px #fff;border-radius:17px}
+.discovery-city .home-discovery-action,.discovery-knowledge .home-discovery-action{color:#3d6763;font-size:15px;gap:10px}
+.home-entries{padding-top:42px}.home-entries h2{font-size:23px;font-weight:550;letter-spacing:-.025em}
+.home-task-grid{gap:20px}.home-task-grid>a,.home-task-grid>a.task-monitor,.home-task-grid>a.task-ai,.home-task-grid>a.task-experience{min-height:178px;padding:26px;isolation:auto;row-gap:22px;background:linear-gradient(132deg,#ffffff50,transparent 54%),var(--glass-tint);color:#244e51;border-color:#ffffffc2}
+.home-task-grid .card-cover-image,.home-task-grid .photo-cover-card::before{display:none}
+.home-task-grid :is(.task-monitor,.task-ai,.task-experience) :is(h3,strong){color:#244e51}
+.home-task-grid h3{font-size:23px;font-weight:550;letter-spacing:-.03em}
+.home-task-grid strong{font-size:14px;font-weight:450;color:#4e7470}
+.home-task-grid :is(.task-monitor,.task-ai,.task-experience) .task-symbol{background:#ffffff69;color:#397a78;border:1px solid #fff9;box-shadow:inset 0 1px 1px #fff;border-radius:17px}
+.home-task-grid .task-symbol svg,.home-discovery-icon svg{width:27px;height:27px}
+/* The reading index stays one sheet: no six competing coloured tiles. */
+.knowledge-index .knowledge-grid{border-radius:22px}
+.knowledge-index .knowledge-card,.knowledge-index .knowledge-card:hover{background:transparent;box-shadow:none;border-color:#668d7f24}
+.knowledge-open{background:transparent}.knowledge-open:active{background:#fafff966}
+.knowledge-symbol,.knowledge-symbol-green,.knowledge-symbol-gold{background:transparent;color:#497b76;border-radius:0;width:36px;box-shadow:none}
+.knowledge-title{font-size:22px;font-weight:550}.knowledge-description{color:#526d65}.knowledge-meta{color:#61786b}
+.knowledge-browse .filter-tabs button.active{background:#ffffff8c;box-shadow:0 1px 5px #254a3710;color:#2f6860}
+.knowledge-heading h1{font-size:34px}.knowledge-heading .search-box{box-shadow:inset 0 1px 0 #fff,0 3px 12px #2c534405}
+.vision-workbench .panel,.hydrology-lab .panel{border-radius:22px}
+.vision-sample{background:#ffffff42;border-color:#799d8e2b;border-radius:13px}
+.vision-sample.active{background:#f7fffb91;border-color:#66978a70;box-shadow:inset 0 1px 0 #fff}
+.vision-sample img{border-radius:8px}
+.vision-result-card{background:#ffffff40;border-color:#86a49830;border-radius:13px}.vision-result-card.selected{background:#dceee38c;border-color:#71a18e70}
+.lab-controls,.lab-run-panel,.lab-place-panel{background:var(--glass-dense)}
+.lab-run-panel{overflow:visible}.lab-results .lab-result{background:#ffffff66;border-color:#fffb;border-radius:20px;box-shadow:var(--glass-shadow)}
+.lab-result::before{display:none}.lab-result h3{font-weight:550}.lab-place-list button{border-color:#8ca99d38;background:#ffffff4a;border-radius:11px}
+.lab-place-list button[aria-pressed="true"]{background:#e1efe696;border-color:#649d8d66;color:#286562}
+/* Modal foregrounds receive a quieter, denser tint for long text. */
+#dialog,.detail-card-dialog{background:rgb(250 253 251 / 87%);border:1px solid #ffffffcf;border-radius:26px;box-shadow:0 28px 90px #183f4530,inset 0 1px 1px #fff;-webkit-backdrop-filter:blur(26px) saturate(110%);backdrop-filter:blur(26px) saturate(110%)}
+#dialog::backdrop,.detail-card-dialog::backdrop{background:#18383835;-webkit-backdrop-filter:blur(4px);backdrop-filter:blur(4px)}
+.detail-card-header,.detail-card-footer{background:transparent;border-color:#5f847124}
+.detail-card-close{background:#ffffff61;border-color:#fff9;box-shadow:inset 0 1px 0 #fff}
+#dialog :is(h2,h3),.detail-card-dialog .detail-card-title{font-weight:600;color:#294d4e}
+#dialog p,.detail-card-dialog .detail-card-body p{color:#4e6d62}
+.article-tip{background:#e2eee594;border-color:#8aaa8b30;border-radius:14px}
+.site-footer{background:transparent;color:#607d75;border-top:1px solid #6e918329}
+.footer-brand{color:#2c5654}.footer-slogan{color:#56746b;font-size:16px}.footer-columns h2{color:#426b5c;font-weight:550}
+.site-footer a:not(.footer-brand),.site-footer button{color:#55766a}.site-footer .footer-link[aria-current="page"]{color:#2d675a}.footer-resources p,.footer-base{color:#687e70}.footer-base{border-color:#75968226}
+/* SVG refraction is added only by the verified renderer, on entry cards. */
+[data-liquid-lens]{-webkit-backdrop-filter:var(--liquid-lens-filter,var(--glass-filter));backdrop-filter:var(--liquid-lens-filter,var(--glass-filter))}
+@media(hover:hover) and (pointer:fine){
+ .home-discovery-card:hover,.home-task-grid>a:hover,.monitor-analysis-link:hover{background-color:#ffffff26;border-color:#fff;box-shadow:0 14px 35px #1b4a4517,0 2px 5px #193e4508,inset 0 1px 1px #fff}
+ .knowledge-open:hover{background:#ffffff45}.knowledge-index .knowledge-card:hover{border-color:#668d7f24}.site-footer a:hover,.site-footer button:hover{color:#244f43}
+}
+@media(max-width:900px){
+ #main-nav{background:rgb(246 251 248 / 96%)}
+ .mobile-bottom-nav{inset:auto 12px calc(10px + env(safe-area-inset-bottom,0px));width:auto;border:1px solid #ffffffc7;border-radius:23px;background:rgb(249 253 252 / 72%);padding:6px 7px;box-shadow:0 9px 32px #19423e20,inset 0 1px 1px #fff;-webkit-backdrop-filter:blur(22px) saturate(115%);backdrop-filter:blur(22px) saturate(115%)}
+ .mobile-bottom-nav[hidden]{display:none}.mobile-tab{border-radius:17px}.mobile-tab.active{background:#e0eee2a6;color:#286c66}.mobile-tab.active::before{display:none}
+ body{padding-bottom:calc(88px + env(safe-area-inset-bottom,0px))}
+ .monitor-console .monitor-map-grid :is(.selected-water,.monitor-selection-tools){background:rgb(248 253 249 / 25%)}
+}
+@media(max-width:760px){
+ .cinematic-hero{padding-top:36px;gap:26px}.cinematic-copy h1{font-size:clamp(42px,11.2vw,62px);line-height:1.22;margin-block:12px 27px}
+ .hero-scene{border-radius:24px}.home-discovery{padding:32px 20px 16px;gap:13px}
+ .home-discovery::before{inset:32px 20px 16px;border-radius:20px;background-position:46% 55%}
+ .home-discovery-card{min-height:175px;padding:22px 16px;row-gap:20px;column-gap:10px;border-radius:20px;grid-template-columns:34px minmax(0,1fr)}
+ .home-discovery-title{font-size:19px;letter-spacing:-.025em}.home-discovery-icon{width:34px;height:38px;border-radius:12px}.home-discovery-icon svg{width:23px;height:23px}
+ .discovery-city .home-discovery-action,.discovery-knowledge .home-discovery-action{font-size:13px}
+ .home-entries{padding-top:30px}.home-entries h2{font-size:21px}.home-task-grid{gap:14px}
+ .home-task-grid>a{min-height:155px;border-radius:22px;padding:23px;row-gap:19px}.home-task-grid h3{font-size:22px}
+ .knowledge-index .knowledge-grid{border-radius:20px}.knowledge-heading h1{font-size:29px}.knowledge-title{font-size:20px}.knowledge-open{gap:11px;padding:23px 17px;min-height:144px}.knowledge-symbol{width:32px}
+ .knowledge-description{font-size:15px}.knowledge-meta{font-size:12px}.knowledge-source{font-size:13px}
+ .detail-card-dialog,#dialog{border-radius:23px}.site-footer{padding-top:35px}.footer-brand{font-size:26px}
+}
+@media(max-width:360px){.home-discovery{padding-inline:16px;gap:10px}.home-discovery::before{left:16px;right:16px}.home-discovery-card{padding:20px 12px;column-gap:8px;grid-template-columns:28px minmax(0,1fr)}.home-discovery-title{font-size:17px}.home-discovery-icon{width:28px;height:34px}.home-discovery-icon svg{width:21px}.knowledge-open{padding-inline:14px}.knowledge-title{font-size:19px}.knowledge-description{font-size:14px}.cinematic-copy h1{font-size:40px}}
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more){
+ :root{--glass-tint:#f5f8f7;--glass-dense:#f5f8f7;--glass-filter:none;--liquid-lens-filter:none}
+ body{background:#eef3f0}.sidebar,.mobile-bottom-nav,#main-nav,#dialog,.detail-card-dialog,.home-discovery-card,.home-task-grid>a,.knowledge-index .knowledge-grid{background:#f5f8f7!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+ .home-discovery::before{display:none}
+ :is(.panel,.feature-card,.stat-card,.monitor-location-panel,.sandbox-panel,.pollution-map-panel,.pollution-point-card,.monitor-analysis-link,.lab-result-card,.lab-run-panel):not(.detail-card-slot){background:#f5f8f7!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important;border-color:#8ca99b}
+}
+:is([data-glass-effects="off"],[data-glass-solid]) :is(.panel,.feature-card,.stat-card,.monitor-location-panel,.sandbox-panel,.pollution-map-panel,.pollution-point-card,.monitor-analysis-link,.home-discovery-card,.home-task-grid>a,.knowledge-grid,.sidebar,.mobile-bottom-nav,#dialog,.detail-card-dialog){background:#f5f8f7!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+@media(forced-colors:active){
+ body{background:Canvas}.home-discovery::before{display:none}
+ :is(.panel,.feature-card,.monitor-location-panel,.sandbox-panel,.pollution-map-panel,.pollution-point-card,.monitor-analysis-link,.home-discovery-card,.home-task-grid>a,.knowledge-grid,.sidebar,.mobile-bottom-nav,#dialog,.detail-card-dialog){background:Canvas!important;border-color:CanvasText!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+ .site-footer :is(a,button),.footer-brand,.footer-slogan,.footer-columns h2,.luminous-title{color:CanvasText!important}
+}
+.home-task-grid>a[data-liquid-lens],.home-discovery-card[data-liquid-lens],.monitor-analysis-link[data-liquid-lens]{-webkit-backdrop-filter:var(--liquid-lens-filter,var(--glass-filter));backdrop-filter:var(--liquid-lens-filter,var(--glass-filter))}
+
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+ :root{--glass-tint:var(--glass-solid);--glass-dense:var(--glass-solid)}
+ .sidebar,.mobile-bottom-nav,#main-nav,#dialog,.detail-card-dialog,.home-discovery-card,.home-discovery-card.discovery-city,.home-discovery-card.discovery-knowledge{background:#f5f8f7}
+ .home-discovery::before{display:none}
+}
+
+[data-glass-solid] .home-discovery::before{display:none}
