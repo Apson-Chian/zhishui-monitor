@@ -1,0 +1,132 @@
+/* Shared component styling. Narrow screens change layout, not visual language. */
+:root{--card-radius:14px;--control-radius:8px}
+.panel,.knowledge-card,.home-task-grid>a,.real-photo-card,.ledger-entry{border-radius:var(--card-radius)}
+.btn,.heading-actions .btn,.real-vision .btn,.vision-panel-heading #detect-button{font-size:15px;min-height:44px;border-radius:var(--control-radius);font-weight:550}
+.page-heading h1{font-size:32px;line-height:1.4}
+.page-heading p{font-size:15px}
+.home-task-grid h3{font-size:24px}
+.home-task-grid p,.real-photo-card p,.feature-card p{font-size:15px;line-height:1.9}
+.knowledge-card{position:relative;isolation:isolate;cursor:pointer;transition:border-color 160ms ease,box-shadow 160ms ease}
+.knowledge-card-content{padding:24px}
+.knowledge-art{height:170px}
+.knowledge-card h2{font-size:22px;line-height:1.5}
+.knowledge-card p{font-size:16px;line-height:1.85;color:var(--muted)}
+.knowledge-card-bottom button{position:static;min-height:44px;font-size:14px;padding:8px 0}
+.knowledge-card-bottom button::after{content:'';position:absolute;inset:0;z-index:1;border-radius:var(--card-radius)}
+.knowledge-card:has(button:focus-visible){outline:2px solid #367e88;outline-offset:4px}
+.knowledge-card-bottom button:focus-visible{outline:none}
+.filter-tabs button{min-height:44px;font-size:14px}
+.point-sidebar h2{font-size:23px}
+.point-sidebar>label{font-size:14px}
+.point-choice>strong{font-size:16px;line-height:1.6}
+.hydro-status{font-size:13px}
+.sandbox-heading h2{font-size:28px}
+.sandbox-panel{border-radius:16px}
+.sandbox-actions .btn,.monitor-more .btn,.ledger-tools .btn{font-size:15px;min-height:44px}
+.rain-control output{font-size:30px}
+.flow-stop{padding:12px 16px;font-size:15px}
+.ledger-entry h3{font-size:18px}
+.ledger-entry p,.ledger-entry details{font-size:14px;line-height:1.85}
+.ledger-entry-actions button{min-height:44px;font-size:14px}
+.ledger-status{font-size:12px}
+.real-vision .vision-panel-heading>h2{font-size:22px}
+.real-vision .vision-result-copy>strong{font-size:19px}
+.real-vision .vision-result-copy>span{font-size:16px;line-height:1.8}
+.real-vision .vision-summary{font-size:20px;line-height:1.85}
+.real-vision .vision-stage{min-height:0;aspect-ratio:3/2}
+.vision-view-switch button{font-size:14px;min-height:40px}
+@media(hover:hover) and (pointer:fine){.knowledge-card:hover{border-color:#95bbb0;box-shadow:0 8px 24px #294d4310}}
+@media(prefers-reduced-motion:reduce){.knowledge-card{transition:none}}
+@media(max-width:760px){
+ :root{--card-gap:20px}
+ .page-heading{margin-bottom:24px;gap:18px}
+ .heading-actions .btn{min-height:44px}
+ .knowledge-grid,.home-task-grid,.real-photo-grid,.ai-layout.vision-workbench{gap:20px}
+ .knowledge-card-content,.home-task-grid>a,.real-photo-card figcaption{padding:24px}
+ .knowledge-art{height:170px}
+ .knowledge-card h2{font-size:22px}
+ .knowledge-card-bottom{padding-top:20px}
+ .point-sidebar{padding:24px 20px;background:#f1f7f1}
+ .point-sidebar h2{margin-bottom:18px}
+ .point-sidebar>label{display:block;margin-bottom:8px}
+ .point-sidebar select{font-size:15px;min-height:44px}
+ .point-choices{grid-template-columns:1fr;gap:9px;margin-top:18px}
+ .point-choice{flex-direction:row;align-items:center;gap:12px;padding:12px;min-height:64px!important;border-radius:9px}
+ .point-choice>strong{font-size:16px;overflow-wrap:normal}
+ .point-number{width:27px;height:27px;font-size:13px}
+ .point-choice>span:last-child:not(.point-number){display:inline;margin-left:auto;font-size:14px}
+ .point-stage{display:inline}
+ .point-help{display:block;font-size:13px;margin-top:20px}
+ .water-workspace{border-radius:16px}
+ .atlas-toolbar{flex-wrap:wrap;padding:16px 20px;gap:12px}
+ .atlas-toolbar>strong{display:block;width:100%;font-size:17px}
+ .atlas-controls button,.atlas-controls .atlas-reset{font-size:14px;min-height:44px}
+ .atlas-controls{gap:12px}
+ .selected-water{padding:24px 20px 0}
+ .selected-water-heading h2{font-size:25px}
+ .selected-water-heading>div>span{font-size:13px}
+ .water-readings{gap:14px;margin-top:20px}
+ .water-readings>div>span{font-size:13px}
+ .water-readings strong{font-size:30px;line-height:1.4}
+ .water-readings small{display:block;font-size:12px;margin:3px 0 0}
+ .threshold-distance{font-size:14px}
+ .water-next-action{padding:20px 20px 0}
+ .water-next-action>.btn{font-size:15px;min-height:44px}
+ .atlas-source>.map-legend{font-size:12px;gap:8px 12px}
+ .atlas-source .source-link,.layer-menu{font-size:13px}
+ .monitor-chart>summary,.monitor-more>summary,.monitor-ledger>summary{font-size:19px;padding:20px}
+ .monitor-more-actions{padding-inline:20px;gap:10px}
+ .panel-heading{padding:24px 20px}
+ .panel-title h2{font-size:21px}
+ .panel-subtitle,.chart-summary span{font-size:13px}
+ .station-table th{font-size:13px}
+ .station-table td{font-size:14px}
+ .sandbox-panel{padding:26px 20px}
+ .sandbox-heading h2{font-size:28px}
+ .sandbox-actions .btn{font-size:15px}
+ .monitor-view-toggle button{font-size:15px}
+ .flow-stop{padding:12px 16px;min-height:48px}
+ .sandbox-insight{font-size:17px}
+ .virtual-gate label{font-size:16px}
+ .ledger-entry{padding:20px;border-radius:var(--card-radius)}
+ .ledger-entry h3{font-size:18px}
+ .ledger-entry p,.ledger-entry details{font-size:14px}
+ .ledger-entry-actions{flex-wrap:wrap;gap:10px 20px}
+ .ledger-status{font-size:12px}
+ .real-vision .vision-panel-heading{padding:24px 20px 18px;gap:14px}
+ .real-vision .vision-panel-heading>h2{font-size:22px}
+ .real-vision .vision-stage{margin-inline:20px;min-height:0}
+ .vision-pick-row,.real-vision .vision-image-meta{padding-inline:20px}
+ .real-vision .vision-samples{padding-inline:20px}
+ .real-vision .vision-sample strong{font-size:16px}
+ .real-vision .vision-summary,.real-vision .vision-result-caution{margin-inline:20px}
+ .real-vision .vision-result-copy>strong{font-size:19px}
+ .real-vision .vision-result-copy>span{font-size:16px}
+ .simple-task-card{padding:26px}
+ .simple-task-card h3{font-size:24px}
+ .simple-task-card p,.simple-observation select,.simple-observation textarea{font-size:15px}
+ .simple-task-heading h2{font-size:26px}
+ .simple-journey .journey-steps button{font-size:15px}
+ .rain-compare-card{border-radius:14px}
+ #dialog h2{font-size:26px}
+ #dialog p{font-size:16px;line-height:1.9}
+ .page-outline a{font-size:14px}
+}
+
+@media(max-width:760px){
+ .page-heading .heading-actions:has(.monitor-view-toggle){display:grid;grid-template-columns:minmax(110px,1fr) minmax(0,1.65fr);align-items:stretch;width:100%;gap:10px}
+ .heading-actions>.btn[data-sandbox]{width:auto;padding:10px 12px}
+ .monitor-view-toggle{width:auto;margin:0}
+ .monitor-view-toggle button{font-size:14px;padding:8px 7px;white-space:nowrap}
+ .point-choices{display:flex;overflow-x:auto;scroll-snap-type:x proximity;scrollbar-width:thin;scrollbar-color:#b5cfc2 transparent;gap:10px;padding:2px 2px 8px;margin-top:16px}
+ .point-choice{flex:0 0 222px;scroll-snap-align:start}
+ .point-help{margin-top:14px}
+}
+@media(max-width:760px){.point-choice{flex-basis:min(222px,calc(100% - 48px));width:auto}}
+
+/* Font-independent, monochrome arrows: no emoji glyphs on any platform. */
+.inline-arrow{display:inline-block;width:1em;height:1em;min-width:1em;vertical-align:-.14em;margin-inline-start:.25em;flex-shrink:0;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;pointer-events:none}
+.inline-arrow use{fill:none;stroke:inherit;stroke-width:inherit;stroke-linecap:inherit;stroke-linejoin:inherit}
+.source-link>.inline-arrow,.knowledge-card-bottom button>.inline-arrow{width:16px;height:16px}
+.flow-branch-arrow>.inline-arrow{width:28px;height:36px;margin:0;vertical-align:middle}
+.flow-connector>.inline-arrow,.vision-sample-check>.inline-arrow{margin:0;vertical-align:middle}

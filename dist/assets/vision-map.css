@@ -1,0 +1,63 @@
+/* Real-image observation and geographic context. */
+.real-vision .vision-panel-heading { gap:18px; }
+.real-vision .vision-panel-heading>h2 { margin:0;font-size:23px; }
+.real-vision .vision-stage { background:#193e44;aspect-ratio:3/2;min-height:300px; }
+.real-vision .vision-stage>img { object-fit:contain; }
+.vision-pick-row { display:flex;align-items:center;gap:16px;padding:16px 22px;flex-wrap:wrap; }
+.vision-pick-row>span { font-size:13px;color:#69817d; }
+.real-vision .vision-samples { padding:0 22px 18px;gap:12px; }
+.real-vision .vision-sample { min-width:0; }
+.real-vision .vision-image-meta { align-items:flex-start;gap:12px;line-height:1.8;font-size:12px; }
+.real-vision .vision-image-meta a { text-decoration:underline;text-underline-offset:3px; }
+.vision-consent { padding:0 22px 18px;margin:0;color:#627b78;font-size:13px;line-height:1.9; }
+.vision-summary { margin:0 0 22px;padding:18px 0 20px;border-bottom:1px solid #dfe8e0;font-size:19px;line-height:1.9;color:#274e50; }
+.real-vision .vision-result-card { grid-template-columns:30px minmax(0,1fr);align-items:start;min-height:92px; }
+.real-vision .vision-result-copy>strong { font-size:19px; }
+.real-vision .vision-result-copy>span { display:block;font-size:15px;line-height:1.9;color:#607b77;margin-top:7px; }
+.vision-result-caution { font-size:13px;line-height:1.9;color:#6b7e75;margin:22px 0; }
+.vision-run-status p { margin:6px 0 0;font-size:13px;color:#6c817c;line-height:1.7; }
+.real-vision .vision-result-footer { padding-top:18px; }
+.real-vision .vision-target-detail:empty { display:none; }
+.water-atlas { background:#f1f2e7!important;background-image:none!important; }
+.water-atlas .leaflet-pane .leaflet-tile { filter:saturate(.5); }
+.atlas-reset { position:relative;z-index:2;touch-action:manipulation;min-height:40px; }
+@media(max-width:760px) {
+ .real-vision .vision-panel-heading { flex-wrap:wrap;padding:18px 16px; }
+ .real-vision .vision-panel-heading>h2 { font-size:20px; }
+ .real-vision .vision-stage { min-height:230px; }
+ .vision-pick-row { padding:16px;gap:10px; }
+ .real-vision .vision-samples { padding-inline:16px; }
+ .real-vision .vision-sample { padding:9px;gap:9px; }
+ .real-vision .vision-sample img { width:60px;height:46px; }
+ .real-vision .vision-sample strong { font-size:14px; }
+ .real-vision .vision-sample small { font-size:11px; }
+ .vision-consent { padding-inline:16px;font-size:12px; }
+ .vision-summary { font-size:18px; }
+ .real-vision .vision-result-copy>strong { font-size:17px; }
+ .real-vision .vision-result-copy>span { font-size:14px; }
+ .real-vision .vision-sample-check { display:none; }
+}
+
+.real-vision .vision-image-meta>span { display:block;white-space:normal;overflow:visible;flex-shrink:1; }
+.real-vision .btn { font-size:16px; }
+@media(max-width:760px) { .real-vision .vision-image-meta { font-size:11px;padding-inline:16px; }.real-vision .btn { font-size:14px; } }
+.real-vision .vision-summary { margin-inline:24px; }
+.real-vision .vision-result-list { grid-template-columns:1fr; }
+.real-vision .vision-result-caution { margin-inline:24px; }
+@media(max-width:760px) { .real-vision .vision-summary,.real-vision .vision-result-caution { margin-inline:18px; } }
+/* Water-only flow: let the image and the main action lead. */
+.page-heading:has(+.real-vision) p:empty { display:none; }
+.real-vision .vision-results-empty { min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px; }
+.real-vision .vision-results-empty p { font-size:18px;line-height:1.8;margin:0; }
+.real-vision .vision-results-empty>svg { width:50px;height:50px;color:#88aaa5; }
+.vision-scene-prompt { padding:54px 28px;min-height:320px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center; }
+.vision-scene-prompt>svg { width:64px;height:64px;padding:13px;border-radius:50%;background:#eaf3ec;color:#598b85;margin-bottom:22px; }
+.vision-scene-prompt h3 { margin:0;font-size:25px;font-weight:600; }
+.vision-scene-prompt p { margin:14px 0 26px;font-size:17px;color:#66817c;line-height:1.9;max-width:280px; }
+.real-vision .vision-sample { padding:12px; }
+.real-vision .vision-sample strong { font-size:17px; }
+.real-vision .vision-consent { font-size:12px;padding-bottom:0; }
+.real-vision .vision-summary { font-size:21px;line-height:1.85; }
+.real-vision .vision-result-copy>span { font-size:16px;line-height:1.8; }
+.real-vision .vision-error p { color:#94714b; }
+@media(max-width:760px) { .vision-scene-prompt { padding:40px 22px;min-height:280px; }.vision-scene-prompt h3 { font-size:22px; }.vision-scene-prompt p { font-size:16px; }.real-vision .vision-sample strong { font-size:15px; }.real-vision .vision-summary { font-size:19px; }.real-vision .vision-result-copy>span { font-size:15px; }.real-vision .vision-results-empty { min-height:220px; } }

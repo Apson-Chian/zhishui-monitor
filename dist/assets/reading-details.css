@@ -1,0 +1,31 @@
+/* Readable instructions, with photo details available only when requested. */
+.vision-reading>details>summary { font-size:24px;line-height:1.6;min-height:56px;padding:20px 0;color:#345f66; }
+.vision-help-copy { max-width:54em;padding:4px 0 20px; }
+.vision-reading .vision-help-copy p { font-size:20px;line-height:1.95;margin:0 0 20px;color:#4a706f; }
+.sandbox-advanced>summary,.station-profile>summary,
+.water-workspace .atlas-main>.geo-place-details>summary,
+.simple-journey .model-details>summary { font-size:20px;line-height:1.7;min-height:48px; }
+.sandbox-advanced p,.station-profile p,.geo-place-details>p,
+.simple-journey .model-details p { font-size:18px;line-height:1.9; }
+.image-credit { min-width:0;max-width:100%; }
+.image-credit>summary { font:16px/1.75 var(--font);min-height:44px;padding:8px 0;cursor:pointer;color:#527970; }
+.image-credit>summary::marker { color:#527970;font-size:.8em; }
+.photo-credit.image-credit { margin:12px 0 0;padding:0; }
+.image-credit-body { max-width:56rem;margin:4px 0 8px;padding:14px 16px;border:1px solid #d9e5da;background:#f1f6ef;border-radius:8px;color:#4c7069;overflow-wrap:anywhere;font:16px/1.85 var(--font); }
+.image-credit-body p { font:inherit;line-height:1.85;min-height:0;margin:0 0 9px; }
+.image-credit-body p:last-child { margin-bottom:0; }
+.image-credit-body a { text-decoration:underline;text-underline-offset:3px;overflow-wrap:anywhere; }
+.real-vision .vision-image-meta { flex-wrap:wrap;align-items:flex-start;gap:8px 18px; }
+.vision-image-meta>.image-credit { flex:1 1 180px; }
+.vision-image-meta>.image-credit[open] { flex-basis:100%; }
+.vision-image-meta>button { margin-left:auto;font-size:16px;min-height:44px; }
+.real-vision .vision-image-meta .image-credit-body a { font-size:inherit; }
+@media(max-width:760px) {
+ .vision-reading>details>summary { font-size:22px;min-height:52px;padding:18px 0; }
+ .vision-reading .vision-help-copy p { font-size:18px;line-height:1.95;margin-bottom:18px; }
+ .sandbox-advanced>summary,.station-profile>summary,
+ .water-workspace .atlas-main>.geo-place-details>summary,
+ .simple-journey .model-details>summary { font-size:19px; }
+ .image-credit>summary { font-size:16px; }
+ .image-credit-body { font-size:16px;padding:13px 14px; }
+}

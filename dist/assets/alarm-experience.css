@@ -1,0 +1,83 @@
+/* Warning state is visible in its icon; names and readings stay still. */
+.map-alert-strip.alarm-console { display:grid;grid-template-columns:144px minmax(0,1fr);align-items:stretch;gap:0;margin:0 0 18px;padding:0;border:1px solid #d9e4dc;border-radius:12px;background:#fff;color:#416b67;overflow:hidden; }
+.map-alert-strip.alarm-console.has-alerts { border-color:#ddb58c;background:#fff;color:#a35024; }
+.map-alert-strip.alarm-console.has-critical { border-color:#d595a2;background:#fff;color:#ad3045; }
+.alarm-summary { display:flex;flex-direction:column;justify-content:center;gap:5px;padding:18px 22px;background:#f4f8f2;border-right:1px solid #e0e8dd; }
+.has-alerts .alarm-summary { background:#fff8ee;border-right-color:#eedac4; }
+.has-critical .alarm-summary { background:#fff2f4;border-right-color:#edd2d8; }
+.alarm-summary>span { font-size:17px;line-height:1.5; }
+.alarm-summary>strong { font-size:38px;line-height:1.25;font-weight:600;font-variant-numeric:tabular-nums; }
+.alarm-summary small { display:block;margin-top:5px;font-size:14px;font-weight:400; }
+.alarm-feed { min-width:0; }
+.alarm-feed>button { position:relative;display:grid;grid-template-columns:34px minmax(0,1fr) 132px 64px;align-items:center;gap:16px;width:100%;min-height:80px;padding:15px 22px;color:#a55023;text-align:left;background:#fff;border:0;border-radius:0; }
+.alarm-feed>button+button { border-top:1px solid #e9eae2; }
+.alarm-feed>button.critical { color:#b02f47; }
+.alarm-feed>button:focus-visible { outline:2px solid #235e73;outline-offset:-3px; }
+.alarm-signal { display:grid;place-items:center;width:30px;height:30px; }
+.alarm-signal>svg { width:27px;height:27px; }
+.alarm-place { min-width:0; }
+.alarm-place>b { display:block;color:#365e60;font-size:21px;line-height:1.5; }
+.alarm-stage { display:block;font-size:15px;line-height:1.6; }
+.alarm-reading { font-variant-numeric:tabular-nums; }
+.alarm-reading>strong { display:block;font-size:23px;line-height:1.4;font-weight:600; }
+.alarm-reading small { display:inline;font-size:15px;font-weight:400; }
+.alarm-margin { display:block;font-size:15px;line-height:1.6; }
+.alarm-locate { display:flex;align-items:center;gap:6px;color:#547c75;font-size:16px; }
+.alarm-locate>svg { width:20px;height:20px; }
+.alarm-empty { display:flex;align-items:center;gap:16px;min-height:115px;padding:20px 24px;font-size:18px;color:#5d7f73; }
+.alarm-empty>svg { width:30px;height:30px;flex-shrink:0; }
+.notification-button::after { content:none; }
+.notification-button.has-pending::after { content:'';width:6px;height:6px;top:5px;right:5px;background:#bd3548;border:2px solid #f9fcfa;border-radius:50%; }
+.ledger-tool-actions { display:flex;flex-wrap:wrap;align-items:center;gap:10px; }
+.ledger-tool-actions [data-record-handle-all] { border-color:#bfd5c9;background:#edf5ec;color:#376f69; }
+@keyframes alarm-hop {
+  0%,70%,100% { transform:translateY(0); }
+  77% { transform:translateY(-3px); }
+  83% { transform:translateY(0); }
+  89% { transform:translateY(-2px); }
+  95% { transform:translateY(0); }
+}
+@keyframes alarm-blink {
+  0%,35%,100% { opacity:1; }
+  18% { opacity:.58; }
+}
+.alarm-feed .alarm-signal,
+.water-workspace .point-choice:is(.high,.critical) .point-number,
+.geographic-marker .atlas-pin:is(.high,.critical) {
+ animation:alarm-hop 2800ms var(--ease-out) infinite,alarm-blink 2800ms linear infinite;
+}
+.water-workspace .point-choice.high .point-number { background:#c46527!important; }
+.water-workspace .point-choice.critical .point-number { background:#bc3548!important; }
+.alarm-feed>button:focus-visible .alarm-signal,
+.point-choice:focus-visible .point-number,
+.geographic-marker:focus-visible .atlas-pin { animation-play-state:paused; }
+@media(hover:hover) and (pointer:fine) {
+ .alarm-feed>button:hover { background:#f7faf5; }
+}
+@media(max-width:760px) {
+ .map-alert-strip.alarm-console { grid-template-columns:minmax(0,1fr); }
+ .alarm-summary { flex-direction:row;align-items:center;justify-content:space-between;gap:18px;padding:12px 16px;border-right:0;border-bottom:1px solid #e0e8dd; }
+ .alarm-summary>span { font-size:18px; }
+ .alarm-summary>strong { display:flex;align-items:baseline;gap:8px;font-size:30px; }
+ .alarm-summary small { display:inline;margin:0;font-size:14px; }
+ .alarm-feed>button { grid-template-columns:26px minmax(0,1fr) 85px 18px;gap:10px;min-height:76px;padding:14px; }
+ .alarm-signal,.alarm-signal>svg { width:25px;height:25px; }
+ .alarm-place>b { font-size:18px; }
+ .alarm-stage { font-size:14px; }
+ .alarm-reading>strong { font-size:21px; }
+ .alarm-reading small,.alarm-margin { font-size:13px; }
+ .alarm-locate>span { display:none; }
+ .alarm-locate>svg { width:18px;height:18px; }
+ .alarm-empty { padding:18px 16px;font-size:17px;min-height:90px; }
+ .ledger-tool-actions { width:100%; }
+ .ledger-tool-actions .btn { flex:1;justify-content:center; }
+}
+@media(prefers-reduced-motion:reduce) {
+ .alarm-feed .alarm-signal,
+ .water-workspace .point-choice:is(.high,.critical) .point-number,
+ .geographic-marker .atlas-pin:is(.high,.critical) { animation:none;opacity:1;transform:none; }
+}
+@media(min-width:761px) {
+ .alarm-summary>strong { display:flex;align-items:baseline;gap:6px; }
+ .alarm-summary small { display:inline;margin:0;white-space:nowrap; }
+}

@@ -1,0 +1,142 @@
+/* Map first; warnings remain readable without relying on color alone. */
+.map-alert-strip { display:flex;align-items:center;gap:20px;justify-content:space-between;flex-wrap:wrap;margin:0 0 16px;padding:18px 22px;border:1px solid #cddfd5;border-radius:12px;background:#eff6f0;color:#42726e; }
+.map-alert-strip.has-alerts { border-color:#dfa77a;border-left:5px solid #c46527;background:#fff5e9;color:#8e451f; }
+.map-alert-heading { display:flex;align-items:center;gap:14px; }
+.map-alert-heading>svg { width:28px;height:28px;flex-shrink:0; }
+.map-alert-heading strong { display:block;font-size:22px;line-height:1.5; }
+.map-alert-heading span { font-size:15px;line-height:1.6; }
+.map-alert-points { display:flex;gap:10px;flex-wrap:wrap; }
+.map-alert-points button { display:grid;grid-template-columns:minmax(0,1fr) 22px;gap:3px 12px;text-align:left;min-height:60px;padding:10px 16px;background:white;border:1px solid #db9e72;border-radius:9px;color:#9c4b24; }
+.map-alert-points button b { font-size:18px;line-height:1.5; }
+.map-alert-points button span { grid-column:1;font-size:15px;line-height:1.5; }
+.map-alert-points button svg { grid-column:2;grid-row:1/3;align-self:center;width:21px;height:21px; }
+.map-alert-points .critical { color:#ab293e;border-color:#d77b89;background:#fff8f8; }
+.map-alert-points button:focus-visible { outline:2px solid #255f72;outline-offset:3px; }
+.water-workspace { margin-top:0; }
+.water-workspace .atlas-main { display:flex;flex-direction:column; }
+.water-workspace .atlas-toolbar { min-height:76px;flex-wrap:wrap;padding:15px 22px; }
+.water-workspace .atlas-toolbar>strong { display:block;font-size:20px; }
+.water-workspace .atlas-main>#river-map { height:480px;min-height:480px;scroll-margin-top:96px; }
+.water-workspace .atlas-main>.selected-water { border-left:0;border-top:1px solid #dce6de;padding:22px 26px 12px;background:#fbfdf9;scroll-margin-top:96px; }
+.water-workspace .selected-water-heading { display:flex;align-items:center;justify-content:space-between; }
+.water-workspace .selected-water-heading h2 { font-size:28px; }
+.water-workspace .selected-water .water-readings { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px;margin-top:18px; }
+.water-workspace .selected-water .water-readings strong { font-size:40px;line-height:1.35; }
+.water-workspace .selected-water .threshold-distance { font-size:17px; }
+.water-workspace .selected-water .station-mini-trend { max-width:350px; }
+.water-workspace .atlas-main>.water-next-action { border-left:0;padding:10px 26px 20px;background:#fbfdf9; }
+.water-workspace .water-next-action>.btn { width:auto;font-size:17px!important;padding:12px 22px; }
+.water-workspace .atlas-main>.atlas-source { padding:20px 26px 14px;border-top:1px solid #dce6de; }
+.water-workspace .atlas-main>.geo-place-details { margin:0 26px 20px; }
+.water-workspace .point-choice { display:grid;grid-template-columns:34px minmax(0,1fr);gap:4px 12px;min-height:80px!important;align-items:center;padding:12px; }
+.water-workspace .point-number { grid-row:1/3;width:32px;height:32px;font-size:15px;border:0; }
+.water-workspace .point-choice>strong { font-size:18px;line-height:1.5; }
+.water-workspace .point-choice .point-stage { display:block;grid-column:2;margin-left:0!important;font:14px/1.5 var(--font)!important; }
+.water-workspace .point-choice .point-stage:empty { display:none; }
+.water-workspace .point-choice.high { border-color:#e2b28b;background:#fff6eb; }
+.water-workspace .point-choice.high .point-stage { color:#a44f21; }
+.water-workspace .point-choice.critical { border-color:#de97a2;background:#fff0f1; }
+.water-workspace .point-choice.critical .point-stage { color:#b42f43; }
+.water-workspace .point-choice.selected { outline:2px solid #448a89;outline-offset:-2px; }
+.water-workspace .point-choice.high.selected { outline-color:#bc641e; }
+.water-workspace .point-choice.critical.selected { outline-color:#bb3548; }
+.water-workspace .map-legend { gap:10px 15px; }
+.water-workspace .map-legend span { display:inline-flex;align-items:center;font-size:15px; }
+.water-workspace .map-legend b { display:grid;place-items:center;min-width:22px;height:22px;border-radius:6px;background:#e4eff0;font-size:14px;line-height:1; }
+.water-workspace .map-legend .watch { color:#896511; }.water-workspace .map-legend .watch b { background:#f4e5b7; }
+.water-workspace .map-legend .high { color:#a34a1f; }.water-workspace .map-legend .high b { background:#c46527;color:white; }
+.water-workspace .map-legend .critical { color:#a62e42; }.water-workspace .map-legend .critical b { background:#bc3548;color:white; }
+.water-atlas .leaflet-control-zoom a { width:42px;height:42px;line-height:42px;font-size:25px; }
+.water-atlas .leaflet-control-scale-line { font-size:12px; }
+.water-atlas .leaflet-control-attribution { font:11px/1.5 system-ui,sans-serif; }
+.water-atlas .map-north { width:34px;display:grid;justify-items:center;gap:2px;background:#fffffff2;padding:9px 5px;border:1px solid #d5e1d8;border-radius:9px;color:#4b7573;font:600 13px/1.2 system-ui;pointer-events:none; }
+.map-north svg { width:18px;height:23px; }
+.geographic-marker { border:0;background:none; }
+.geographic-marker .atlas-pin { position:absolute;left:5px;top:5px;width:34px;height:34px;border:3px solid white;box-shadow:0 0 0 1px #497e8490,0 4px 12px #264e4433;background:#438696; }
+.geographic-marker .atlas-pin>i { font:600 15px/1 system-ui,sans-serif; }
+.geographic-marker .atlas-pin.watch { background:#a6821b; }
+.geographic-marker .atlas-pin.high { background:#c46527;box-shadow:0 0 0 2px #c4652755,0 4px 12px #93431533; }
+.geographic-marker .atlas-pin.critical { background:#bc3548;box-shadow:0 0 0 2px #bc354855,0 4px 12px #9e243733; }
+.geographic-marker .atlas-pin.selected { outline:5px solid #43869635;outline-offset:3px; }
+.geographic-marker .atlas-pin.high.selected { background:#c46527;outline-color:#c4652740; }
+.geographic-marker .atlas-pin.critical.selected { background:#bc3548;outline-color:#bc354840; }
+.geographic-marker .atlas-status-symbol { display:grid;place-items:center;top:-9px;right:-9px;min-width:23px;height:23px;border:2px solid white;background:#ac7712;color:white;font:700 13px/1 system-ui; }
+.geographic-marker .high .atlas-status-symbol { background:#ac4e1e; }
+.geographic-marker .critical .atlas-status-symbol { background:#ab2039; }
+.geographic-marker .atlas-pin::before { animation-duration:3s; }
+.geographic-marker .atlas-pin.high::before { color:#c46527; }
+.geographic-marker .atlas-pin.critical::before { color:#bc3548; }
+.geographic-marker:focus-visible { outline:none; }
+.geographic-marker:focus-visible .atlas-pin { outline:3px solid #164f73;outline-offset:7px; }
+.atlas-marker-label { position:absolute;display:block;padding:8px 12px;background:#fffffffa;border:1px solid #c0d4ca;border-radius:8px;box-shadow:0 4px 14px #254d3820;color:#335f63;white-space:nowrap;line-height:1.5;cursor:pointer; }
+.atlas-marker-label[hidden] { display:none; }
+.atlas-marker-label strong { display:block;font:600 16px/1.5 var(--font); }
+.atlas-marker-label small { display:block;font:14px/1.5 var(--font); }
+.atlas-marker-label.high { border-color:#cc8c5b;border-left:4px solid #c46527;color:#98451e;background:#fff9ef; }
+.atlas-marker-label.critical { border-color:#d17e8a;border-left:4px solid #bc3548;color:#a02c40;background:#fff6f7; }
+.station-popup .leaflet-popup-content-wrapper { border:1px solid #cadcd0;border-radius:12px;box-shadow:0 8px 30px #244b3e29; }
+.station-popup .leaflet-popup-content { margin:18px;line-height:1.6; }
+.station-popup a.leaflet-popup-close-button { width:34px;height:34px;font:25px/32px system-ui;color:#577770; }
+.station-popup .hydro-map-popup>strong { font-size:22px;padding-right:18px;line-height:1.5; }
+.station-popup .hydro-status { font-size:14px; }
+.station-popup .popup-level { font-size:34px;line-height:1.35;margin:12px 0 8px; }
+.station-popup .popup-level small { font-size:14px; }
+.station-popup .popup-threshold { padding:9px 11px;background:#edf4ee;color:#557b6f;font-size:15px!important; }
+.station-popup .popup-threshold.is-over { background:#fff0e2;color:#ac4b22;border-left:3px solid #c46527; }
+.station-popup .hydro-map-popup>svg { display:block;height:40px;margin:10px 0; }
+.station-popup .popup-actions { display:flex;gap:12px;border-top:1px solid #e0e9e0;padding-top:8px; }
+.station-popup .popup-actions button { min-height:44px;font-size:16px;color:#2d777c;display:flex;gap:6px;align-items:center; }
+.station-popup .popup-actions button svg { width:18px;height:18px; }
+.hydro-status.high { background:#fff0dd;color:#a84d1e; }.hydro-status.critical { background:#fce7ec;color:#ac2b40; }
+@media(max-width:1100px) {
+ .water-workspace .atlas-main>#river-map { height:460px;min-height:460px; }
+}
+@media(max-width:760px) {
+ .map-alert-strip { padding:16px;gap:12px; }
+ .map-alert-heading strong { font-size:20px; }
+ .map-alert-heading span { font-size:14px; }
+ .map-alert-points { display:grid;grid-template-columns:minmax(0,1fr);width:100%; }
+ .map-alert-points button { width:100%;min-height:58px; }
+ .map-alert-points button b { font-size:18px; }
+ .water-workspace .atlas-toolbar { padding:15px 18px;gap:12px; }
+ .water-workspace .atlas-toolbar>strong { width:auto; }
+ .water-workspace .atlas-main>#river-map { height:420px;min-height:420px;scroll-margin-top:76px; }
+ .water-workspace .atlas-main>.selected-water { padding:22px 18px 12px;scroll-margin-top:76px; }
+ .water-workspace .selected-water-heading h2 { font-size:26px; }
+ .water-workspace .selected-water .water-readings { gap:12px; }
+ .water-workspace .selected-water .water-readings strong { font-size:34px; }
+ .water-workspace .atlas-main>.water-next-action { padding:10px 18px 20px; }
+ .water-workspace .water-next-action>.btn { width:100%; }
+ .water-workspace .atlas-main>.atlas-source { padding:18px; }
+ .water-workspace .atlas-main>.geo-place-details { margin:0 18px 20px; }
+ .water-workspace .point-choice { gap:4px 10px;flex-basis:230px;padding:12px; }
+ .water-workspace .point-choice>strong { font-size:18px; }
+ .water-workspace .point-choice .point-stage { font-size:14px!important; }
+ .atlas-marker-label strong { font-size:15px; }
+ .atlas-marker-label small { font-size:13px; }
+ .atlas-marker-label { padding:7px 9px; }
+ .station-popup .leaflet-popup-content { margin:15px; }
+}
+@media(max-width:360px) {
+ .water-workspace .selected-water .water-readings { grid-template-columns:1fr; }
+ .water-workspace .selected-water .water-readings strong { font-size:36px; }
+ .water-workspace .selected-water .water-readings small { display:inline; }
+ .water-workspace .point-choice { flex-basis:calc(100% - 14px); }
+}
+@media(prefers-reduced-motion:reduce) {
+ .geographic-marker .atlas-pin::before { animation:none;opacity:.4;transform:none; }
+}
+.map-context-label { color:#84958b;font:13px/24px var(--font);text-align:center;white-space:nowrap;text-shadow:0 1px 3px white,1px 0 3px white,-1px 0 3px white; }
+@media(max-width:760px) { .map-context-label { font-size:12px; } }
+.station-popup .hydro-map-popup.critical .popup-threshold.is-over { border-left-color:#bc3548;background:#fce9ee;color:#a82940; }
+.water-atlas.street-view .leaflet-tile-pane { filter:saturate(.6);opacity:.94; }
+/* Internal pan and live labels must not become the document's scroll anchor. */
+.water-workspace,.water-atlas,.map-alert-strip { overflow-anchor:none; }
+.map-alert-strip.has-critical { border-color:#d68b98;border-left-color:#bc3548;background:#fff0f3;color:#a12840; }
+@media(max-width:760px) {
+ .water-atlas:has(.station-popup) .leaflet-control-zoom,
+ .water-atlas:has(.station-popup) .map-north { visibility:hidden;pointer-events:none; }
+}
+
+/* North is a direction reference, not a map control. */
+.geographic-map .map-north{display:grid;justify-items:center;gap:1px;width:28px;background:transparent;border:0;border-radius:0;box-shadow:none;padding:3px;color:#496e68;font:600 12px/1.3 system-ui;pointer-events:none;cursor:default}

@@ -1,0 +1,50 @@
+/* The photograph opens its history; credit links remain independently usable. */
+.real-photo-card { position:relative; }
+.real-photo-card .real-photo-story-trigger { position:static; }
+.real-photo-story-trigger::after { content:'';position:absolute;inset:0;border-radius:inherit; }
+.real-photo-card .image-credit { position:relative;z-index:1;margin-top:18px;padding-top:0;width:100%; }
+.real-photo-card .real-photo-story-trigger { margin-top:10px;font-size:17px; }
+.real-photo-card:has(.real-photo-story-trigger:focus-visible) { outline:3px solid #367d83;outline-offset:4px; }
+.real-photo-story-trigger:focus-visible { outline:none; }
+.real-photo-card { transition:border-color 160ms ease,box-shadow 160ms ease; }
+#dialog:has(.water-story) { max-width:680px;max-height:calc(100svh - 40px);padding:32px;overflow-y:auto; }
+.water-story-photo { display:block;width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;border-radius:10px;margin-bottom:24px; }
+.water-story .dialog-eyebrow { margin-bottom:8px;font-size:15px; }
+#dialog .water-story h2 { margin-top:0;margin-bottom:8px; }
+#dialog .water-story-subtitle { margin:0 0 24px;color:#307a7f;font-size:20px;line-height:1.6; }
+#dialog .water-story>p { color:#526c66; }
+.water-story-sources { border-top:1px solid #dce8de;margin-top:24px;padding-top:12px; }
+.water-story-sources summary,.water-story .image-credit summary { min-height:44px;display:flex;align-items:center;cursor:pointer;font-size:15px;color:#587b72; }
+.water-story-sources a { display:block;padding:6px 0;font-size:15px;line-height:1.8;text-decoration:underline;text-underline-offset:3px; }
+.water-story .image-credit { margin-top:0;padding-top:0; }
+body[data-page="monitor"] .page-heading>div:first-child { max-width:42em; }
+body[data-page="monitor"] .page-heading p { max-width:36em;line-height:1.8; }
+@media(hover:hover) and (pointer:fine) {
+  .real-photo-card:has(.real-photo-story-trigger:hover) { border-color:#98bbae;box-shadow:0 8px 28px #32574b0f; }
+}
+@media(max-width:760px) {
+  #dialog:has(.water-story) { padding:24px 20px;max-height:calc(100svh - 28px); }
+  .water-story-photo { margin-top:20px;margin-bottom:22px; }
+  #dialog .water-story h2 { font-size:28px; }
+  #dialog .water-story>p { font-size:18px;line-height:1.9; }
+  #dialog .water-story-subtitle { font-size:19px; }
+}
+@media(prefers-reduced-motion:reduce) { .real-photo-card { transition:none; } }
+
+#dialog h2:focus { outline:none; }
+
+#dialog:has(.nanjing-gallery) { max-width:840px;max-height:calc(100svh - 40px);overflow-y:auto; }
+.nanjing-gallery h2 { margin-bottom:24px; }
+.nanjing-place-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px; }
+.nanjing-place { padding:0;text-align:left;border:1px solid #d7e5dc;border-radius:12px;overflow:hidden;background:#fff; }
+.nanjing-place img { display:block;width:100%;height:auto;aspect-ratio:4/3;object-fit:cover; }
+.nanjing-place>span { display:flex;align-items:center;justify-content:space-between;gap:10px;padding:18px 14px;font-size:20px;line-height:1.5;color:#295b5e; }
+.nanjing-place>span svg { width:20px;height:20px;flex-shrink:0; }
+.nanjing-place:hover { border-color:#8ab3a5; }
+@media(max-width:760px) {
+  #dialog:has(.nanjing-gallery) { padding:26px 20px;max-height:calc(100svh - 28px); }
+  .nanjing-place-grid { grid-template-columns:1fr;gap:14px; }
+  .nanjing-place { display:grid;grid-template-columns:108px minmax(0,1fr);align-items:center; }
+  .nanjing-place img { height:106px;aspect-ratio:auto; }
+  .nanjing-place>span { font-size:20px;padding:14px;flex-wrap:wrap; }
+}

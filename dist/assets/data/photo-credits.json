@@ -1,0 +1,79 @@
+[
+  {
+    "id": "yangtze",
+    "label": "长江与南京长江大桥",
+    "file": "assets/photos/yangtze.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:%E5%8D%97%E4%BA%AC%E9%95%BF%E6%B1%9F%E5%A4%A7%E6%A1%A5%C2%B7%E4%B8%9C%E5%8C%97.jpg",
+    "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4b/%E5%8D%97%E4%BA%AC%E9%95%BF%E6%B1%9F%E5%A4%A7%E6%A1%A5%C2%B7%E4%B8%9C%E5%8C%97.jpg/1920px-%E5%8D%97%E4%BA%AC%E9%95%BF%E6%B1%9F%E5%A4%A7%E6%A1%A5%C2%B7%E4%B8%9C%E5%8C%97.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "author": "Legolas1024",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "date": "2019-06-13 18:03:19",
+    "sha256": "64510e5d9da696532994a78810c8b3e44b1f70bfab52dcfcfe8e11f0bfa325db",
+    "displayChanges": "原图缩略版；页面按版面等比裁切，未进行内容合成"
+  },
+  {
+    "id": "qinhuai",
+    "label": "夫子庙秦淮河",
+    "file": "assets/photos/qinhuai.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Confucius_Temple_and_Qinhuai_River,_Nanjing_Night.jpg",
+    "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/4/4c/Confucius_Temple_and_Qinhuai_River%2C_Nanjing_Night.jpg/1920px-Confucius_Temple_and_Qinhuai_River%2C_Nanjing_Night.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "author": "Dick Rochester",
+    "license": "CC BY-SA 2.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/2.0",
+    "date": "2009-03-25 13:25:41",
+    "sha256": "c09b7a52b7f429e954968b4eec77f8299a21147a32e407230cbdc30f168da15f",
+    "displayChanges": "原图缩略版；页面按版面等比裁切，未进行内容合成"
+  },
+  {
+    "id": "xuanwu",
+    "label": "南京玄武湖",
+    "file": "assets/photos/xuanwu.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Xuanwu_Lake,_Nanjing.jpg",
+    "download": "https://thumb.wikimedia.org/wikipedia/commons/thumb/e/e2/Xuanwu_Lake%2C_Nanjing.jpg/1920px-Xuanwu_Lake%2C_Nanjing.jpg?utm_source=commons.wikimedia.org&utm_campaign=imageinfo&utm_content=thumbnail",
+    "author": "钉钉",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0",
+    "date": "2021-11-28",
+    "sha256": "cf25161a8ff166afe83c1c8e92f8d8ef378810f6af1450447ef6641844fb3529",
+    "displayChanges": "原图缩略版；页面按版面等比裁切，未进行内容合成"
+  },
+  {
+    "id": "underwater",
+    "label": "红海水下生态",
+    "file": "assets/photos/underwater.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Cierva_coral_(Cephalopholis_miniata),_mar_Rojo,_Egipto,_2023-04-15,_DD_04.jpg",
+    "author": "Diego Delso, delso.photo",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "date": "2023-04-15",
+    "displayChanges": "Commons 1280px缩略版，内容未修改；AI标注为独立可关闭图层",
+    "sha256": "74368ebc5af56abd3caec0a88d64d269c3c68def487aeb9560316fdb25119774"
+  },
+  {
+    "id": "waterfall",
+    "label": "溪流瀑布",
+    "file": "assets/photos/waterfall.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:River_Rha_waterfall,_Isle_of_Skye.jpg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6e/River_Rha_waterfall%2C_Isle_of_Skye.jpg/1280px-River_Rha_waterfall%2C_Isle_of_Skye.jpg",
+    "author": "DeFacto",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "date": "2016-06-09",
+    "displayChanges": "Commons 1280px缩略版；原图内容未修改，页面等比预览及缩略图裁切，AI标注为独立叠加图层",
+    "sha256": "de0e0f8859beaf5c52e2701031bb69cf64b6417dad45be650ebf747a5102b4d1"
+  },
+  {
+    "id": "coast",
+    "label": "海岸水面",
+    "file": "assets/photos/coast.jpg",
+    "source": "https://commons.wikimedia.org/wiki/File:Coastline.jpg",
+    "download": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1f/Coastline.jpg/960px-Coastline.jpg",
+    "author": "Franklin González",
+    "license": "CC BY-SA 4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
+    "date": "2017-05-21",
+    "displayChanges": "Commons 960px缩略版；原图内容未修改，页面等比预览及缩略图裁切，AI标注为独立叠加图层",
+    "sha256": "0388992cef28a220cfa613f79309133810f9d51142e4ee1fd88fcda2df802350"
+  }
+]

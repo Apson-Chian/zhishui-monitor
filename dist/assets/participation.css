@@ -1,0 +1,130 @@
+/* Real geography, real photography and a beginner's hands-on water notebook. */
+.real-water-section { padding:100px 4.2% 70px; background:#f8faf9; }
+.real-water-section .deck-heading { margin-bottom:38px; }
+.real-photo-grid { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:25px; }
+.real-photo-card { margin:0;background:#fff;border:1px solid var(--line);overflow:hidden;border-radius:4px; }
+.real-photo-card>img { display:block;width:100%;height:245px;object-fit:cover; }
+.real-photo-card figcaption { padding:25px; }
+.photo-date { font-size:13px;color:#54736f;letter-spacing:.7px; }
+.real-photo-card h3 { font-size:24px;line-height:1.6;margin:12px 0; }
+.real-photo-card p { font-size:17px;line-height:1.9;color:var(--muted);min-height:65px; }
+.photo-credit { font-size:12px;line-height:1.9;margin:20px 0 10px;color:#526575; }
+.photo-credit a,.observation-photo a { text-decoration:underline;text-underline-offset:3px; }
+.real-photo-card .btn { padding-left:0;font-size:16px; }
+.journey-invitation { display:flex;align-items:center;justify-content:space-between;gap:35px;padding:42px;margin-top:38px;background:#e7f0ed;border:1px solid #c9ded7; }
+.journey-invitation h2 { font-size:32px;line-height:1.6;margin:10px 0; }
+.journey-invitation p { font-size:17px;line-height:1.9;color:var(--muted); }
+.journey-invitation>.btn { flex-shrink:0; }
+.geographic-map { background:#eaf0eb!important;height:440px;isolation:isolate;z-index:0; }
+.monitor-layout .geographic-map { height:500px; }
+.geographic-map::after,.geographic-map::before { display:none!important; }
+.geographic-map:fullscreen { width:100vw;height:100vh!important; }
+.geographic-map .leaflet-control-attribution { font:12px/1.7 var(--font);color:#254c51;background:#fffffff0;padding:2px 7px;max-width:100%; }
+.geographic-map .leaflet-control-attribution a { color:#155468; }
+.geographic-map .leaflet-bar a { color:#24424c;background:#fff;font-size:24px; }
+.geographic-map .leaflet-tooltip { font:14px/1.8 var(--font);color:#24434c;border-color:#d0dfdd;padding:8px 12px; }
+.geo-node { display:block;width:18px;height:18px;border:3px solid white;background:#187b83;border-radius:50%;box-shadow:0 0 0 2px #187b8366,0 2px 5px #264a5555; }
+.geo-node.warning { background:#b02d31;box-shadow:0 0 0 2px #b02d3177; }
+.geo-node.selected { outline:3px solid #20a1b166;outline-offset:5px; }
+.geo-node>span { position:absolute;left:24px;top:-4px;white-space:nowrap;background:#fffffff0;color:#234650;padding:3px 7px;font:13px/1.6 var(--font);border:1px solid #c9dad7;border-radius:3px;box-shadow:0 2px 5px #183d4511; }
+.geo-node.selected>span { background:#1d6973;color:white;border-color:#1d6973; }
+.geographic-marker:focus-visible { outline:3px solid #173e53;outline-offset:7px;border-radius:50%; }
+.geo-status { margin:0;padding:10px 22px;color:#486b6b;background:#edf4f1;font-size:13px;line-height:1.8;border-bottom:1px solid #d4e1dc; }
+.geo-location-info { padding:20px 25px;color:var(--muted);font-size:15px;line-height:1.9; }
+.geo-location-info strong { display:block;color:var(--ink);font-size:19px;margin-bottom:5px; }
+.geo-location-info small { display:block;font-size:13px;margin-top:7px; }
+.geo-disclosure { display:flex;flex-wrap:wrap;gap:8px 18px;padding:14px 25px;border-top:1px solid var(--line);font-size:12px;color:#4b6c70;line-height:1.8; }
+.source-link { color:#146b78;font-size:14px;text-decoration:underline;text-underline-offset:4px;background:none;border:0;padding:0;cursor:pointer; }
+.geo-disclosure .source-link { font-size:12px; }
+.map-unavailable { padding:50px 25px;font-size:18px; }
+.journey { padding:20px 0 40px;max-width:1480px;margin:auto; }
+.journey-intro { display:flex;align-items:center;justify-content:space-between;gap:30px;padding:18px 0 38px; }
+.journey-intro h1 { font-size:clamp(32px,3.4vw,52px);line-height:1.6;margin:16px 0;letter-spacing:1px; }
+.journey-intro p { font-size:19px;line-height:1.9;color:var(--muted); }
+.journey-progress { min-width:150px;text-align:center;padding:24px;border-left:1px solid #cedddc; }
+.journey-progress strong { display:block;font-size:62px;font-weight:500;color:#187f88;line-height:1.2; }
+.journey-progress strong span { font-size:24px;color:#66807f;margin-left:8px; }
+.journey-progress small { display:block;font-size:15px;margin-top:12px;color:#53706f; }
+.journey-steps { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border:1px solid #cedddc;border-radius:5px;overflow:hidden;margin-bottom:38px; }
+.journey-steps button { text-align:left;padding:23px 26px;background:#f9fbfa;color:#49646d;border:0;border-right:1px solid #cedddc;font:inherit;font-size:21px;cursor:pointer; }
+.journey-steps button:last-child { border-right:0; }
+.journey-steps button.active { background:#1d6973;color:white; }
+.journey-steps button>span { font-size:13px;letter-spacing:1px;display:block;margin-bottom:10px; }
+.journey-steps small { display:block;font-size:13px;margin-top:10px;opacity:.8; }
+.journey-task-heading { padding:0 0 27px; }
+.journey-task-heading h2 { font-size:32px;line-height:1.6;margin:17px 0 11px; }
+.journey-task-heading p { font-size:18px;line-height:1.9;color:var(--muted); }
+.journey-map-grid { display:grid;grid-template-columns:minmax(0,1.5fr) minmax(310px,1fr);gap:25px;align-items:stretch; }
+#journey-map { height:565px; }
+.journey-clue { padding:28px; }
+.journey-clue h3 { font-size:25px;line-height:1.7;margin:15px 0; }
+.journey-clue p { color:var(--muted);font-size:17px;line-height:1.9; }
+.place-choices { display:grid;gap:10px;margin:24px 0; }
+.place-choices button { justify-content:space-between;width:100%;font-size:17px;min-height:46px; }
+.journey-feedback { padding:16px 18px;background:#eef2f4;color:#4a6571;line-height:1.9;font-size:16px;border-left:3px solid #a0b5bf;margin:18px 0; }
+.journey-feedback.success { background:#e8f3ec;color:#23644f;border-color:#3b9a7c; }
+.journey-next { margin-top:20px;font-size:17px; }
+.journey .btn:disabled { cursor:not-allowed;opacity:.5;transform:none; }
+.journey-local { display:flex;flex-wrap:wrap;gap:8px 18px;justify-content:center;margin-top:35px;font-size:13px;color:#526b74;line-height:1.9; }
+.journey-local button { border:0;border-bottom:1px solid #819991;background:none;font:inherit;color:inherit;cursor:pointer; }
+.experiment-grid { display:grid;grid-template-columns:minmax(300px,.9fr) minmax(0,1.2fr);gap:25px; }
+.experiment-panel,.experiment-records,.experiment-conclusion,.observation-questions,.passport { padding:30px; }
+.experiment-controls>label { display:grid;grid-template-columns:1fr auto auto;align-items:center;gap:9px;font-size:20px; }
+.experiment-controls output { color:#187d87;font-size:27px; }
+.experiment-controls label>span { font-size:15px;color:var(--muted); }
+.experiment-controls input { grid-column:1/-1;width:100%;margin:15px 0 30px;accent-color:#217f84;cursor:pointer;min-height:30px; }
+.experiment-controls fieldset { border:0;padding:0;margin:0 0 28px;min-width:0; }
+.experiment-controls legend { font-size:18px;margin-bottom:13px; }
+.cover-choices { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px; }
+.cover-choices button { padding:14px 5px;background:#f6f9f7;color:#4d6571;border:1px solid #cedbd7;border-radius:4px;font:inherit;font-size:16px;cursor:pointer; }
+.cover-choices button.active { background:#e1eeea;color:#175e65;border-color:#31848c;box-shadow:inset 0 0 0 1px #31848c; }
+.cover-choices small { display:block;font-size:12px;margin-top:8px; }
+.experiment-controls>[data-run] { width:100%;font-size:18px; }
+.experiment-controls>p { font-size:14px;color:var(--muted);margin:22px 0 12px; }
+.experiment-presets { display:flex;gap:8px;flex-wrap:wrap; }
+.experiment-presets .btn { font-size:14px; }
+.rain-result-top { display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap;font-size:17px; }
+.water-balance-visual { position:relative;min-height:280px;margin:20px 0;display:flex;align-items:flex-end;justify-content:space-around;gap:24px;overflow:hidden;background:linear-gradient(#e5eff133,#e5eff1aa);border-radius:4px; }
+.rain-strokes { position:absolute;inset:0 10% 40%;display:flex;justify-content:space-between; }
+.rain-strokes i { width:2px;height:28px;background:linear-gradient(transparent,#7cbac6);animation:teaching-rain 1.6s linear infinite; }
+.rain-strokes i:nth-child(3n) { animation-delay:-.6s; }.rain-strokes i:nth-child(3n + 1) { animation-delay:-1.1s; }
+@keyframes teaching-rain { from { transform:translateY(-50px);opacity:0; } 30% { opacity:.8; } to { transform:translateY(150px);opacity:0; } }
+.catchment { width:40%;text-align:center;font-size:18px;color:#325b5c; }
+.catchment-land { height:70px;background:#7e9297;border-top:5px solid #bccbd0;margin-top:15px;transform:skewY(-7deg); }
+.catchment-land.green { background:repeating-linear-gradient(105deg,#86ae90 0 7px,#79a784 7px 12px);border-color:#b1ccac; }
+.catchment-land.mixed { background:linear-gradient(90deg,#7e9297 50%,#86ae90 50%);border-color:#b1c6bd; }
+.storage-vessel { width:42%;height:170px;position:relative;isolation:isolate;border:2px solid #90b3b9;border-top:0;border-radius:0 0 14px 14px;margin:0 15px 16px;display:flex;align-items:center;justify-content:center;text-align:center; }
+.storage-fill { position:absolute;inset:0;background:#4ba6b58c;transform-origin:bottom;transition:transform 700ms cubic-bezier(.23,1,.32,1);z-index:-1;border-radius:0 0 12px 12px; }
+.storage-vessel>span { font-size:32px;color:#174c59;font-weight:600;text-shadow:0 1px #fff; }
+.storage-vessel small { display:block;font-size:15px;font-weight:400;margin-top:10px; }
+.water-balance-values { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:25px 0; }
+.water-balance-values dt { font-size:15px;color:var(--muted);line-height:1.8; }.water-balance-values dd { margin:10px 0 0;font-size:28px;color:#225965; }.water-balance-values dd small { display:block;font-size:13px;margin-top:5px;color:#59757b; }
+.balance-explain { font-size:16px;line-height:1.9;color:var(--muted); }
+.experiment-records,.experiment-conclusion,.observation-questions,.passport { margin-top:25px; }
+.experiment-records .panel-heading { padding:0 0 20px;min-height:0; }
+.experiment-records h3,.experiment-conclusion h3,.observation-questions h3 { font-size:23px;line-height:1.7; }
+.empty-experiments,.experiment-conclusion>p { font-size:17px;line-height:1.9;color:var(--muted); }
+.conclusion-choices { display:flex;gap:12px;margin:20px 0;flex-wrap:wrap; }
+.conclusion-choices .btn { font-size:18px;min-width:100px; }
+.model-details { margin-top:25px;border:1px solid #cedddc;border-radius:4px;padding:22px 28px;line-height:2;font-size:16px;color:var(--muted); }
+.model-details summary { color:#235866;font-size:18px;cursor:pointer; }.model-details p { margin:15px 0; }
+.observation-grid { display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,.85fr);gap:25px; }
+.observation-photo { margin:0;overflow:hidden; }.observation-photo>img { width:100%;height:360px;object-fit:cover;display:block; }.observation-photo figcaption { padding:24px;font-size:13px;line-height:1.9;color:var(--muted); }.observation-photo strong { display:block;font-size:22px;color:var(--ink); }.observation-photo small { display:block;font-size:13px;margin:8px 0; }
+.observation-notes { padding:28px; }.observation-notes label { display:block;font-size:20px;line-height:1.8;margin-bottom:14px; }.observation-notes label small { display:block;font-size:14px;color:var(--muted);margin-top:7px; }.observation-notes select,.observation-notes textarea { width:100%;font:inherit;font-size:17px;color:var(--ink);background:#f8faf9;border:1px solid #bbcfc9;border-radius:4px;padding:12px;line-height:1.8; }.observation-notes select { margin-bottom:24px; }.observation-notes textarea { resize:vertical;min-height:160px; }.note-count { font-size:12px;color:var(--muted);display:block;text-align:right;margin-top:8px; }
+.observation-question { border:0;padding:0;margin:25px 0 30px;min-width:0; }.observation-question legend { font-size:19px;line-height:1.9;margin-bottom:15px; }.observation-question>div { display:flex;flex-wrap:wrap;gap:12px; }.observation-question .btn { font-size:17px;white-space:normal;text-align:left;line-height:1.7; }
+.passport { display:flex;align-items:center;justify-content:space-between;gap:24px;background:#e8f1ed;border-color:#c6dcd3; }.passport h2 { font-size:30px;margin:12px 0; }.passport p { font-size:17px;color:var(--muted);line-height:1.9; }.passport>.btn { flex-shrink:0; }
+button:focus-visible,a:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible,summary:focus-visible { outline:3px solid #25838c;outline-offset:4px; }
+@media(min-width:1001px) and (max-width:1350px) { #main-nav { gap:20px; }.sidebar { gap:22px;padding:0 2.5vw; }.brand { font-size:24px; }.real-photo-card figcaption { padding:20px; }.real-photo-card h3 { font-size:22px; } }
+@media(max-width:1000px) { .real-photo-grid { gap:16px; }.real-photo-card>img { height:210px; }.real-photo-card figcaption { padding:19px; }.real-photo-card h3 { font-size:21px; }.journey-map-grid,.experiment-grid,.observation-grid { grid-template-columns:1fr; }#journey-map { height:440px; }.journey-clue { display:block; }.place-choices { grid-template-columns:repeat(3,1fr); }.journey-clue .journey-next { display:block; }.journey-intro h1 { font-size:36px; } }
+@media(max-width:760px) {
+ .real-water-section { padding:65px 22px 45px; }.real-photo-grid { grid-template-columns:1fr;gap:24px; }.real-photo-card>img { height:260px; }.real-photo-card h3 { font-size:25px; }.real-photo-card p { min-height:0; }.real-photo-card figcaption { padding:24px; }.journey-invitation { padding:26px;display:block;margin-top:25px; }.journey-invitation h2 { font-size:27px; }.journey-invitation .btn { margin-top:20px; }.journey-intro { align-items:flex-start;gap:12px; }.journey-intro h1 { font-size:31px; }.journey-intro p { font-size:17px; }.journey-progress { padding:12px 0 12px 14px;min-width:75px; }.journey-progress strong { font-size:38px; }.journey-progress strong span { font-size:16px; }.journey-progress small { font-size:12px;line-height:1.7; }.journey-steps { margin-bottom:28px; }.journey-steps button { font-size:16px;padding:18px 12px;line-height:1.8; }.journey-steps button>span { font-size:12px;margin-bottom:4px; }.journey-steps small { font-size:12px;margin-top:7px; }.journey-task-heading h2 { font-size:27px; }.journey-task-heading p { font-size:17px; }.journey-map-grid,.experiment-grid,.observation-grid { gap:18px; }.journey-clue,.experiment-panel,.experiment-records,.experiment-conclusion,.observation-notes,.observation-questions,.passport { padding:22px; }.place-choices { grid-template-columns:1fr; }.place-choices button { min-height:48px; }.geographic-map,.monitor-layout .geographic-map { height:400px; }#journey-map { height:400px; }.geo-status { padding:10px 17px;font-size:12px; }.geo-location-info { padding:18px;font-size:15px; }.geo-disclosure { padding:14px 18px; }.geo-node>span { font-size:11px;padding:3px 5px; }.water-balance-visual { min-height:250px;gap:10px; }.storage-vessel { margin-right:8px; }.storage-vessel>span { font-size:27px; }.water-balance-values { gap:8px; }.water-balance-values dt { font-size:13px; }.water-balance-values dd { font-size:24px; }.catchment { font-size:16px; }.rain-result-top { font-size:16px; }.experiment-records .station-table { min-width:590px; }.model-details { padding:20px;font-size:15px; }.model-details summary { font-size:17px; }.observation-photo>img { height:260px; }.observation-questions h3 { font-size:24px; }.observation-question .btn { width:100%;justify-content:flex-start; }.passport { display:block; }.passport>.btn { width:100%;margin-top:22px;white-space:normal; }.passport h2 { font-size:28px; }
+}
+@media(max-width:420px) { .journey-intro { display:block; }.journey-progress { display:flex;align-items:center;gap:14px;padding:20px 0 0;border:0;text-align:left; }.journey-progress strong { font-size:32px; }.journey-progress small { margin:0; }.journey-steps button { font-size:15px;padding:15px 8px; }.journey-steps small { font-size:11px; }.experiment-presets .btn { width:100%; }.conclusion-choices { gap:8px; }.conclusion-choices .btn { min-width:0;flex:1;padding:11px 8px;font-size:17px; }.cover-choices { gap:5px; }.cover-choices button { font-size:14px; }.geographic-map .leaflet-control-attribution { font-size:10px; } }
+@media(prefers-reduced-motion:reduce) { .rain-strokes i { animation:none;transform:translateY(35px);opacity:.5; }.storage-fill { transition:none; } }
+.paused .rain-strokes i,.page-hidden .rain-strokes i,.motion-paused .rain-strokes i { animation-play-state:paused; }
+
+@media(min-width:761px) and (max-width:1250px) { .sidebar-bottom { display:none; } }
+.journey-stage:focus { outline:none; }
+
+.geo-overview .geo-node:not(.selected)>span { display:none; }
+.geo-overview .geographic-marker:hover .geo-node>span,.geo-overview .geographic-marker:focus-visible .geo-node>span { display:block; }

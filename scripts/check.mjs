@@ -6,17 +6,18 @@ import path from 'node:path';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const source = readFileSync(path.join(root, 'dist/assets/app.js'), 'utf8');
-const logic = source.slice(0, source.indexOf("$('#main-nav').innerHTML="));
+const logic = source.slice(0, source.indexOf("$('#platform').addEventListener('click'"));
 const queue = new Map();
 let nextTimer = 0;
 const context = {
-  assert, console, document: { hidden: false },
-  URL: { createObjectURL: () => 'blob:fixture', revokeObjectURL() {} },
+  assert, console, AbortController, window:{}, document: { hidden: false,baseURI:'https://example.com/zhishui/' },
+  URL: Object.assign(class extends URL {}, {createObjectURL:()=> 'blob:fixture',revokeObjectURL() {}}),
   Image: class { decode() { return Promise.resolve(); } },
   setTimeout: fn => { const id = ++nextTimer; queue.set(id, fn); return id; },
   clearTimeout: id => queue.delete(id),
   flush: () => { const callbacks = [...queue.values()]; queue.clear(); callbacks.forEach(fn => fn()); }
 };
+runInNewContext(readFileSync(path.join(root,'dist/assets/hydro-sandbox.js'),'utf8'),context);
 const checks = `
 render = () => {};
 updateReadings = () => {};
@@ -45,41 +46,31 @@ assert.equal(visibleStations().length, 2);
 exportCSV();
 assert.equal(csv.data.charCodeAt(0), 0xfeff);
 assert.equal(csv.data.split('\\r\\n').length, 3);
-assert.ok(csv.data.includes('JS-007') && csv.data.includes('JS-008'));
-assert.ok(!csv.data.includes('JS-001'));
+assert.ok(csv.data.includes('DEMO-007') && csv.data.includes('DEMO-008'));
+assert.ok(!csv.data.includes('DEMO-001'));
 assert.ok(csv.data.includes('前端模拟'));
 state.region = 'all';
 state.selected = 0;
-const base = stations[0].base;
+const base=stations[0].base;
 simulateStorm();
-assert.ok(isWarn(stations[0]));
-assert.equal(state.alerts[0].station, 0);
-state.selected = 7;
-tick();
-assert.ok(isWarn(stations[0]), 'switching stations must not erase storm');
+assert.equal(state.scenario.active,true);
+assert.equal(state.scenario.rain,90);
+assert.ok(isWarn(stations[2]), 'the teaching origin responds first');
+assert.equal(stations[0].level,base,'the mouth waits for the teaching lag');
+state.page='monitor';
+for(let i=0;i<9;i++)tick();
+assert.ok(isWarn(stations[0]),'the mouth follows after the lag');
+state.selected=7;
+assert.equal(state.scenario.scope,'qinhuai','selecting elsewhere cannot change simulation scope');
 simulateStorm();
-assert.equal(stations[0].base, base);
-assert.ok(!isWarn(stations[0]));
-assert.ok(isWarn(stations[1]), 'original warning must survive reset');
+assert.equal(stations[0].base,base);
+assert.equal(stations[0].level,base);
+assert.equal(state.scenario.active,false);
+assert.ok(isWarn(stations[1]), 'reset preserves the original initial threshold exceedance');
+state.page='home';
 state.image = null;
-detect();
-assert.equal(state.detecting, false);
 loadSample();
-detect();
-assert.equal(state.detecting, true);
-flush();
-assert.equal(state.detecting, false);
-assert.equal(state.results.length, 3);
-state.sample = false;
-detect();
-flush();
-assert.equal(state.results.length, 2);
-assert.ok(state.results.every(r => r.name.startsWith('演示目标')));
-detect();
-loadSample();
-flush();
-assert.equal(state.results.length, 0, 'replacing image must cancel pending results');
-assert.equal(state.detecting, false);
+assert.equal(state.results.length,0);
 await acceptImage({ type: 'text/plain', size: 100 });
 assert.ok(message.includes('JPG'));
 await acceptImage({ type: 'image/png', size: 11 * 1024 * 1024 });
@@ -88,11 +79,92 @@ await acceptImage({ type: 'image/png', size: 100 });
 assert.equal(state.image, 'blob:fixture');
 assert.equal(state.sample, false);
 assert.equal(state.results.length, 0);
+// A real request publishes only its response; scene changes invalidate it.
+let resolveRequest;
+prepareAIImage = async () => 'data:image/jpeg;base64,test';
+fetch = () => new Promise(resolve=>resolveRequest=resolve);
+const first = detect();
+await Promise.resolve();
+assert.equal(state.detecting,true);
+loadSample('inspection');
+resolveRequest({ok:true,json:async()=>({status:'ok',summary:'旧图片结果',findings:[{name:'旧目标',explanation:'旧结果',box:null}]})});
+await first;
+assert.equal(state.results.length,0,'replaced images must discard late responses');
+fetch=async()=>({ok:true,json:async()=>({status:'ok',summary:'可见河面与建筑。',findings:[{name:'建筑',explanation:'岸边有建筑轮廓。',box:[20,10,40,35]}]})});
+await detect();
+assert.equal(state.aiDone,true);
+assert.equal(state.results[0].name,'建筑');
+assert.ok(!('confidence' in state.results[0]));
+exportAIRecord();
+const record=JSON.parse(csv.data);
+assert.equal(record.observations.length,1);
+assert.ok(record.summary.includes('河面'));
+assert.ok(!csv.data.includes('blob:')&&!csv.data.includes('data:image'));
+const originalLedgerLength=hydroLedger.list().length;
+state.aiStation=0;state.aiNeedsReview=true;saveInspection();
+assert.equal(hydroLedger.list().length,originalLedgerLength+1);
+assert.equal(hydroLedger.list()[0].status,'pending');
+assert.equal(hydroLedger.list()[0].type,'inspection');
+assert.equal(hydroLedger.list()[0].station,0);
+saveInspection();assert.equal(hydroLedger.list().length,originalLedgerLength+1,'double save is idempotent');
+const inspectionId=hydroLedger.list()[0].id;hydroLedger.handle(inspectionId);
+assert.equal(hydroLedger.list()[0].status,'handled');
+hydroLedger.handle(inspectionId);assert.equal(hydroLedger.list()[0].status,'pending');
+state.compare=2;state.selected=0;
+const compared=getChartData();
+assert.equal(compared.datasets.length,3);
+assert.equal(compared.datasets[0].data[0],+(histories[0][0].level-stations[0].limit).toFixed(2));
+assert.equal(compared.datasets[2].data[0],0);
+state.compare=null;
+fetch=async()=>({ok:true,json:async()=>({status:'unsupported',summary:'不应展示的分析',findings:[{name:'不应展示的物体',box:[1,1,2,2]}]})});
+await detect();
+assert.equal(state.aiDone,false);
+assert.equal(state.results.length,0);
+assert.equal(state.aiSummary,'');
+assert.ok(state.aiRejected.includes('水域'));
+const rejectedPage=renderAI();
+assert.ok(rejectedPage.includes('vision-scene-prompt'));
+assert.ok(!rejectedPage.includes('不应展示'));
+assert.ok(!rejectedPage.includes('id="ai-export"'));
+assert.ok(!rejectedPage.includes('class="vision-viewbar" >'));
+assert.ok(!boxesHTML());
+const rejectedLedgerLength=hydroLedger.list().length;saveInspection();assert.equal(hydroLedger.list().length,rejectedLedgerLength,'unsupported image cannot enter inspection ledger');
+const previousDownload=csv;
+exportAIRecord();assert.equal(csv,previousDownload,'unsupported scenes cannot export results');
+loadSample('inspection');
+assert.equal(state.aiRejected,'');
+fetch=async()=>({ok:true,json:async()=>({status:'ok',summary:'可见河面与建筑。',findings:[{name:'建筑',explanation:'岸边建筑。',box:null}]})});
+await detect();
+await acceptImage({type:'text/plain',size:20});
+assert.equal(state.results.length, 1, 'invalid upload preserves the current result');
+Image = class { decode() { return Promise.reject(new Error('invalid')); } };
+await acceptImage({type:'image/png',size:20});
+assert.equal(state.results.length, 1, 'unreadable image preserves the current result');
+// The most recently selected valid upload owns the preview.
+const decodes = [], revoked = [];
+let blobNumber = 0;
+URL.createObjectURL = () => 'blob:upload-' + (++blobNumber);
+URL.revokeObjectURL = url => revoked.push(url);
+Image = class { constructor(){this.naturalWidth=1200;this.naturalHeight=800;} decode(){return new Promise(resolve=>decodes.push(resolve));} };
+const oldUpload = acceptImage({type:'image/png',size:200,name:'old.png'});
+const newUpload = acceptImage({type:'image/png',size:300,name:'new.png'});
+decodes[1](); await newUpload;
+decodes[0](); await oldUpload;
+assert.equal(state.image,'blob:upload-2');
+assert.equal(state.aiFile.name,'new.png');
+assert.equal(state.aiFile.width,1200);
+assert.ok(revoked.includes('blob:upload-1'));
+fetch=async()=>({ok:false,json:async()=>({error:'服务暂不可用'})});
+await detect();
+assert.equal(state.aiDone,false);assert.equal(state.results.length,0);assert.ok(state.aiNotice.includes('不可用'));
+const pending=detect();await Promise.resolve();resetDetection();await pending;assert.equal(state.aiDone,false);
+console.log('PASS: real-response rendering, late-response cancellation, honest export, upstream failure, upload preservation and newest-upload race');
 console.log('PASS: simulation updates, pause/background, regional CSV, storm lifecycle, AI lifecycle, upload validation');
 `;
 await runInNewContext(`(async () => { ${logic}\n${checks} })()`, context, { timeout: 5000 });
-for (const asset of ['assets/style.css', 'assets/cinematic.css', 'assets/river-scene.js', 'assets/app.js', 'assets/favicon.svg', 'assets/dm-sans.woff2', 'assets/vendor/chart.umd.js']) {
+for (const asset of ['assets/ai-workbench.css', 'assets/ai/underwater-life.svg', 'assets/ai/pipe-inspection.svg', 'assets/style.css', 'assets/cinematic.css', 'assets/river-scene.js', 'assets/app.js', 'assets/favicon.svg', 'assets/dm-sans.woff2', 'assets/vendor/chart.umd.js']) {
   assert.ok(existsSync(path.join(root, 'dist', asset)), `Missing asset: ${asset}`);
 }
 assert.ok(!readFileSync(path.join(root, 'dist/index.html'), 'utf8').includes('https://cdn'));
 console.log('PASS: complete local runtime assets; no CDN dependency');
+

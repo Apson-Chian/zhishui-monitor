@@ -1,0 +1,38 @@
+/* Motion accent layer: water and entrances carry the movement; data stays still. */
+:root { --river-entry-duration:1400ms;--river-entry-delay:140ms;--ease-in-out:cubic-bezier(0.77, 0, 0.175, 1);--river-transfer-duration:1800ms;--river-crossfade-duration:1200ms;--river-crossfade-delay:600ms;--opening-exit-duration:900ms; }
+body[data-page="home"] .page-enter { animation:none; }
+.hero-scene {
+  background:radial-gradient(ellipse at 50% 42%,#e1f1e9 0%,#f1f8f1 75%);
+  border-color:#cfdfd5;
+  box-shadow:inset 0 1px 0 #ffffffb3;
+}
+.hero-atmosphere { display:none; }
+.home-task-grid>a,.real-photo-card {
+  transition:transform 200ms var(--ease-out),border-color 160ms ease,box-shadow 200ms ease;
+}
+.home-task-grid .inline-arrow,.hero-primary>svg,.hero-secondary .play-orbit {
+  transition:transform 160ms var(--ease-out);
+}
+.btn,.hero-secondary,.motion-control {
+  transition:transform 160ms var(--ease-out),background-color 160ms ease,border-color 160ms ease;
+}
+.btn:not(:focus-visible):active,.hero-secondary:not(:focus-visible):active,.motion-control:not(:focus-visible):active {
+  transform:scale(.98);
+}
+@media(hover:hover) and (pointer:fine) {
+  .home-task-grid>a:hover,.real-photo-card:hover {
+    transform:translateY(-3px);border-color:#9abdaf;box-shadow:0 8px 24px #2e6c6510;
+  }
+  .home-task-grid>a:hover .inline-arrow,.hero-primary:hover>svg { transform:translateX(3px); }
+  .hero-secondary:hover .play-orbit { transform:scale(1.06); }
+}
+body.motion-paused .home-task-grid>a,body.paused .home-task-grid>a,
+body.motion-paused .real-photo-card,body.paused .real-photo-card {
+  transform:none;transition:none;
+}
+@media(prefers-reduced-motion:reduce) {
+  .home-task-grid>a,.real-photo-card,.home-task-grid .inline-arrow,.hero-primary>svg,
+  .hero-secondary .play-orbit,.btn,.hero-secondary,.motion-control {
+    transform:none!important;transition:background-color 100ms ease,border-color 100ms ease;
+  }
+}

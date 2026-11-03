@@ -1,0 +1,51 @@
+/* Desktop route dock; the side gutter belongs to navigation, never to page content. */
+.desktop-dock { display:none; }
+@media(min-width:1024px) {
+  :root { --dock-gutter:88px;--dock-edge:max(var(--gutter),calc((100vw - var(--dock-gutter) - var(--content-width))/2)); }
+  .shell { padding-right:var(--dock-gutter); }
+  .sidebar { padding-left:var(--dock-edge);padding-right:calc(var(--dock-edge) + var(--dock-gutter)); }
+  .cinematic-hero,.real-water-section,.overview-deck,.home-entries,.page-outline.home-outline { padding-left:var(--dock-edge);padding-right:var(--dock-edge); }
+  .site-footer { width:calc(100% + var(--dock-gutter));padding-left:var(--dock-edge);padding-right:calc(var(--dock-edge) + var(--dock-gutter)); }
+  .desktop-dock {
+    position:fixed;right:16px;top:calc(50% + 24px);transform:translateY(-50%);z-index:1200;
+    display:flex;flex-direction:column;align-items:center;gap:5px;width:58px;padding:12px 6px;
+    border:1px solid #d5e4dc;border-radius:32px;background:#fcfdf9;
+    box-shadow:0 8px 28px #214c4b12;
+  }
+  .desktop-dock a,.desktop-dock button {
+    position:relative;display:grid;place-items:center;flex-shrink:0;width:44px;height:44px;min-height:44px;
+    padding:0;border:0;border-radius:50%;background:transparent;color:#527e80;
+    font:inherit;cursor:pointer;text-decoration:none;transition:background-color 160ms ease,color 160ms ease;
+  }
+  .desktop-dock svg { width:21px;height:21px;pointer-events:none; }
+  .desktop-dock .inline-arrow { margin:0;vertical-align:initial; }
+  .desktop-dock-link[aria-current="page"] { background:#287c84;color:#f4fcf1;box-shadow:0 3px 9px #235e6a25; }
+  .dock-divider { display:block;width:23px;height:1px;background:#dce8df;margin:4px 0;flex-shrink:0; }
+  .dock-label {
+    position:absolute;right:calc(100% + 17px);top:50%;transform:translateY(-50%);padding:7px 13px;
+    font-size:14px;line-height:1.6;color:#edf7ef;background:#25585e;border-radius:7px;white-space:nowrap;
+    box-shadow:0 4px 16px #183b4314;opacity:0;visibility:hidden;pointer-events:none;
+  }
+  .desktop-dock :is(a,button):focus-visible { outline:2px solid #2e7d85;outline-offset:3px;transition:none; }
+  .desktop-dock :is(a,button):focus-visible .dock-label { opacity:1;visibility:visible; }
+  @media(hover:hover) and (pointer:fine) {
+    .desktop-dock :is(a,button):hover { background:#e6f0e8;color:#286d77; }
+    .desktop-dock-link[aria-current="page"]:hover { background:#226c75;color:#f4fcf1; }
+    .desktop-dock :is(a,button):hover .dock-label { opacity:1;visibility:visible; }
+  }
+}
+@media(min-width:1024px) and (max-height:560px) {
+  .desktop-dock { top:88px;bottom:16px;transform:none;overflow-y:auto;scrollbar-width:none; }
+  .desktop-dock::-webkit-scrollbar { display:none; }
+}
+@media(prefers-reduced-motion:reduce) { .desktop-dock a,.desktop-dock button { transition:none; } }
+
+/* Both desktop navigation surfaces use the same complete route list. */
+@media(min-width:761px) {
+ .sidebar .brand { flex-shrink:0;white-space:nowrap; }
+ .sidebar #main-nav { align-self:stretch;align-items:stretch;gap:clamp(14px,2.2vw,26px);flex:0 0 auto; }
+ .sidebar #main-nav .nav-link { padding-block:0;white-space:nowrap;min-height:0; }
+}
+@media(max-width:760px) {
+ .sidebar #main-nav { max-height:calc(100svh - 64px);overflow-y:auto;overscroll-behavior:contain; }
+}

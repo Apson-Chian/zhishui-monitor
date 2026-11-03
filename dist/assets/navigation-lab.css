@@ -1,0 +1,158 @@
+/* One route navigation, with local tabs reserved for the hydrology workspace. */
+:root { --dock-gutter:0px; }
+.shell { padding-right:0; }
+.sidebar { gap:28px;padding-inline:max(var(--gutter),calc((100vw - var(--content-width))/2)); }
+.sidebar .brand { font-size:26px;white-space:nowrap; }
+.sidebar #main-nav { margin-left:auto;gap:clamp(14px,2vw,24px);align-self:stretch;align-items:stretch; }
+.sidebar #main-nav .nav-link { padding:0 3px;min-height:80px;font-size:17px; }
+.nav-link.active::after { left:0;width:100%;height:3px; }
+.header-tools { display:flex;gap:8px;align-items:center;flex-shrink:0; }
+.header-tools .icon-button { width:44px;height:44px;min-height:44px;min-width:44px; }
+.header-tools svg { width:22px;height:22px; }
+.header-tools .mobile-menu { display:none; }
+main { padding-top:32px; }
+body[data-page="home"] main { padding-top:0; }
+.hydrology-lab { padding:0 0 48px; }
+.lab-heading { display:flex;align-items:center;justify-content:space-between;gap:24px;margin-bottom:24px; }
+.lab-heading h1 { font-size:38px;line-height:1.4;margin:0 0 10px; }
+.lab-heading p { max-width:38em;margin:0;color:var(--muted);font-size:18px;line-height:1.8; }
+.lab-heading>.btn { flex-shrink:0; }
+.lab-tabs { display:flex;gap:8px;padding:6px;width:fit-content;margin-bottom:28px;background:#eaf1ed;border:1px solid #d5e2da;border-radius:12px; }
+.lab-tabs button { min-height:46px;padding:10px 24px;font-size:18px;line-height:1.5;color:#567571;border-radius:8px; }
+.lab-tabs [aria-selected="true"] { background:#fff;color:#1d6d75;box-shadow:0 2px 8px #23463a0d;font-weight:600; }
+.lab-workspace { display:grid;grid-template-columns:280px minmax(0,1fr);gap:24px;align-items:start; }
+.lab-controls { display:grid;gap:18px;padding:24px;position:sticky;top:104px; }
+.lab-controls h2,.lab-result-heading h2,.lab-run-heading h2,.lab-place-panel h2,.lab-observation-form h2 { font-size:25px;line-height:1.5;margin:0; }
+.lab-control { display:block;min-width:0; }
+.lab-control>span { display:flex;justify-content:space-between;gap:8px;align-items:baseline;flex-wrap:wrap;font-size:17px;color:#3c5d5b; }
+.lab-control>span>span { font-size:15px;white-space:nowrap;color:#627e76; }
+.lab-control output { color:#246f77;font-size:21px;font-weight:600; }
+.lab-control input { display:block;width:100%;margin:10px 0 0;height:28px;accent-color:#267f87;cursor:pointer; }
+.lab-rain-presets { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px; }
+.lab-rain-presets button { padding:8px 3px;min-height:40px;white-space:nowrap;border:1px solid #cbded4;border-radius:7px;font-size:14px;background:#fff;color:#4b736d; }
+.lab-rain-presets [aria-pressed="true"] { background:#e5f1e8;border-color:#4d8b7e;color:#226d6f; }
+.lab-controls .btn { width:100%;justify-content:center; }
+.lab-result-heading,.lab-run-heading { display:flex;justify-content:space-between;align-items:baseline;gap:16px;flex-wrap:wrap;margin-bottom:18px; }
+.lab-result-heading>span,.lab-run-heading>span { color:#627e77;font-size:15px;line-height:1.8; }
+.lab-result-cards { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px; }
+.lab-result-card { min-width:0;padding:24px 20px;border:1px solid #dfddd1;border-radius:14px;background:linear-gradient(145deg,#f4eee0,#f9f6ee); }
+.lab-result-card.mixed { border-color:#d1dce4;background:linear-gradient(145deg,#e9eff9,#f3f7f8); }
+.lab-result-card.green { border-color:#caddce;background:linear-gradient(145deg,#e5f2e7,#f0f7eb); }
+.lab-result-card h3 { font-size:23px;line-height:1.5;margin:0 0 26px; }
+.lab-metric-label { display:block;font-size:16px;color:#637b70; }
+.lab-storage-value { display:flex;align-items:baseline;flex-wrap:wrap;gap:6px;font-size:clamp(26px,2.6vw,38px);font-weight:600;line-height:1.4;margin:4px 0 24px;font-variant-numeric:tabular-nums;color:#254e52; }
+.lab-storage-value small { display:inline;font-size:16px;font-weight:400; }
+.lab-balance-bar { display:flex;height:12px;border-radius:6px;overflow:hidden;background:#dce8de;margin-bottom:22px; }
+.lab-balance-bar i { display:block;min-width:0;height:100%; }
+.absorbed { background:#85ae8b; }.drained { background:#4c98ae; }.stored { background:#d6a566; }
+.lab-result-card dl { margin:0;font-size:15px; }
+.lab-result-card dl>div { display:flex;justify-content:space-between;align-items:baseline;gap:8px;flex-wrap:wrap;margin-top:10px; }
+.lab-result-card dt { color:#617b73; }.lab-result-card dd { margin:0;color:#345b5e;white-space:nowrap; }
+.lab-balance-legend { display:flex;gap:18px;flex-wrap:wrap;margin:18px 0 24px;color:#647d75;font-size:15px; }
+.lab-balance-legend>span { display:flex;align-items:center;gap:7px; }.lab-balance-legend i { width:10px;height:10px;border-radius:3px; }
+.lab-conclusion { font-size:18px;line-height:1.9;margin:0;padding:20px 24px;border-left:3px solid #59968a;border-radius:0 10px 10px 0;background:#eaf3ec;color:#345d58; }
+.lab-total { display:flex;gap:16px;align-items:baseline;flex-wrap:wrap;padding:22px 0;color:#6a8079;font-size:16px; }.lab-total strong { color:#386a6b;font-size:24px;font-weight:550; }
+.lab-run-panel { margin-top:28px;padding:26px; }
+.lab-run-heading { margin-bottom:18px; }
+.lab-empty { color:#6b8179;font-size:17px;margin:0;line-height:1.9; }
+.lab-record-scroll { max-width:100%;overflow-x:auto; }
+.lab-record-table { width:100%;border-collapse:collapse;text-align:left;min-width:650px; }
+.lab-record-table th,.lab-record-table td { padding:14px 16px;border-bottom:1px solid #dce8df;font-size:16px;line-height:1.7;white-space:nowrap; }
+.lab-record-table thead th { background:#f0f5f0;color:#52756b;font-size:15px;font-weight:500; }
+.lab-record-table .source-link { min-height:44px; }
+.hydrology-lab .lab-model { padding:20px 24px;border-radius:12px;margin-top:24px; }
+.lab-map-layout { display:grid;grid-template-columns:minmax(0,1.6fr) minmax(280px,1fr);gap:24px;align-items:start; }
+.hydrology-lab #journey-map { height:530px;border-radius:14px 14px 0 0; }
+.lab-place-panel { padding:26px; }
+.lab-place-list { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:22px 0; }
+.lab-place-list button { min-height:44px;text-align:left;padding:10px 12px;border:1px solid #d6e4d9;border-radius:8px;font-size:16px;color:#50736d;background:#fbfdf9; }
+.lab-place-list [aria-pressed="true"] { border-color:#3d8383;background:#e1efea;color:#22646c; }
+.lab-place-profile { padding-top:20px;border-top:1px solid #dce6dd; }
+.lab-place-profile h3 { font-size:23px;line-height:1.5;margin:0 0 12px; }
+.lab-place-profile p { font-size:17px;line-height:1.9;margin:0 0 14px;color:#5a776f; }
+.lab-observation { display:grid;grid-template-columns:minmax(0,1.2fr) minmax(300px,1fr);gap:24px;align-items:start; }
+.lab-observation .observation-photo { margin:0;overflow:hidden;border-radius:14px; }
+.lab-observation .observation-photo>img { display:block;width:100%;height:auto;aspect-ratio:3/2;object-fit:cover; }
+.lab-observation .observation-photo figcaption { padding:24px; }
+.lab-observation .observation-photo strong { display:block;font-size:24px;line-height:1.6;margin-bottom:8px; }
+.lab-observation .observation-photo small { font-size:15px;color:#71877c; }
+.lab-observation-form { padding:28px; }
+.lab-observation-form>label { display:block;font-size:18px;line-height:1.7;margin:22px 0 9px; }
+.lab-observation-form select,.lab-observation-form textarea { width:100%;padding:12px 14px;border:1px solid #c9dcd0;border-radius:8px;background:#fff;color:#335b5d;font:17px/1.8 var(--font); }
+.lab-observation-form textarea { resize:vertical; }
+.lab-observation-form fieldset { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:24px 0;padding:0;border:0;min-width:0; }
+.lab-observation-form legend { font-size:18px;margin-bottom:14px; }
+.lab-observation-form fieldset label { display:flex;align-items:center;gap:8px;font-size:16px;min-height:36px;color:#56776d; }
+.lab-observation-form input { width:18px;height:18px;accent-color:#307e83; }
+.lab-observation-form>.btn { margin-top:20px; }
+#observation-save-status { color:#397b69;font-size:16px;line-height:1.7;margin-top:10px; }
+.lab-observation-note,.lab-storage-notice { color:#718378;font-size:15px;line-height:1.8;margin:18px 0 0; }
+@media(min-width:901px) and (max-width:1100px) {
+ .sidebar { gap:18px; }.sidebar .brand { font-size:24px; }.sidebar #main-nav { gap:14px; }.sidebar #main-nav .nav-link { font-size:16px; }
+ .lab-workspace { grid-template-columns:250px minmax(0,1fr);gap:20px; }.lab-result-cards { gap:10px; }.lab-result-card { padding:20px 14px; }.lab-result-card h3 { font-size:21px; }
+}
+@media(max-width:900px) {
+ html { scroll-padding-top:82px;scroll-padding-bottom:90px; }
+ body { padding-bottom:calc(76px + env(safe-area-inset-bottom,0px)); }
+ .sidebar { height:64px;gap:12px;padding:0 20px; }
+ .sidebar .brand { font-size:22px;gap:9px; }
+ .header-tools { margin-left:auto; }.header-tools .mobile-menu { display:grid;place-items:center;margin-left:0; }
+ .shell { padding-top:64px; }
+ .sidebar #main-nav { display:none;position:fixed;inset:64px 0 auto;max-height:calc(100svh - 64px);overflow-y:auto;overscroll-behavior:contain;padding:12px 20px 20px;margin:0;background:#f9fcfa;border-bottom:1px solid #d4e2d8;gap:0; }
+ .sidebar.open #main-nav { display:flex;flex-direction:column; }
+ .sidebar #main-nav .nav-link { flex-direction:row;justify-content:flex-start;gap:14px;min-height:52px;padding:12px 14px;border-radius:8px;font-size:18px; }
+ .sidebar #main-nav .nav-link svg { display:block;width:21px;height:21px; }
+ .sidebar #main-nav .nav-link.active { background:#e6f0e9; }.nav-link.active::after { display:none; }
+ .sidebar.open+.sidebar-shade { display:block;position:fixed;inset:64px 0 0;z-index:35;background:#173d4333; }
+ .mobile-bottom-nav { position:fixed;inset:auto 0 0;z-index:34;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:4px;padding:8px 10px calc(8px + env(safe-area-inset-bottom,0px));background:#f9fcfb;border-top:1px solid #d9e5df;box-shadow:0 -4px 20px #163e4808; }
+ .mobile-tab { position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:5px;min-width:0;min-height:50px;padding:5px 2px;border-radius:8px;color:#688087;font:500 12px/1.4 -apple-system,BlinkMacSystemFont,"PingFang SC",sans-serif;text-align:center;white-space:nowrap; }
+ .mobile-tab svg { width:22px;height:22px; }.mobile-tab.active { color:#126f80;background:#e7f2ec;font-weight:600; }.mobile-tab.active::before { display:none; }
+ .lab-workspace { grid-template-columns:1fr; }.lab-controls { position:static;grid-template-columns:repeat(2,minmax(0,1fr));padding:24px;gap:18px 24px; }
+ .lab-controls h2,.lab-controls .lab-control:first-of-type,.lab-controls .lab-control:last-of-type,.lab-rain-presets,.lab-controls>.btn { grid-column:1/-1; }
+ .lab-result-cards { gap:14px; }.lab-result-card { padding:22px 16px; }.lab-result-card h3 { font-size:22px; }
+ .lab-map-layout,.lab-observation { grid-template-columns:1fr; }
+ .hydrology-lab #journey-map { height:380px; }
+}
+@media(max-width:600px) {
+ .lab-heading { align-items:flex-start;flex-direction:column;gap:18px; }.lab-heading h1 { font-size:32px; }.lab-heading p { font-size:17px; }
+ .lab-tabs { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));width:100%;gap:3px;padding:5px; }
+ .lab-tabs button { padding:10px 3px;font-size:17px; }
+ .lab-controls { padding:22px 20px;column-gap:16px; }
+ .lab-control>span { font-size:16px; }.lab-control output { font-size:20px; }.lab-control>span>span { font-size:14px; }
+ .lab-result-cards { grid-template-columns:1fr; }
+ .lab-result-card { display:grid;grid-template-columns:1fr auto;gap:0 18px;padding:22px; }
+ .lab-result-card h3 { margin:0 0 8px; }.lab-metric-label { grid-column:1;align-self:end; }.lab-storage-value { grid-column:2;grid-row:1/3;font-size:32px;margin:0;align-self:center; }
+ .lab-balance-bar { grid-column:1/-1;width:100%;margin:20px 0 14px; }.lab-result-card dl { grid-column:1/-1;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap; }.lab-result-card dl>div { gap:10px;margin-top:0; }
+ .lab-result-heading h2,.lab-controls h2,.lab-run-heading h2,.lab-place-panel h2 { font-size:24px; }
+ .lab-conclusion { padding:18px 20px;font-size:17px; }.lab-balance-legend { gap:12px;font-size:14px; }
+ .lab-run-panel { padding:22px 18px; }.lab-record-table th,.lab-record-table td { padding:12px; }
+ .lab-place-panel,.lab-observation-form { padding:24px 20px; }.lab-place-list { gap:8px; }.lab-place-list button { padding:10px;font-size:16px; }
+ .hydrology-lab #journey-map { height:320px; }.lab-observation-form fieldset { gap:10px; }.lab-observation-form fieldset label { font-size:15px; }
+}
+@media(max-width:360px) {
+ .sidebar { padding-inline:16px; }.sidebar .brand { font-size:20px; }.header-tools { gap:2px; }
+ .lab-tabs button { font-size:16px; }.lab-result-card { padding:20px 16px;column-gap:10px; }.lab-storage-value { font-size:28px; }.lab-place-list { grid-template-columns:1fr; }
+}
+@media(prefers-reduced-motion:reduce) { .lab-tabs button { transition:none; } }
+
+#mobile-bottom-nav[hidden] { display:none!important; }
+.header-tools .notification-button { display:grid;place-items:center; }
+
+.lab-run-index,.lab-run-unit { display:none; }
+@media(max-width:600px) {
+ .lab-record-scroll { overflow:visible; }
+ .lab-record-table { display:block;min-width:0;width:100%; }
+ .lab-record-table thead { position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%); }
+ .lab-record-table tbody { display:grid;gap:16px; }
+ .lab-record-table tbody tr { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px 18px;padding:18px;border:1px solid #d8e4da;border-radius:10px;background:#f6f9f3; }
+ .lab-record-table tbody th { grid-column:1/-1;padding:0 0 10px;border-bottom:1px solid #dbe6dc;font-size:18px; }
+ .lab-record-table tbody td { min-width:0;padding:0;border:0;font-size:16px;line-height:1.8;white-space:normal; }
+ .lab-record-table td[data-label]::before { content:attr(data-label);display:block;margin-bottom:3px;font-size:14px;color:#6a8377; }
+ .lab-run-index,.lab-run-unit { display:inline; }
+ .lab-run-action { align-self:end;text-align:right; }
+}
+
+.lab-map-toolbar { display:flex;justify-content:space-between;align-items:center;gap:20px;padding:16px 20px;border-bottom:1px solid #d9e5db;font-size:18px; }
+.lab-map-toolbar>.btn { font-size:16px; }
+.hydrology-lab .lab-map-layout #journey-map { border-radius:0; }
+.lab-map-layout .atlas-marker-label small { display:none; }

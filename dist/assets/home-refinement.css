@@ -1,0 +1,73 @@
+/* Compact entry cards and a quiet stage for the river landscape. */
+.home-task-grid>a {
+  display:grid;grid-template-columns:54px minmax(0,1fr);align-items:center;
+  column-gap:18px;row-gap:24px;padding:28px;background:#fff;
+}
+.home-task-grid .task-symbol {
+  width:54px;height:54px;border-radius:16px;color:#247f85;
+  background:linear-gradient(145deg,#eff7ef,#deeee7);
+  box-shadow:inset 0 1px 0 #ffffffb3;
+}
+.home-task-grid .task-symbol svg { width:32px;height:32px; }
+.home-task-grid h3 { margin:0;font-size:28px;line-height:1.4; }
+.home-task-grid strong {
+  grid-column:1/-1;display:flex;align-items:center;gap:12px;margin:0;
+  font-size:17px;line-height:1.5;
+}
+.hero-scene {
+  background:radial-gradient(ellipse at 52% 52%,#d7eae3 0%,#ecf4ee 55%,#f7faf5 100%);
+  border-color:#d9e6de;box-shadow:inset 0 1px 0 #fff;
+}
+#digital-river { opacity:1; }
+@media(max-width:760px) {
+  .home-task-grid>a { padding:24px;column-gap:16px;row-gap:22px; }
+  .home-task-grid h3 { font-size:26px; }
+  .hero-scene { height:auto;aspect-ratio:1.32;min-height:240px; }
+}
+@media(max-width:360px) {
+  .home-task-grid>a { padding:20px;column-gap:14px; }
+  .home-task-grid h3 { font-size:24px; }
+  .hero-scene { min-height:215px; }
+}
+
+/* The city gallery and knowledge library share the upper home section. */
+.home-discovery {
+  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;
+  padding:40px max(var(--gutter),calc((100vw - var(--content-width))/2)) 0;
+  background:#f7faf7;
+}
+.home-discovery-card {
+  display:grid;grid-template-columns:54px minmax(0,1fr);align-items:center;
+  gap:24px 18px;padding:28px 32px;border:1px solid #cbded2;text-align:left;
+  border-radius:14px;background:linear-gradient(115deg,#eaf3eb,#f4f8f0);color:#244f52;
+  transition:border-color 160ms ease,box-shadow 160ms ease;
+}
+.home-discovery-icon {
+  display:grid;place-items:center;width:54px;height:54px;border-radius:16px;
+  background:#fff9;color:#247f85;box-shadow:inset 0 1px 0 #fff;
+}
+.home-discovery-icon svg { width:32px;height:32px; }
+.home-discovery-title { font-size:28px;font-weight:600;line-height:1.4;margin:0; }
+.home-discovery-action { grid-column:1/-1;display:flex;align-items:center;gap:14px;font-size:17px;color:#267b80; }
+.home-discovery-action svg { width:22px;height:22px; }
+@media(hover:hover) and (pointer:fine) {
+  .home-discovery-card:hover { border-color:#8db5a4;box-shadow:0 6px 22px #305d4d0c; }
+}
+@media(max-width:760px) {
+  .home-discovery { gap:16px;padding:28px 20px 0; }
+  .home-discovery-card { grid-template-columns:40px minmax(0,1fr);gap:20px 10px;padding:20px 14px; }
+  .home-discovery-icon { width:40px;height:40px;border-radius:12px; }
+  .home-discovery-icon svg { width:26px;height:26px; }
+  .home-discovery-title { font-size:20px;white-space:nowrap; }
+  .home-discovery-action { font-size:15px;gap:8px; }
+  .home-discovery-action svg { width:18px;height:18px; }
+}
+@media(max-width:360px) {
+  .home-discovery { gap:12px;padding-inline:16px; }
+  .home-discovery-card { grid-template-columns:32px minmax(0,1fr);padding:18px 12px;column-gap:8px; }
+  .home-discovery-icon { width:32px;height:36px;border-radius:10px; }
+  .home-discovery-icon svg { width:24px;height:24px; }
+  .home-discovery-title { font-size:18px; }
+  .home-discovery-action { font-size:14px; }
+}
+@media(prefers-reduced-motion:reduce) { .home-discovery-card { transition:none; } }

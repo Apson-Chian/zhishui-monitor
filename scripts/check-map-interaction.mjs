@@ -1,0 +1,40 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';
+import vm from 'node:vm';
+const context={window:{},document:{activeElement:null}};
+vm.runInNewContext(readFileSync(new URL('../dist/assets/hydro-sandbox.js',import.meta.url),'utf8'),context);
+vm.runInNewContext(readFileSync(new URL('../dist/assets/geographic-map.js',import.meta.url),'utf8'),context);
+const H=context.window.HydroSandbox,MapView=context.window.HydroMap;
+const seeds=JSON.parse(readFileSync(new URL('../dist/assets/app.js',import.meta.url),'utf8').match(/const stations=(\[[\s\S]*?\]);/)[1]);
+let focused=false,selected=null,prevented=false;const popupAction={};
+const markers=[];
+context.window.L={divIcon:v=>v,DomEvent:{stop:()=>prevented=true},marker:(position,options)=>{
+ let htmlAssignments=0;const classes=new Set(),label={hidden:false,offsetWidth:140,offsetHeight:55,style:{}},root={attrs:{},html:'',get htmlAssignments(){return htmlAssignments},get innerHTML(){return this.html},set innerHTML(value){htmlAssignments++;this.html=value},setAttribute(k,v){this.attrs[k]=v},classList:{toggle(k,on){if(on)classes.add(k);else classes.delete(k)}},querySelector:()=>label,focus:()=>focused=true};
+ let tooltip=null,popup=null,popupOpen=false,popupUpdates=0;
+ const events={},m={position,options,root,classes,events,label,get popupUpdates(){return popupUpdates},addTo(){return this},on(k,cb){events[k]=cb;return this},off(k){delete events[k];return this},fire(k){events[k]?.({})},getElement:()=>root,setZIndexOffset(){},getTooltip:()=>tooltip,setTooltipContent(v){tooltip=v},bindTooltip(v){tooltip=v},isPopupOpen:()=>popupOpen,getPopup:()=>popup,bindPopup(content,options){popup={content,options,getElement:()=>({contains:()=>context.document.activeElement===popupAction})};const previous=events.click;events.click=e=>{previous?.(e);popupOpen=!popupOpen};return this},setPopupContent(content){popup.content=content;popupUpdates++},openPopup(){popupOpen=true;return this},closePopup(){popupOpen=false;return this},remove(){}};markers.push(m);return m;
+}};
+const view=Object.create(MapView.prototype);
+Object.assign(view,{markers:new Map(),mode:'water',layerSettings:{alerts:true,water:true,lakes:true},options:{onSelect:i=>selected=i,popupContent:i=>'station '+i},map:{zoom:12,getZoom(){return this.zoom},getSize:()=>({x:800,y:480}),latLngToContainerPoint:([lat,lng])=>({x:(lng-118.60)*2300,y:(32.2-lat)*1200}),stop(){},setView(position,zoom,options){this.position=position;this.zoom=zoom;assert.equal(options.animate,false)}}});
+view.update(seeds.slice(0,3),0);
+const warning=view.markers.get(seeds[1].id).marker,root=warning.root;
+assert.ok(warning.classes.has('marker-alert'));
+assert.ok(root.innerHTML.includes('模拟超阈'));
+assert.ok(root.attrs['aria-label'].includes('秦淮新河口'));
+view.update(seeds.slice(0,3).map(s=>s.index===1?{...s,level:15}:s),1);
+assert.equal(view.markers.get(seeds[1].id).marker.root,root,'live status changes preserve the marker focus node');
+assert.ok(root.innerHTML.includes('critical selected'),'selection preserves warning severity');
+assert.ok(root.attrs['aria-label'].includes('模拟高位'));
+const assignments=root.htmlAssignments;view.update(seeds.slice(0,3).map(s=>s.index===1?{...s,level:15.05}:s),1);assert.equal(root.htmlAssignments,assignments,'live value updates must not restart the pin animation by rebuilding its element');
+view.focusStation(1,{keyboard:true});assert.equal(focused,true);assert.equal(view.map.zoom,13);assert.equal(warning.getPopup().options.autoPan,true);
+warning.fire('click');assert.equal(warning.isPopupOpen(),true,'repeated marker clicks keep the popup open');warning.closePopup();warning.fire('click');assert.equal(warning.isPopupOpen(),true,'a closed popup can be reopened without a native-toggle race');
+const before=warning.popupUpdates;context.document.activeElement=popupAction;view.update(seeds.slice(0,3),1);assert.equal(warning.popupUpdates,before,'reading a popup action must not lose keyboard focus on a refresh');
+context.document.activeElement=null;view.update(seeds.slice(0,3),1);assert.ok(warning.popupUpdates>before);
+warning.events.keydown({originalEvent:{key:' '}});assert.equal(prevented,true);assert.equal(selected,1);
+view.layerSettings.alerts=false;view.update(seeds.slice(0,3),1);assert.equal(warning.classes.has('marker-alert'),false);assert.ok(root.innerHTML.includes('atlas-pin calm selected'));
+// A lake's fill depends on its own state, never the other independent lake.
+const colors={};view.geometry={eachLayer(fn){for(const name of ['石臼湖','玄武湖'])fn({feature:{geometry:{type:'Polygon'},properties:{name}},setStyle(style){colors[name]=style.fillColor}})}};
+view.stations=seeds.slice(6).map(s=>({...s,level:s.index===6?9:s.base}));view.paintWater();assert.notEqual(colors['石臼湖'],colors['玄武湖']);
+// A journey callback may replace/destroy its map during selection.
+const replaced=Object.create(MapView.prototype);Object.assign(replaced,{stations:seeds.slice(0,3),map:{stop(){throw Error('removed map must not be used')}},options:{onSelect(){replaced.dead=true}}});
+replaced.selectWater({geometry:{type:'LineString'},properties:{name:'秦淮河'}},{distanceTo:()=>1});assert.equal(replaced.dead,true);
+console.log('PASS: map warning severity, stable marker focus, popup refresh focus, keyboard Space, exact focus, layer state and independent lake colors');

@@ -1,0 +1,89 @@
+/* A compact simulation desk: one action, one visible consequence. */
+#sandbox-title { scroll-margin-top:100px; }
+.sandbox-heading h2 { margin:0; }
+.rain-presets { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:26px 0 4px; }
+.rain-presets button { border:1px solid #cadcd0;background:#fbfdf9;border-radius:12px;padding:17px 20px;display:grid;grid-template-columns:25px minmax(0,1fr);align-items:center;gap:9px 12px;text-align:left;min-height:90px;font-size:19px;color:#3b706e; }
+.rain-presets svg { width:24px;height:24px; }
+.rain-presets strong { grid-column:2;font-size:27px;font-weight:600;font-variant-numeric:tabular-nums;line-height:1.2; }
+.rain-presets small { font-size:14px;font-weight:400; }
+.rain-presets [aria-pressed=true] { background:#3b7e84;border-color:#3b7e84;color:white;box-shadow:0 5px 16px #28534d12; }
+.rain-presets button:focus-visible,.sandbox-step:focus-visible,.scenario-weather button:focus-visible { outline:2px solid #316e79;outline-offset:3px; }
+.sandbox-controls { margin-bottom:14px; }
+.sandbox-step { border:1px solid #cadcd0;border-radius:8px;min-width:67px;min-height:44px;margin-left:auto;padding:8px;font-size:16px;white-space:nowrap;color:#356c70;background:#fafdf9; }
+.scenario-weather { display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;font-size:17px;color:#456f69;padding-bottom:20px;border-bottom:1px solid #d8e4d9; }
+.scenario-weather button { font-size:16px;min-height:44px;padding:8px 15px;background:#fff;border:1px solid #cdded1;border-radius:8px;color:#3f7978; }
+.scenario-weather button:disabled { opacity:.45;cursor:default; }
+.gate-control { max-width:none;padding:22px 0 10px; }
+.gate-control>span { font-size:15px;color:#6b857b; }
+.gate-control output { font-size:21px;font-variant-numeric:tabular-nums; }
+.lake-simulation-note { font-size:17px;color:#5c7c72;line-height:1.9; }
+#sandbox-result { background:#fff;border:1px solid #dce7dd;border-radius:12px;margin:18px 0 22px;padding:24px; }
+.scenario-idle { min-height:130px;display:flex;align-items:center;justify-content:center;gap:20px;color:#69887a;flex-wrap:wrap; }
+.scenario-idle>svg { width:48px;height:48px;color:#86aaa0;flex-shrink:0; }
+.scenario-idle p { font-size:18px;line-height:1.8;margin:0; }
+.scenario-result-heading { display:flex;align-items:center;justify-content:space-between;gap:15px;flex-wrap:wrap; }
+.scenario-result-heading h3 { margin:0 0 8px;font-size:25px;color:#345e5d; }
+.scenario-result-heading span { font-size:17px;color:#69857b; }
+.scenario-result-heading span strong { color:#3e7577;font-weight:500; }
+.scenario-result-heading button { display:flex;align-items:center;gap:7px;font-size:16px;min-height:44px; }
+.scenario-result-heading button svg { width:18px;height:18px; }
+.scenario-plot { margin:18px 0 3px; }
+.scenario-plot svg { width:100%;height:auto;display:block; }
+.scenario-plot text { font:15px var(--font);fill:#6f837b; }
+.scenario-result-bottom { display:flex;align-items:center;gap:12px 20px;flex-wrap:wrap; }
+.scenario-result-bottom>strong { font-size:29px;line-height:1.5;color:#376a6c;font-variant-numeric:tabular-nums; }
+.scenario-result-bottom small { font-size:15px;font-weight:400;color:#70867d; }
+.gate-effect { font-size:17px;color:#397b75;background:#eaf3ed;padding:5px 10px;border-radius:5px; }
+.plot-reference { font-size:15px;color:#7a847b; }
+@media(max-width:760px) {
+ #sandbox-title { scroll-margin-top:80px; }
+ .sandbox-heading { flex-direction:row;align-items:center; }
+ .sandbox-heading .btn { padding:9px 14px; }
+ .rain-presets { gap:8px;margin-top:22px; }
+ .rain-presets button { display:flex;flex-direction:column;justify-content:center;gap:10px;padding:15px 5px;min-height:125px;text-align:center;font-size:16px; }
+ .rain-presets strong { display:flex;flex-wrap:wrap;justify-content:center;gap:4px;font-size:26px; }
+ .rain-presets small { display:block;width:100%;font-size:12px; }
+ .sandbox-controls { gap:22px; }
+ .playback-control>div { gap:10px; }
+ .playback-control label { font-size:16px; }
+ .playback-control label>span { font-size:14px; }
+ .playback-button { width:40px;height:40px; }
+ .sandbox-step { min-width:58px;font-size:15px; }
+ #sandbox-result { padding:19px 14px; }
+ .scenario-result-heading h3 { font-size:24px; }
+ .scenario-result-heading span { font-size:16px; }
+ .scenario-result-heading button { margin:0; }
+ .scenario-result-bottom>strong { font-size:27px; }
+ .scenario-idle { gap:15px; }
+ .scenario-plot { overflow-x:auto; }
+ .scenario-plot svg { min-width:0; }
+ .scenario-result-bottom small { font-size:14px; }
+ .scenario-weather { gap:8px;font-size:16px; }
+ .flow-topology-note { font-size:14px; }
+}
+/* Keep the consequence next to the controls on a wide screen. */
+.rain-presets strong { display:flex;align-items:baseline;gap:6px;flex-wrap:wrap; }
+.rain-presets strong small { display:inline;width:auto; }
+.rain-control>span:first-child { display:flex;align-items:baseline;gap:8px;flex-wrap:wrap; }
+.rain-control output { margin-left:3px; }
+.rain-control>span:first-child small { display:inline; }
+.sandbox-live { display:grid;grid-template-columns:minmax(0,.85fr) minmax(0,1.15fr);gap:28px;align-items:stretch;margin-top:24px; }
+.sandbox-inputs { min-width:0; }
+.sandbox-controls { grid-template-columns:1fr;gap:22px;margin:0 0 12px; }
+#sandbox-result { min-width:0;margin:0 0 22px;display:flex;flex-direction:column;justify-content:center; }
+.gate-control { padding:18px 0 22px; }
+.sandbox-flow { margin-top:4px; }
+@media(max-width:1000px) {
+ .sandbox-live { grid-template-columns:1fr;gap:8px; }
+ .sandbox-controls { grid-template-columns:1fr 1.3fr;gap:25px; }
+ .scenario-plot svg { min-width:0; }
+}
+@media(max-width:760px) {
+ .sandbox-live { margin-top:24px; }
+ .sandbox-controls { grid-template-columns:1fr;gap:22px; }
+ .rain-presets strong { display:flex;flex-wrap:wrap;justify-content:center;gap:4px; }
+ .rain-presets strong small { display:block;width:100%; }
+ .scenario-plot svg { min-width:0; }
+}
+
+.scenario-plot svg { min-width:0; }

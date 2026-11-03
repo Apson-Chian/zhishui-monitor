@@ -1,0 +1,123 @@
+/* One task at a time, with one shared set of surfaces and controls. */
+.monitor-console{--monitor-line:#d9e4dc;--monitor-surface:#fffefb;--monitor-soft:#f1f5ee;--monitor-ink:#31594f;--monitor-muted:#6a8176;--monitor-radius:16px}
+.monitor-console .page-heading{margin:4px 0 24px}.monitor-console .page-heading p{max-width:none;font-size:15px}
+.monitor-console .monitor-tool-tabs{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));width:100%;max-width:none;margin:0 0 30px;padding:6px;gap:5px;border:1px solid var(--monitor-line);border-radius:12px;background:#eaf1e9}
+.monitor-console .monitor-tool-tabs button{padding:12px 16px;min-height:48px;font-size:17px;white-space:nowrap;border-radius:8px;color:#638073}
+.monitor-console .monitor-tool-tabs [aria-selected="true"]{background:var(--monitor-surface);color:#216d6d;box-shadow:0 1px 5px #375c4410;font-weight:600}
+.monitor-console :is(button,input,select){font-family:inherit}
+.monitor-console .btn{min-height:44px;font-size:15px;padding:10px 16px;border-radius:10px;background:var(--monitor-surface);border:1px solid #cadbd0;color:#37685e;box-shadow:none;white-space:nowrap}
+.monitor-console .btn.primary{background:#287d7e;border-color:#287d7e;color:#fff}
+.monitor-console :is(.panel,.sandbox-panel,.pollution-map-panel,.pollution-point-card,.monitor-location-panel){border:1px solid var(--monitor-line);border-radius:var(--monitor-radius);background:var(--monitor-surface);box-shadow:none}
+.monitor-console :is(h2,h3,p){margin-top:0}.monitor-console h2{font-size:26px;line-height:1.4;color:#31594f}.monitor-console h3{font-size:21px;line-height:1.5;color:#31594f}
+.monitor-workspace-intro{display:flex;align-items:center;justify-content:space-between;gap:20px;margin-bottom:24px}
+.monitor-workspace-intro h2{margin:0 0 7px}.monitor-workspace-intro p{margin:0;color:var(--monitor-muted);font-size:15px;line-height:1.8}
+.monitor-workspace-actions,.monitor-task-footer{display:flex;gap:10px;flex-wrap:wrap}.monitor-task-footer{justify-content:flex-end;margin-top:22px}
+.monitor-location-panel{overflow:visible;margin-bottom:24px}
+.monitor-location-filters{display:grid;grid-template-columns:minmax(150px,220px) minmax(180px,260px) minmax(0,1fr);align-items:end;gap:18px;padding:22px 24px;border-bottom:1px solid var(--monitor-line)}
+.monitor-location-filters label,.monitor-rain-region{display:flex;flex-direction:column;gap:7px;font-size:14px;color:#647c6e;min-width:0}
+.monitor-location-filters select,.monitor-rain-region select,.monitor-console .comparison-controls select{width:100%;height:46px;min-height:46px;padding:9px 13px;margin:0;border:1px solid #ccddd0;border-radius:10px;background:#f6f9f2;color:#355e53;font-size:16px}
+.monitor-region-summary{justify-self:end;align-self:end;padding-bottom:12px;font-size:14px;color:#6d8276;white-space:nowrap}
+.monitor-map-grid{display:grid;grid-template-columns:minmax(0,1fr) 320px;align-items:stretch}
+.monitor-map-stage{min-width:0;border-right:1px solid var(--monitor-line)}
+.monitor-console .atlas-toolbar{display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding:18px 22px;min-height:76px;border:0;background:transparent}
+.monitor-console .atlas-toolbar h3{font-size:20px;margin:0}.monitor-console .atlas-controls{display:flex;align-items:center;gap:12px;width:auto;flex:none}
+.monitor-console .atlas-controls>div{display:flex;border:1px solid #d4e1d7;border-radius:9px;padding:3px;background:#eef4ec}
+.monitor-console .atlas-controls button{min-height:36px;padding:6px 12px;font-size:14px;border:0;background:transparent;color:#628071;border-radius:6px;white-space:nowrap}
+.monitor-console .atlas-controls [aria-pressed="true"]{background:#fffef9;color:#286d66;box-shadow:none}
+.monitor-console .atlas-controls .atlas-reset{border:1px solid #ceded2;background:#fffefb;min-height:40px;border-radius:9px}
+.monitor-console #river-map{height:420px;min-height:0;border:0;border-radius:0;z-index:0}
+.monitor-console .geo-status{padding:9px 22px;margin:0;font-size:13px}.monitor-console .geo-status[hidden]{display:none}
+.monitor-map-footer{display:flex;align-items:center;justify-content:space-between;gap:10px 16px;flex-wrap:wrap;padding:17px 22px}
+.monitor-map-footer .map-legend{position:static;inset:auto;padding:0;display:flex;flex-wrap:wrap;gap:9px 14px;border:0;box-shadow:none;background:transparent;font-size:12px;color:#6a8375}
+.monitor-map-footer .map-legend span{display:flex;align-items:center;gap:5px}.monitor-map-footer .map-legend b{width:17px;height:17px;font-size:11px}
+.monitor-console .layer-menu{font-size:13px}.monitor-console .source-link{font-size:13px;color:#527d70}
+.monitor-selection-panel{background:#f9fbf5;border-radius:0 0 16px 0;min-width:0}
+.monitor-console .selected-water{position:static;inset:auto;width:auto;padding:24px;margin:0;background:transparent;border:0;display:block;box-shadow:none}
+.monitor-console .selected-water-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:10px;margin:0}
+.monitor-console .selected-water-heading h2{font-size:24px;line-height:1.5;margin:4px 0 0}.monitor-card-eyebrow{font-size:12px;color:#7a8c7c}
+.monitor-console .selected-water-heading .hydro-status{margin-top:5px;font-size:12px;white-space:nowrap}
+.monitor-console .water-readings{display:grid;grid-template-columns:1fr;gap:0;margin:22px 0 0}
+.monitor-console .water-readings>div{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:15px 0;border-bottom:1px solid #e1e8dc}
+.monitor-console .water-readings>div>span{display:block;font-size:14px;color:#6b8072;white-space:nowrap}
+.monitor-console .water-readings strong{font:500 29px/1.3 system-ui,sans-serif;color:#315f58;white-space:nowrap}
+.monitor-console .water-readings small{display:inline-block;font:13px/1.5 system-ui,sans-serif;margin:0 0 0 5px;color:#7b8a7b}
+.monitor-console .threshold-distance{margin:20px 0 0;font-size:14px;line-height:1.8;color:#6c8275}
+.monitor-selection-tools{padding:0 24px 24px}.monitor-selection-tools>.btn{display:flex;width:100%;justify-content:center;margin-bottom:18px}
+.monitor-selection-tools .station-profile{font-size:14px;line-height:1.8;margin:0}.monitor-selection-tools .station-profile summary{min-height:36px;cursor:pointer;color:#6c8475}
+.monitor-selection-tools .geo-location-info{display:block;font-size:12px;overflow-wrap:anywhere;line-height:1.8;margin-top:12px}
+.monitor-console .geographic-marker .atlas-pin{animation:none}
+.monitor-console .monitor-trend-panel{margin-bottom:24px;overflow:hidden}.monitor-console .monitor-trend-panel .panel-heading{display:flex;align-items:center;justify-content:space-between;padding:24px 24px 16px;gap:15px}
+.monitor-console .monitor-trend-panel h2{font-size:23px;margin:0}.monitor-console .panel-subtitle{font-size:14px;margin:5px 0 0;color:#7b8c7b}
+.monitor-trend-toolbar{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap;padding:0 24px 12px}
+.monitor-console .segmented{padding:3px;border:1px solid #dbe6da;border-radius:9px;background:#f0f5ed;gap:2px;display:flex;flex-wrap:wrap}
+.monitor-console .segmented button{padding:8px 12px;min-height:36px;font-size:14px;background:transparent;border-radius:6px;color:#6c8475}
+.monitor-console .segmented .active{background:#fffefb;color:#246f69;box-shadow:none}
+.monitor-console .chart-summary{padding-inline:24px;font-size:15px}.monitor-console .chart-summary strong{font-size:30px;font-weight:500}
+.monitor-console .chart-area{height:260px;padding:5px 18px 0}.monitor-console .chart-note{font-size:13px;padding:16px 24px;margin:0}
+.monitor-comparison{border-top:1px solid #e1e8dc;padding:0 24px}.monitor-comparison>summary{min-height:50px;display:list-item;align-content:center;font-size:15px;color:#5a7d6b;cursor:pointer}
+.monitor-console .comparison-controls{display:grid;grid-template-columns:170px minmax(160px,260px) minmax(0,1fr);align-items:center;gap:15px;padding:8px 0 24px;margin:0;border:0;background:transparent}
+.monitor-console .comparison-controls label{font-size:15px;color:#557666}.monitor-console .comparison-controls span{font-size:13px;color:#7a8d7b;line-height:1.8}
+.monitor-station-details>summary{padding:20px 24px;cursor:pointer;font-size:18px;color:#456b59}.monitor-station-details>.panel{border:0;border-radius:0;background:transparent}.monitor-station-details .panel-heading{padding:8px 24px 16px}.monitor-station-details .panel-title h2{font-size:19px}.monitor-console .table-scroll{border-radius:0 0 16px 16px}.monitor-console .station-table :is(td,th){font-size:14px;padding:16px 20px}
+.monitor-rain-region{width:240px;flex-shrink:0}
+.monitor-console .sandbox-panel{margin:0;padding:24px}.monitor-console .sandbox-heading{display:flex;flex-direction:row;align-items:center;justify-content:space-between;gap:16px}
+.monitor-console .sandbox-heading h3{font-size:21px;margin:0}.monitor-console .sandbox-live{grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:24px;margin-top:24px}
+.monitor-console .sandbox-inputs{padding:22px;background:var(--monitor-soft);border:1px solid #e0e8da;border-radius:14px}
+.monitor-console .sandbox-controls{display:grid;grid-template-columns:1fr;gap:22px;margin:0 0 18px}
+.monitor-console .rain-control>span:first-child{font-size:16px}.monitor-console .rain-control output{font:500 28px/1.4 system-ui,sans-serif}
+.monitor-console .range-ends{font-size:12px}.monitor-console .playback-control>div{flex-wrap:wrap;gap:10px}.monitor-console .playback-control label{font-size:15px}.monitor-console .playback-control label>span{font-size:13px}
+.monitor-console .playback-button{display:inline-flex;align-items:center;justify-content:center;gap:8px;width:auto;height:44px;min-width:112px;border-radius:10px;background:#287d7e;color:#fff;padding:10px 14px;font-size:15px;flex-shrink:0}
+.monitor-console .playback-button svg{width:17px;height:17px}.monitor-console .sandbox-step{min-height:40px;min-width:56px;margin-left:auto;border-radius:9px;font-size:14px}
+.monitor-console .scenario-weather{padding-top:0;font-size:14px;border:0;gap:10px;flex-wrap:wrap}.monitor-console .scenario-weather button{min-height:40px;border-radius:9px;padding:8px 12px;font-size:14px}
+.monitor-console .gate-control{margin:20px 0 0;padding:20px;border:1px solid #dae5d8;border-radius:14px;background:#fffefa}.monitor-console .gate-control>label{font-size:16px}.monitor-console .gate-control>span{font-size:12px}
+.monitor-console #sandbox-result{margin:0;min-height:300px;padding:24px;border:1px solid #dce6d8;border-radius:14px;background:#fbfcf7}
+.monitor-console .scenario-idle{min-height:220px;font-size:16px;line-height:1.8}.monitor-console .scenario-result-heading{gap:14px}.monitor-console .scenario-result-heading h3{font-size:23px}.monitor-console .scenario-result-heading>div>span{font-size:14px}
+.monitor-console .scenario-plot svg{width:100%;max-width:100%;min-width:0;height:auto}.monitor-console .scenario-result-bottom>strong{font:500 30px/1.4 system-ui,sans-serif}
+.monitor-console .sandbox-flow{margin-top:24px;gap:12px}.monitor-console .flow-stop{border-radius:10px;background:#f9fbf5;border-color:#d7e3d4;font-size:15px;min-height:48px}.monitor-console .flow-stop.selected{outline:2px solid #63938a;outline-offset:1px}
+.monitor-console .sandbox-insight{font-size:15px;line-height:1.9;margin:20px 0 0}.monitor-console .sandbox-advanced{font-size:13px;margin-top:20px}.monitor-console .sandbox-advanced summary{min-height:40px;align-content:center}
+.monitor-console .lake-simulation-note{font-size:15px;line-height:1.8;color:#6b8171;padding:18px 0 0;margin:0}
+.monitor-record-summary{font-size:14px;color:#6c8575;white-space:nowrap}
+.monitor-record-filters{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px}
+.monitor-record-filters button{display:inline-flex;justify-content:center;align-items:center;gap:10px;min-height:44px;padding:10px 18px;border:1px solid #d6e2d5;border-radius:10px;background:#f4f8f0;color:#5b7c67;font-size:15px}
+.monitor-record-filters button[aria-pressed="true"]{background:#e0eee5;color:#286960;border-color:#87b2a0}.monitor-record-filters button>span{font:12px/1.5 system-ui,sans-serif;color:#7c8d7d}
+.monitor-record-panel{padding:24px}.monitor-console .ledger-tools{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px;margin:0 0 18px;padding:0;color:#768c79;font-size:13px}
+.monitor-console .ledger-tool-actions{width:auto;display:flex;flex-wrap:wrap;gap:9px}.monitor-console .ledger-tool-actions .btn{flex:none}
+.monitor-console .ledger-list{display:grid;gap:12px}.monitor-console .ledger-entry{display:grid;grid-template-columns:42px minmax(0,1fr) auto;gap:12px 16px;align-items:start;padding:22px;border:1px solid #dce5d8;border-radius:13px;background:#fbfcf8}
+.monitor-console .ledger-symbol{width:40px;height:40px;border-radius:11px}.monitor-console .ledger-copy{min-width:0}.monitor-record-type{display:block;font-size:12px;line-height:1.6;color:#7d907c;margin-bottom:4px}
+.monitor-console .ledger-entry h3{font-size:19px;line-height:1.6;margin:0 0 5px}.monitor-console .ledger-entry p{font-size:14px;line-height:1.8;margin:0;color:#708873}.monitor-console .ledger-entry details{font-size:14px;line-height:1.8;margin-top:10px;color:#567c68}.monitor-console .ledger-entry details summary{cursor:pointer;min-height:32px}
+.monitor-console .ledger-status{font-size:12px;white-space:nowrap;justify-self:end;padding:5px 9px;margin:3px 0 0;border-radius:6px}
+.monitor-console .ledger-entry-actions{grid-column:2/-1;display:flex;gap:10px 22px;margin:0;flex-wrap:wrap}.monitor-console .ledger-entry-actions button{min-height:36px;font-size:14px;padding:4px 0;color:#3f7a69}
+.monitor-console .ledger-empty{font-size:16px;line-height:1.9;padding:28px 6px;color:#7c8c7b}
+.monitor-console .pollution-intro{margin-bottom:24px}.monitor-console .pollution-intro h2{font-size:26px}.monitor-console .pollution-intro p{font-size:15px;color:#6a8176}
+.monitor-console .pollution-layout{gap:24px}.monitor-console .pollution-controls,.monitor-console .pollution-profile,.monitor-console .pollution-replay{padding:24px}.monitor-console .pollution-control label{font-size:15px}
+.monitor-console .pollution-map-toolbar h3{font-size:20px}.monitor-console .pollution-map-toolbar{padding:20px 24px}.monitor-console .pollution-metrics>div{background:#f1f5ee;border:1px solid #dce6d6;border-radius:12px}
+.monitor-console .pollution-point-card{padding:24px}.monitor-console .pollution-point-heading{font-size:19px}.monitor-console .pollution-point-card dd{font-size:16px}
+.pollution-record-shortcut{display:flex;justify-content:space-between;align-items:center;gap:18px;padding:24px;margin-top:24px}.pollution-record-shortcut h3{margin:0 0 6px}.pollution-record-shortcut p{margin:0;font-size:14px;color:#6b8373}
+.monitor-console .pollution-record-shortcut #pollution-storage-status:empty{display:none}.monitor-console .pollution-model-details{padding:20px 24px}
+.monitor-console button:focus-visible,.monitor-console select:focus-visible{outline:3px solid #347e85;outline-offset:3px}
+@media(max-width:1100px){.monitor-map-grid{grid-template-columns:minmax(0,1fr) 280px}.monitor-console .selected-water{padding:22px}.monitor-selection-tools{padding:0 22px 22px}.monitor-location-filters{grid-template-columns:minmax(130px,1fr) minmax(170px,1.3fr) auto}.monitor-console .water-readings strong{font-size:27px}.monitor-console .sandbox-live{grid-template-columns:1fr 1fr;gap:18px}.monitor-console .sandbox-inputs,.monitor-console #sandbox-result{padding:20px}}
+@media(max-width:900px){.monitor-map-grid{grid-template-columns:1fr}.monitor-map-stage{border-right:0;border-bottom:1px solid var(--monitor-line)}.monitor-selection-panel{border-radius:0 0 16px 16px}.monitor-console .water-readings{grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:16px}.monitor-console .water-readings>div{display:block;border-bottom:0;padding:8px 0}.monitor-console .water-readings strong{display:block;margin-top:8px;font-size:29px}.monitor-console .water-readings small{margin-left:5px}.monitor-selection-tools{display:flex;gap:20px;align-items:flex-start}.monitor-selection-tools>.btn{width:auto;flex-shrink:0;margin:0}.monitor-selection-tools .station-profile{flex:1}.monitor-console .selected-water{padding-bottom:20px}.monitor-location-filters{grid-template-columns:1fr 1.3fr}.monitor-region-summary{grid-column:1/-1;justify-self:start;padding:0}.monitor-console .sandbox-live{grid-template-columns:1fr}.monitor-console #sandbox-result{min-height:280px}.monitor-console .scenario-idle{min-height:200px}.monitor-console .comparison-controls{grid-template-columns:1fr 1.3fr}.monitor-console .comparison-controls span{grid-column:1/-1}.monitor-console .pollution-controls{display:block;position:static}.monitor-console .pollution-control{margin-bottom:22px}}
+@media(max-width:600px){
+ body[data-page="monitor"] main{padding-top:0}
+ .monitor-overview-intro h2{position:absolute;width:1px;height:1px;padding:0;margin:0;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+ .monitor-console .page-heading{margin-bottom:20px}.monitor-console .page-heading h1{font-size:30px}.monitor-console .page-heading p{font-size:14px;line-height:1.8}
+ .monitor-console .monitor-tool-tabs{padding:4px;gap:2px;margin-bottom:24px;border-radius:10px}.monitor-console .monitor-tool-tabs button{min-height:46px;padding:10px 3px;font-size:14px;letter-spacing:-.02em;border-radius:7px}
+ .monitor-workspace-intro{align-items:flex-start;flex-wrap:wrap;gap:15px;margin-bottom:20px}.monitor-workspace-intro h2,.monitor-console .pollution-intro h2{font-size:24px}.monitor-workspace-intro p{font-size:14px}.monitor-workspace-actions{gap:8px}.monitor-console .btn{font-size:14px;padding:10px 13px}
+ .monitor-location-filters{padding:20px;gap:14px 12px;grid-template-columns:minmax(0,.9fr) minmax(0,1.3fr)}.monitor-location-filters label{font-size:13px}.monitor-location-filters select,.monitor-rain-region select,.monitor-console .comparison-controls select{font-size:15px;padding:9px 10px}.monitor-region-summary{font-size:13px}
+ .monitor-console .atlas-toolbar{padding:16px 18px;gap:12px}.monitor-console .atlas-toolbar h3{font-size:18px}.monitor-console .atlas-controls{gap:8px}.monitor-console .atlas-controls button{padding:6px 9px;font-size:13px;min-height:34px}.monitor-console .atlas-controls .atlas-reset{min-height:40px}
+ .monitor-console #river-map{height:350px}.monitor-map-footer{padding:16px 18px;gap:10px 14px}.monitor-map-footer .map-legend{font-size:11px;gap:9px 11px}.monitor-console .layer-menu,.monitor-console .source-link{font-size:12px}
+ .monitor-console .selected-water{padding:22px 20px 20px}.monitor-console .selected-water-heading h2{font-size:23px}.monitor-console .water-readings{gap:10px}.monitor-console .water-readings strong{font-size:25px}.monitor-console .water-readings small{font-size:12px;margin:3px 0 0;display:block}.monitor-console .water-readings>div>span{font-size:12px}.monitor-console .threshold-distance{font-size:13px;margin-top:12px}
+ .monitor-selection-tools{padding:0 20px 22px;display:block}.monitor-selection-tools>.btn{width:100%;margin-bottom:15px}.monitor-selection-tools .station-profile{font-size:13px}
+ .monitor-console .monitor-trend-panel .panel-heading{padding:22px 20px 16px;gap:12px;flex-wrap:wrap}.monitor-console .monitor-trend-panel h2{font-size:22px}.monitor-trend-toolbar{padding:0 20px 12px;gap:10px}.monitor-console .segmented button{font-size:13px;padding:7px 10px}.monitor-console .live-caption{font-size:12px}.monitor-console .chart-summary{padding-inline:20px}.monitor-console .chart-area{height:240px;padding-inline:8px}.monitor-console .chart-note{font-size:12px;padding:16px 20px;gap:10px;flex-wrap:wrap}
+ .monitor-comparison{padding-inline:20px}.monitor-console .comparison-controls{display:block;padding:0 0 20px}.monitor-console .comparison-controls label{display:block;margin-bottom:8px}.monitor-console .comparison-controls span{display:block;margin-top:10px}.monitor-station-details>summary{padding:19px 20px;font-size:17px}
+ .monitor-rain-region{width:100%}.monitor-console .sandbox-panel{padding:20px 18px}.monitor-console .sandbox-heading h3{font-size:20px}.monitor-console .sandbox-inputs,.monitor-console #sandbox-result{padding:20px 16px}.monitor-console .rain-presets{gap:10px}.monitor-console .rain-presets button{min-height:46px;padding:10px 12px;font-size:17px}.monitor-console .rain-control>span:first-child{font-size:15px}.monitor-console .playback-control label{font-size:14px}.monitor-console .playback-button{font-size:14px;min-width:108px;padding:10px 12px}.monitor-console .gate-control{padding:18px 16px}.monitor-console .gate-control>label{font-size:15px}.monitor-console .gate-control>span{font-size:12px}.monitor-console .scenario-result-heading h3{font-size:22px}.monitor-console .scenario-result-heading>div>span{font-size:13px}.monitor-console .sandbox-flow{gap:10px}.monitor-console .flow-stop{font-size:14px}.monitor-console .sandbox-insight{font-size:14px}.monitor-task-footer{display:grid;grid-template-columns:1fr;gap:10px}.monitor-task-footer .btn{justify-content:center}
+ .monitor-record-summary{font-size:13px}.monitor-record-filters{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}.monitor-record-filters button{font-size:14px;padding:10px;gap:8px}.monitor-record-panel{padding:20px 16px}.monitor-console .ledger-tools{gap:14px;align-items:flex-start}.monitor-console .ledger-tool-actions{width:100%}.monitor-console .ledger-tool-actions .btn{font-size:13px;flex:1;justify-content:center}.monitor-console .ledger-entry{padding:18px 14px;grid-template-columns:32px minmax(0,1fr);gap:10px}.monitor-console .ledger-symbol{width:30px;height:30px;border-radius:8px}.monitor-console .ledger-symbol svg{width:18px;height:18px}.monitor-console .ledger-entry h3{font-size:17px}.monitor-console .ledger-entry p{font-size:13px}.monitor-console .ledger-status{grid-column:2;justify-self:start;margin:0;font-size:12px}.monitor-console .ledger-entry-actions{grid-column:2;gap:8px 18px}.monitor-console .ledger-entry-actions button{font-size:13px}.monitor-record-type{font-size:11px}
+ .monitor-console .pollution-intro{gap:10px;align-items:flex-start}.monitor-console .pollution-intro p{font-size:14px}.monitor-console .pollution-controls,.monitor-console .pollution-profile,.monitor-console .pollution-replay{padding:20px 18px}.monitor-console .pollution-map-toolbar{padding:18px}.monitor-console .pollution-map-toolbar h3{font-size:18px}.monitor-console .pollution-point-card{padding:20px}.monitor-console .pollution-point-heading{font-size:19px}.pollution-record-shortcut{padding:20px;flex-wrap:wrap;gap:15px}.monitor-console .pollution-model-details{padding:20px}.pollution-record-shortcut .btn{width:100%;justify-content:center}
+}
+@media(max-width:900px){
+ .monitor-selection-panel{display:contents}
+ .monitor-map-grid>.monitor-map-stage{grid-column:1;grid-row:2}
+ .monitor-map-grid .selected-water{grid-column:1;grid-row:1;background:#f9fbf5;border-bottom:1px solid var(--monitor-line)}
+ .monitor-map-grid .monitor-selection-tools{grid-column:1;grid-row:3;padding-top:20px;background:#f9fbf5;border-radius:0 0 16px 16px}
+}
+@media(max-width:360px){.monitor-console .monitor-tool-tabs button{font-size:13px}.monitor-console .water-readings strong{font-size:23px}.monitor-console .atlas-controls{justify-content:space-between}.monitor-console .selected-water-heading{flex-wrap:wrap}.monitor-console .playback-control label{font-size:13px}.monitor-console .playback-control label>span{font-size:11px}.monitor-console .sandbox-step{margin-left:0}}
+@media(forced-colors:active){.monitor-console .monitor-tool-tabs [aria-selected="true"],.monitor-record-filters button[aria-pressed="true"]{outline:2px solid Highlight}.monitor-console :is(.panel,.monitor-location-panel,.sandbox-panel){border-color:CanvasText}}

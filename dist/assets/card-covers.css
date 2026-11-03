@@ -1,0 +1,70 @@
+/* Photographic covers and distinct palettes keep the home entries recognizable. */
+.home-discovery-card,.home-task-grid>a {
+  position:relative;isolation:isolate;overflow:hidden;border-radius:18px;
+}
+.home-discovery-card { min-height:236px;align-content:end;row-gap:22px; }
+.home-task-grid>a { min-height:202px;align-content:space-between; }
+.card-cover-image {
+  position:absolute;inset:0;z-index:0;width:100%;height:100%;object-fit:cover;
+  pointer-events:none;
+}
+.photo-cover-card::before {
+  content:'';position:absolute;inset:0;z-index:1;pointer-events:none;
+}
+.home-discovery-icon,.home-discovery-title,.home-discovery-action,
+.home-task-grid .task-symbol,.home-task-grid h3,.home-task-grid strong { position:relative;z-index:2; }
+.home-discovery-card.discovery-city {
+  background:radial-gradient(ellipse at 94% 0%,#c6dfcf 0%,transparent 60%),linear-gradient(125deg,#eef5e7,#dcebdd);
+  border-color:#cedfca;color:#34564b;
+}
+.discovery-city .home-discovery-action { color:#416b59; }
+.discovery-city .home-discovery-icon { color:#537c62;background:#fff9;box-shadow:inset 0 1px 0 #fffc; }
+.home-discovery-card.discovery-knowledge {
+  background:radial-gradient(ellipse at 94% 0%,#f2d29a 0%,transparent 60%),linear-gradient(125deg,#faf3df,#f0dfb9);
+  border-color:#e5d4af;color:#594a2e;
+}
+.discovery-knowledge .home-discovery-icon { color:#876b35;background:#fff9;box-shadow:inset 0 1px 0 #fffc; }
+.discovery-knowledge .home-discovery-action { color:#6d542b; }
+.card-book-art,.card-city-art { position:absolute;z-index:0;right:-12px;top:-30px;width:240px;height:210px;opacity:.19;stroke:currentColor;stroke-width:1.2;pointer-events:none; }
+.card-book-art { color:#a67c34; }
+.card-city-art { color:#527f63; }
+.home-task-grid>a.task-monitor {
+  background:radial-gradient(ellipse at 100% 0%,#61a8b2,transparent 74%),linear-gradient(125deg,#125369,#287c83);
+  border-color:#337e8a;color:#f5fffb;
+}
+.home-task-grid .task-monitor .task-symbol { color:#f0fff8;background:#fff2;box-shadow:inset 0 1px 0 #fff4; }
+.home-task-grid .task-monitor h3,.home-task-grid .task-monitor strong { color:#f5fffb; }
+.card-water-lines { position:absolute;z-index:0;right:-30px;top:-12px;width:80%;height:130%;color:#dcffef;opacity:.24;stroke:currentColor;stroke-width:1;pointer-events:none; }
+.home-task-grid>a.task-ai { background:#1a4359;border-color:#315967;color:#f5fffe; }
+.task-ai .card-cover-image { object-position:68% 48%; }
+.task-ai::before { background:linear-gradient(95deg,#062d3bef 0%,#092a3cbd 53%,#06273833 100%); }
+.home-task-grid .task-ai .task-symbol { color:#e8ffff;background:#fff2;box-shadow:inset 0 1px 0 #fff4; }
+.home-task-grid .task-ai h3,.home-task-grid .task-ai strong { color:#f4ffff; }
+.home-task-grid>a.task-experience {
+  background:radial-gradient(ellipse at 100% 0%,#f5dcd0,transparent 66%),linear-gradient(125deg,#e9edfb,#dbe9f0);
+  border-color:#d0dbe9;color:#354e75;
+}
+.home-task-grid .task-experience .task-symbol { color:#49679c;background:#fffa;box-shadow:inset 0 1px 0 #fff; }
+.home-task-grid .task-experience h3 { color:#354e75; }
+.home-task-grid .task-experience strong { color:#38547d; }
+.task-experience .card-water-lines { color:#587ca5;opacity:.17; }
+.home-discovery-card:focus-visible,.home-task-grid>a:focus-visible { outline:3px solid #277c86;outline-offset:4px; }
+.cover-photo-sources { margin-top:24px;padding-top:20px;border-top:1px solid #d7e3db; }
+.cover-photo-sources h3 { font-size:22px;line-height:1.5; }
+.cover-photo-sources a { text-decoration:underline;text-underline-offset:3px; }
+@media(hover:hover) and (pointer:fine) {
+  .home-discovery-card:hover,.home-task-grid>a:hover { box-shadow:0 10px 28px #233b3614; }
+}
+@media(max-width:760px) {
+  .home-discovery-card { min-height:196px;padding-bottom:24px;row-gap:20px;border-radius:16px; }
+  .home-task-grid>a { min-height:184px; }
+  .card-book-art,.card-city-art { width:190px;height:180px;right:-35px;top:-30px;opacity:.18; }
+}
+@media(max-width:360px) {
+  .home-discovery-card { min-height:180px;padding-bottom:20px; }
+}
+@media(forced-colors:active) {
+  .card-cover-image,.card-book-art,.card-city-art,.card-water-lines,.photo-cover-card::before { display:none; }
+  .home-discovery-card,.home-task-grid>a { border:1px solid CanvasText;color:CanvasText; }
+  .home-discovery-title,.home-discovery-action,.home-task-grid h3,.home-task-grid strong { color:LinkText!important; }
+}

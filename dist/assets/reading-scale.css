@@ -1,0 +1,173 @@
+/* A readable shared scale. Keep the established desktop/mobile typefaces. */
+:root { --reading-body:18px;--reading-control:17px;--reading-small:15px;--reading-h1:38px; }
+body { font-size:var(--reading-body); }
+.nav-link { font-size:18px; }
+.brand { font-size:28px; }
+.page-heading h1,.simple-journey .journey-intro h1 { font-size:var(--reading-h1);line-height:1.4; }
+.page-heading p { font-size:18px; }
+.page-heading p:empty { display:none; }
+.cinematic-copy h1 { font-size:clamp(80px,7vw,96px); }
+.hero-description { font-size:21px;line-height:1.9; }
+.btn,.heading-actions .btn,.real-vision .btn,.vision-panel-heading #detect-button,
+.sandbox-actions .btn,.monitor-more .btn,.ledger-tools .btn { font-size:var(--reading-control);min-height:48px; }
+.btn.text,.hero-secondary { font-size:18px; }
+.hero-primary { font-size:18px; }
+.scroll-cue,.motion-control { font-size:16px; }
+.page-outline a { font-size:16px; }
+.page-outline a>span { font-size:13px; }
+.home-entries h2,.deck-heading h2,.about-section>h2 { font-size:34px;line-height:1.5; }
+.home-task-grid h3,.real-photo-card h3,.feature-card h3 { font-size:28px;line-height:1.5; }
+.home-task-grid p,.real-photo-card p,.feature-card p,.about-hero p,
+.scope-panel p,.dialog-content p { font-size:var(--reading-body);line-height:1.9; }
+.home-task-grid strong { font-size:17px; }
+.photo-credit,.photo-date { font-size:14px;line-height:1.9;color:#5b7975; }
+.knowledge-card h2 { font-size:26px;line-height:1.5; }
+.knowledge-card p { font-size:18px;line-height:1.9; }
+.knowledge-card-bottom button,.filter-tabs button,.search-box input { font-size:17px; }
+.badge { font-size:14px; }
+.knowledge-card .badge { font-size:15px; }
+.intro-note { font-size:16px;line-height:1.9; }
+.topbar #clock,.breadcrumb { display:none; }
+.topbar { justify-content:flex-end; }
+.notification-button { width:40px;height:40px; }
+.point-sidebar h2,.selected-water-heading h2 { font-size:28px; }
+.point-sidebar select,.atlas-controls button,.atlas-controls .atlas-reset { font-size:16px; }
+.point-choice>strong { font-size:18px;min-width:0; }
+.point-number { font-size:15px; }
+.hydro-overview,.threshold-distance { font-size:16px; }
+.hydro-status { font-size:15px; }
+.water-readings>div>span { font-size:16px; }
+.water-readings strong { font-size:40px;line-height:1.4; }
+.water-readings small { font-size:15px; }
+.water-next-action>.btn,.monitor-view-toggle button { font-size:17px; }
+.station-profile,.station-profile summary,.geo-place-details>summary { font-size:16px;line-height:1.9; }
+.atlas-source .source-link,.atlas-source>.map-legend,.layer-menu { font-size:15px; }
+.atlas-pin>span { font-size:14px; }
+.sandbox-heading h2 { font-size:32px; }
+.rain-control>span,.playback-control,.virtual-gate label { font-size:18px; }
+.range-ends,.flow-branch-caption,.comparison-controls>span { font-size:15px; }
+.flow-stop { font-size:17px; }
+.sandbox-insight { font-size:18px;line-height:1.9; }
+.sandbox-advanced,.comparison-controls,.comparison-controls select { font-size:16px;line-height:1.9; }
+.monitor-chart>summary,.monitor-ledger>summary,.monitor-more>summary { font-size:22px; }
+.panel-title h2 { font-size:24px; }
+.panel-subtitle,.chart-summary span { font-size:16px; }
+.segmented button { font-size:16px;min-height:44px; }
+.station-table th { font-size:15px; }
+.station-table td { font-size:16px; }
+.ledger-entry h3 { font-size:21px; }
+.ledger-entry p,.ledger-entry details,.ledger-tools>span,.ledger-status { font-size:15px;line-height:1.85; }
+.ledger-entry-actions button,.inspection-context,.inspection-context button,.inspection-save { font-size:16px; }
+.real-vision .vision-panel-heading { flex-wrap:wrap; }
+.real-vision .vision-panel-heading>h2 { font-size:27px;line-height:1.5; }
+.real-vision .vision-sample strong { font-size:18px; }
+.vision-view-switch button { font-size:16px;min-height:44px; }
+.real-vision .vision-image-meta { font-size:14px;line-height:1.9; }
+.real-vision .vision-consent { font-size:16px;line-height:1.9; }
+.real-vision .vision-summary { font-size:22px;line-height:1.9; }
+.real-vision .vision-result-copy>strong { font-size:22px; }
+.real-vision .vision-result-copy>span,.real-vision .vision-results-empty p,
+.vision-scene-prompt p { font-size:18px;line-height:1.9; }
+.vision-help-copy p { font-size:16px;line-height:1.9; }
+.vision-reading>details>summary { font-size:17px; }
+.simple-task-heading h2 { font-size:32px; }
+.simple-task-heading p,.simple-task-card p,.simple-observation select,.simple-observation textarea { font-size:18px;line-height:1.9; }
+.simple-task-card h3 { font-size:28px; }
+.simple-journey .journey-steps button { font-size:19px; }
+.simple-journey .journey-steps button>span { font-size:14px; }
+.simple-progress,.journey-local { font-size:16px; }
+.rain-compare-card h3 { font-size:25px; }
+.rain-compare-card>span,.rain-compare-card small { font-size:16px; }
+.task-success,.compare-action .task-success,.simple-observation label { font-size:18px;line-height:1.9; }
+.simple-experiment-options,.simple-journey .model-details { font-size:16px;line-height:1.9; }
+.scope-row { font-size:17px;line-height:1.8; }
+.scope-panel h3 { font-size:26px; }
+#dialog h2 { font-size:32px; }
+#dialog p { font-size:19px;line-height:1.9; }
+#dialog .article-tip { font-size:17px;line-height:1.9; }
+.site-footer .footer-columns h2 { font-size:20px; }
+.site-footer a:not(.footer-brand),.site-footer button { font-size:18px;min-height:44px; }
+.footer-resources p { font-size:16px; }
+.footer-base { font-size:14px; }
+.site-footer .footer-base button { font-size:16px; }
+.dock-label { font-size:16px; }
+.opening-chapter p { font-size:20px;line-height:1.95; }
+.opening-eyebrow { font-size:17px; }
+.opening-bottom { justify-content:flex-end; }
+.opening-bottom nav button { font-size:16px; }
+.opening-tools button { font-size:16px; }
+@media(min-width:761px) and (max-width:1200px) {
+  .cinematic-copy h1 { font-size:80px; }
+}
+@media(max-width:760px) {
+  :root { --reading-h1:34px; }
+  body { font-size:18px; }
+  .sidebar .brand { font-size:24px; }
+  .nav-link { font-size:18px; }
+  .cinematic-copy h1 { font-size:clamp(50px,14vw,64px); }
+  .hero-description { font-size:18px; }
+  .cinematic-actions { flex-wrap:wrap;gap:16px; }
+  .hero-primary { font-size:17px;min-height:50px; }
+  .hero-secondary { font-size:17px;min-height:48px; }
+  .home-entries h2,.deck-heading h2,.about-section>h2 { font-size:30px; }
+  .home-task-grid h3,.real-photo-card h3,.feature-card h3 { font-size:26px; }
+  .page-outline a { font-size:16px; }
+  .knowledge-card h2 { font-size:26px; }
+  .knowledge-card p { font-size:18px; }
+  .filter-tabs button { font-size:16px; }
+  .point-sidebar select { font-size:17px; }
+  .atlas-controls { gap:8px;flex-wrap:wrap; }
+  .atlas-controls button,.atlas-controls .atlas-reset { font-size:16px; }
+  .selected-water-heading { flex-wrap:wrap; }
+  .water-readings { gap:12px; }
+  .water-readings strong { font-size:36px; }
+  .water-readings small { font-size:14px;display:block; }
+  .sandbox-heading { flex-wrap:wrap; }
+  .sandbox-heading h2 { font-size:30px; }
+  .sandbox-actions { flex-wrap:wrap; }
+  .monitor-view-toggle button { font-size:17px; }
+  .ledger-entry h3 { font-size:20px; }
+  .ledger-entry-actions { flex-wrap:wrap; }
+  .real-vision .vision-panel-heading>h2 { font-size:25px; }
+  .real-vision .vision-panel-heading #detect-button { font-size:17px; }
+  .real-vision .vision-sample strong { font-size:18px; }
+  .real-vision .vision-summary { font-size:21px; }
+  .simple-task-heading h2 { font-size:29px; }
+  .simple-task-card h3 { font-size:26px; }
+  .simple-journey .journey-steps button { font-size:17px; }
+  .simple-task-card { padding:24px; }
+  .simple-observation label { font-size:18px; }
+  .rain-compare-card h3 { font-size:22px; }
+  .rain-compare-card>span,.rain-compare-card small { font-size:15px; }
+  .scope-row { font-size:16px; }
+  #dialog h2 { font-size:29px; }
+  #dialog p { font-size:18px; }
+  .site-footer a:not(.footer-brand),.site-footer button { font-size:17px; }
+  .site-footer .footer-columns h2 { font-size:19px; }
+  .footer-resources p { font-size:15px; }
+  .footer-base { font-size:13px; }
+  .site-footer .footer-base button { font-size:15px; }
+  .mobile-tab { font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif;font-size:12px;min-height:52px;font-weight:500; }
+  .opening-chapter p { font-size:19px;line-height:1.9; }
+  .opening-tools { gap:14px; }
+  .opening-tools button { font-size:14px; }
+}
+@media(max-width:450px) {
+  .real-vision .vision-samples { grid-template-columns:1fr; }
+  .real-vision .vision-sample { display:flex;align-items:center;gap:14px; }
+  .real-vision .vision-sample img { width:68px;height:48px;object-fit:cover; }
+}
+@media(max-width:380px) {
+  .page-heading .heading-actions:has(.monitor-view-toggle) { grid-template-columns:1fr; }
+  .monitor-view-toggle { width:100%; }
+}
+@media(max-width:360px) {
+  .water-readings { grid-template-columns:1fr; }
+  .water-readings>div { border-right:0;border-bottom:1px solid #e0e9e1;padding:0 0 12px; }
+  .water-readings small { display:inline;margin-left:6px; }
+  .opening-chapter p { font-size:18px; }
+}
+
+.site-footer .footer-navigation { font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei","Noto Sans CJK SC",sans-serif; }
+.site-footer .footer-navigation a { font-size:16px; }
+@media(max-width:760px) { .site-footer .footer-navigation a { font-size:15px; } }

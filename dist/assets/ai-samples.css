@@ -1,0 +1,32 @@
+/* Six real photographs, with selection separate from starting analysis. */
+.vision-samples-heading { padding:4px 22px 14px; }
+.vision-samples-heading h3 { margin:0;font-size:21px;line-height:1.5;color:#315e62; }
+.real-vision .vision-samples { grid-template-columns:repeat(3,minmax(0,1fr));gap:14px; }
+.real-vision .vision-sample {
+  position:relative;display:flex;flex-direction:column;align-items:stretch;
+  gap:10px;padding:10px;min-width:0;background:#fff;border-radius:12px;
+}
+.real-vision .vision-sample img { display:block;width:100%;height:auto;aspect-ratio:16/10;object-fit:cover;border-radius:7px; }
+.real-vision .vision-sample strong { font-size:17px;line-height:1.6; }
+.real-vision .vision-sample.active { border-color:#38868b;background:#eaf4ed;box-shadow:inset 0 0 0 1px #38868b; }
+.real-vision .vision-sample-check { display:none; }
+.real-vision .vision-sample.active .vision-sample-check {
+  position:absolute;top:17px;right:17px;display:grid;place-items:center;
+  width:25px;height:25px;border-radius:50%;background:#267e83;color:#fff;
+  border:2px solid #fff;font-size:15px;line-height:1;box-shadow:0 2px 8px #1a46452b;
+}
+.real-vision .vision-sample:focus-visible { outline:3px solid #367f87;outline-offset:3px; }
+@media(max-width:1100px) {
+  .real-vision .vision-samples { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:760px) {
+  .vision-samples-heading { padding-inline:16px; }
+  .vision-samples-heading h3 { font-size:20px; }
+  .real-vision .vision-samples { gap:12px; }
+  .real-vision .vision-sample strong { font-size:16px; }
+}
+@media(max-width:360px) {
+  .real-vision .vision-sample { padding:8px;gap:8px; }
+  .real-vision .vision-sample strong { font-size:15px; }
+}
+.real-vision [data-ai-scene="coast"] img { object-position:50% 75%; }
