@@ -1,0 +1,83 @@
+/* Small optical surfaces: native input, clear foreground, refracted background. */
+:root{--control-glass:rgb(255 255 255 / 34%);--control-shadow:0 8px 20px #254b4c16,0 2px 4px #254b4c14,inset 0 1px 1px #fffffff0,inset 0 -1px 2px #456e7126;--control-filter:blur(3px) saturate(125%)}
+:root [data-glass-control][data-glass-control]{
+ isolation:isolate;border:1px solid #ffffffc7;border-radius:999px;
+ background:linear-gradient(155deg,#ffffff75,transparent 56%),var(--control-glass);color:#294f55;
+ box-shadow:var(--control-shadow);-webkit-backdrop-filter:var(--liquid-lens-filter,var(--control-filter));backdrop-filter:var(--liquid-lens-filter,var(--control-filter));
+ font-family:var(--font);touch-action:manipulation;transition:transform 160ms var(--ease-out);
+}
+[data-glass-position="relative"]{position:relative}
+:root [data-glass-control]:is(.btn,.hero-secondary){min-height:44px;padding:10px 20px}
+:root [data-glass-control].hero-secondary{gap:9px}.hero-secondary[data-glass-control] .play-orbit{width:27px;height:27px;border:0;background:transparent}
+:root [data-glass-control]:is(.primary,.playback-button),:root .detail-card-footer .btn[data-glass-control]{
+ background:linear-gradient(155deg,#ffffff36,transparent 65%),rgb(30 104 117 / 86%);color:#fff;border-color:#f0ffff80;
+ box-shadow:0 9px 22px #21586725,0 2px 5px #21586720,inset 0 1px 1px #ffffffa8,inset 0 -1px 2px #14363d47;
+}
+.btn.primary.hero-primary[data-glass-control]{background:linear-gradient(155deg,#ffffff36,transparent 65%),rgb(30 104 117 / 86%)!important;border-color:#f0ffff80!important;color:#fff!important}
+:root .rain-presets [data-glass-control]{font-size:18px;min-height:48px;padding:10px 12px;gap:6px}
+:root :is(.rain-presets,.lab-rain-presets,.monitor-record-filters,.vision-view-switch,.atlas-controls) [data-glass-control][aria-pressed="true"],
+:root [data-glass-control][aria-selected="true"],:root .segmented [data-glass-control].active,:root .filter-tabs [data-glass-control].active{
+ background:linear-gradient(155deg,#ffffffa6,transparent 70%),#d4e9e4a6;border-color:#7bafa9b3;color:#225e63;
+ box-shadow:0 5px 12px #2c5d5a17,inset 0 1px 1px #fff,inset 0 -2px 2px #327e7b20;
+}
+:root .monitor-tool-tabs [data-glass-control]{border-radius:999px}
+:root [data-glass-control].btn.text{box-shadow:inset 0 1px 1px #ffffffad,0 2px 6px #254b4c0a;background:#ffffff26}
+/* The colour fringe stays at the edge; the label never passes through a filter. */
+[data-glass-control]::before{content:'';position:absolute;inset:0;border-radius:inherit;z-index:-1;pointer-events:none;background:radial-gradient(ellipse at var(--press-x,35%) var(--press-y,20%),#ffffffad,transparent 64%);opacity:0;transition:opacity 160ms var(--ease-out)}
+[data-glass-control]::after,[data-glass-thumb]::before{
+ content:'';position:absolute;inset:-1px;padding:2px;border-radius:inherit;pointer-events:none;
+ background:conic-gradient(from 25deg at var(--press-x,50%) 50%,#8adcf5,#b1c2ff 18%,#e6b7d6 34%,#f5daaf 49%,#c2eee2 67%,#7ecde7 83%,#8adcf5);
+ -webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;
+ opacity:0;transition:opacity 160ms var(--ease-out);
+}
+:root [data-glass-control][data-glass-pressed]{transform:scale(.97);box-shadow:0 3px 9px #254b4c23,inset 0 1px 2px #fff,inset 0 -2px 5px #346f7b35}
+[data-glass-control][data-glass-pressed]::before{opacity:.7}
+[data-glass-pressed]::after,[data-glass-thumb][data-glass-pressed]::before{opacity:.85}
+:root [data-glass-control][data-glass-keyboard]{transform:none;transition:none}
+:root [data-glass-control]:focus-visible{outline:2px solid #277a8d;outline-offset:4px}
+:root [data-glass-control]:disabled,:root [data-glass-control][aria-disabled="true"]{opacity:.45;cursor:default;transform:none;box-shadow:inset 0 1px 0 #fff8;-webkit-backdrop-filter:none;backdrop-filter:none}
+@media(hover:hover) and (pointer:fine){:root [data-glass-control]:not(:disabled):not([aria-disabled="true"]):not([data-glass-pressed]):hover{box-shadow:0 10px 24px #254b4c22,0 2px 5px #254b4c18,inset 0 1px 1px #fff,inset 0 -1px 2px #456e7126}}
+/* A native range is the hit target and keyboard control; its optical thumb is decorative. */
+.liquid-range{display:block;position:relative;isolation:isolate;min-width:0;height:48px;margin:8px 0 2px}
+.liquid-range>input[type="range"]{position:absolute;z-index:2;inset:0;display:block;width:100%!important;height:48px!important;min-height:48px!important;margin:0!important;padding:0!important;border:0;border-radius:24px;background:transparent;-webkit-appearance:none;appearance:none;cursor:grab;touch-action:pan-y;box-shadow:none}
+.liquid-range>input[type="range"]::-webkit-slider-runnable-track{height:8px;background:transparent;border:0}
+.liquid-range>input[type="range"]::-webkit-slider-thumb{-webkit-appearance:none;appearance:none;width:40px;height:30px;margin-top:-11px;border:0;background:transparent;box-shadow:none;opacity:0}
+.liquid-range>input[type="range"]::-moz-range-track{height:8px;background:transparent;border:0}
+.liquid-range>input[type="range"]::-moz-range-progress{background:transparent}
+.liquid-range>input[type="range"]::-moz-range-thumb{width:40px;height:30px;border:0;background:transparent;box-shadow:none;opacity:0}
+.liquid-range-rail{position:absolute;left:20px;right:20px;top:50%;height:8px;transform:translateY(-50%);border:1px solid #7f9f9e30;border-radius:999px;background:#628e8e20;box-shadow:inset 0 1px 3px #254b4c1c,0 1px 0 #ffffffbd;pointer-events:none}
+.liquid-range-fill{position:absolute;inset:-1px;border-radius:inherit;background:linear-gradient(90deg,#367d8b,#6dacae);transform:scaleX(var(--range-ratio,0));transform-origin:left center;box-shadow:inset 0 1px 1px #ffffff66}
+.liquid-range-thumb{position:absolute;top:50%;left:var(--range-progress,0%);width:40px;height:30px;transform:translate(-50%,-50%);border-radius:999px}
+.liquid-range-thumb,.gate-slider-thumb[data-glass-thumb]{border:1px solid #ffffffe6;background:linear-gradient(145deg,#ffffff94,#ffffff24 55%,#a5d9dc24);box-shadow:0 6px 14px #2c4b572e,0 2px 4px #2c4b5726,inset 0 1px 1px #fff,inset 0 -1px 2px #275f6b30;-webkit-backdrop-filter:var(--liquid-lens-filter,var(--control-filter));backdrop-filter:var(--liquid-lens-filter,var(--control-filter));transition:transform 160ms var(--ease-out)}
+.liquid-range-thumb::after{content:'';position:absolute;left:25%;right:25%;top:6px;height:1px;background:#ffffffdf;box-shadow:0 14px 0 #4a8f9c26;pointer-events:none}
+.gate-slider-rail{height:8px;border:1px solid #7f9f9e30;background:#628e8e20;box-shadow:inset 0 1px 3px #254b4c1c,0 1px 0 #ffffffbd}
+.gate-slider-fill{background:linear-gradient(90deg,#367d8b,#6dacae);box-shadow:inset 0 1px 1px #ffffff66}
+.gate-slider-thumb[data-glass-thumb]{width:52px;height:42px;border-radius:999px}
+.gate-slider-thumb[data-glass-thumb]::after{height:17px;width:3px;background:#356b756b}
+[data-glass-range][data-glass-dragging] [data-glass-thumb]{transform:translate(-50%,-50%) scale(1.08);box-shadow:0 9px 20px #2c4b573b,0 2px 5px #2c4b5726,inset 0 1px 2px #fff,inset 0 -1px 3px #6ba9bb59}
+#sandbox-gate:active+.gate-slider-rail .gate-slider-thumb[data-glass-thumb]{transform:translate(-50%,-50%) scale(1.08)}
+.liquid-range>input[type="range"]:focus-visible{outline:2px solid #277a8d;outline-offset:2px}
+.liquid-range>input[type="range"]:active{cursor:grabbing}
+[data-glass-range][data-glass-disabled]{opacity:.42}
+[data-glass-range][data-glass-disabled] input{cursor:default}
+@media(max-width:560px){.monitor-console .rain-presets{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.monitor-console .rain-presets .rain-preset-unit{font-size:12px}}
+@media(prefers-reduced-motion:reduce){:root [data-glass-control],.liquid-range-thumb,.gate-slider-thumb[data-glass-thumb]{transition:none}:root [data-glass-control][data-glass-pressed]{transform:none}[data-glass-range][data-glass-dragging] [data-glass-thumb],#sandbox-gate:active+.gate-slider-rail .gate-slider-thumb[data-glass-thumb]{transform:translate(-50%,-50%)}[data-glass-control]::before,[data-glass-control]::after,[data-glass-thumb]::before{transition:none}}
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more){
+ :root [data-glass-control][data-glass-control],.liquid-range-thumb,.gate-slider-thumb[data-glass-thumb]{background:#f5f8f7;border-color:#72938e;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+ :root [data-glass-control]:is(.primary,.playback-button),.btn.primary.hero-primary[data-glass-control]{background:#286f76!important;color:#fff}
+ [data-glass-control]::before,[data-glass-control]::after,[data-glass-thumb]::before{display:none}
+}
+:is([data-glass-effects="off"],[data-glass-solid]) :is([data-glass-control],[data-glass-thumb]){-webkit-backdrop-filter:none!important;backdrop-filter:none!important;background-color:#f5f8f7}
+:is([data-glass-effects="off"],[data-glass-solid]) [data-glass-control]:is(.primary,.playback-button),:is([data-glass-effects="off"],[data-glass-solid]) .btn.primary.hero-primary[data-glass-control]{background:#286f76!important;color:#fff}
+:is([data-glass-effects="off"],[data-glass-solid]) :is([data-glass-control],[data-glass-thumb])::before,:is([data-glass-effects="off"],[data-glass-solid]) [data-glass-control]::after{display:none}
+@supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){:root{--control-glass:#f5f8f7}.liquid-range-thumb,.gate-slider-thumb[data-glass-thumb]{background:#f5f8f7}[data-glass-control]::before,[data-glass-control]::after,[data-glass-thumb]::before{display:none}}
+@media(forced-colors:active){
+ :root [data-glass-control][data-glass-control]{background:ButtonFace!important;border-color:ButtonText!important;color:ButtonText!important;box-shadow:none!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
+ :root [data-glass-control][aria-pressed="true"],:root [data-glass-control][aria-selected="true"]{border-color:Highlight!important;outline:1px solid Highlight}
+ [data-glass-control]::before,[data-glass-control]::after,[data-glass-thumb]::before,.liquid-range-rail{display:none}
+ .liquid-range>input[type="range"]{-webkit-appearance:auto;appearance:auto;accent-color:Highlight}
+ .liquid-range>input[type="range"]::-webkit-slider-thumb{-webkit-appearance:auto;appearance:auto;opacity:1;background:ButtonText}
+ .liquid-range>input[type="range"]::-moz-range-thumb{opacity:1;background:ButtonText}
+ .liquid-range>input[type="range"]::-webkit-slider-runnable-track{background:CanvasText}
+ .liquid-range>input[type="range"]::-moz-range-track{background:CanvasText}
+}

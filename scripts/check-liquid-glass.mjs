@@ -34,8 +34,35 @@ try{
  await page.waitForFunction(()=>!document.querySelector('#rim-card').hasAttribute('data-liquid-lens'));
  assert.equal(await card.evaluate(element=>getComputedStyle(element).backdropFilter),'none','explicit fallback stops the filter');
  await page.evaluate(()=>{document.querySelector('#rim-regression').remove();delete document.documentElement.dataset.glassEffects});
+ // Suppress all CSS colour decoration: only displacement of the real grey backdrop may add colour.
+ await page.evaluate(()=>{
+  const fixture=document.createElement('div');fixture.id='optical-regression';fixture.style.cssText='position:fixed;left:30px;top:130px;width:560px;height:300px;z-index:9000;background:repeating-linear-gradient(90deg,#333 0 14px,#ddd 14px 28px)';
+  fixture.innerHTML='<button type="button" class="btn" id="optical-button" style="position:absolute;left:100px;top:40px;width:320px;height:90px;border-radius:45px;background:#ffffff20;border:0;box-shadow:none"><span>水位与流量</span></button><style>#optical-button::before,#optical-button::after{display:none!important}</style>';
+  document.querySelector('#main').append(fixture);
+ });
+ await page.waitForFunction(()=>document.querySelector('#optical-button').hasAttribute('data-liquid-lens'));
+ const optical=page.locator('#optical-regression'),button=page.locator('#optical-button'),labelBox=await button.locator('span').boundingBox();
+ const resting=await optical.screenshot();await button.hover();await page.mouse.down();
+ assert.equal(await button.getAttribute('data-glass-pressed'),'');assert.deepEqual(await button.locator('span').boundingBox(),labelBox,'reduced-motion press leaves the label fixed');
+ const pressed=await optical.screenshot();await page.mouse.up();assert.equal(await button.getAttribute('data-glass-pressed'),null);
+ const fringe=await page.evaluate(async urls=>{
+  const counts=[];
+  for(const url of urls){const image=new Image();image.src=url;await image.decode();const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;const context=canvas.getContext('2d');context.drawImage(image,0,0);const data=context.getImageData(0,0,image.width,image.height).data;let count=0;for(let y=60;y<110;y++)for(let x=110;x<130;x++){const i=(y*560+x)*4;if(Math.max(data[i],data[i+1],data[i+2])-Math.min(data[i],data[i+1],data[i+2])>8)count++}counts.push(count)}return counts;
+ },[resting,pressed].map(buffer=>'data:image/png;base64,'+buffer.toString('base64')));
+ assert(fringe[1]>fringe[0]+100,'press separates RGB background channels at the rim, without CSS colour decoration');
+ // A translucent backdrop root must not become greyer when its three channels recombine.
+ await optical.evaluate(el=>{el.style.background='#ffffff40';el.style.backdropFilter='blur(1px)'});
+ const alphaRest=await optical.screenshot(),originalFilter=await button.evaluate(el=>el.style.getPropertyValue('--liquid-lens-filter'));
+ await button.evaluate(el=>el.style.setProperty('--liquid-lens-filter','blur(3px) saturate(125%)'));
+ const alphaPlain=await optical.screenshot();await button.evaluate((el,value)=>el.style.setProperty('--liquid-lens-filter',value),originalFilter);
+ const alphaDifference=await page.evaluate(async urls=>{
+  const arrays=[];for(const url of urls){const image=new Image();image.src=url;await image.decode();const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;const context=canvas.getContext('2d');context.drawImage(image,0,0);arrays.push(context.getImageData(0,0,image.width,image.height).data)}
+  let sum=0;for(let y=65;y<100;y++)for(let x=180;x<340;x++)for(let k=0;k<3;k++){const i=(y*560+x)*4+k;sum+=Math.abs(arrays[0][i]-arrays[1][i])}return sum/(35*160*3);
+ },[alphaRest,alphaPlain].map(buffer=>'data:image/png;base64,'+buffer.toString('base64')));
+ assert(alphaDifference<1,'recombining RGB preserves translucent backdrop alpha');
+ await page.evaluate(()=>document.querySelector('#optical-regression').remove());
  await page.locator('[data-open-gallery]').click();
  assert.equal(await page.locator('#dialog').evaluate(element=>element.open),true,'glass does not intercept the gallery button');
  await page.keyboard.press('Escape');assert.deepEqual(errors,[]);
- console.log('PASS: background pixels bend only at the rim, clear foreground, material-off fallback and gallery interaction',JSON.stringify(difference));
+ console.log('PASS: background pixels bend only at the rim, press refracts background RGB channels, clear foreground and translucent alpha, material-off fallback and gallery interaction',JSON.stringify({difference,fringe,alphaDifference}));
 }finally{await browser.close()}

@@ -1,3 +1,18 @@
+# 当前分支站 · 玻璃按钮与滑条（5.14.3）
+
+- 日期：2026-11-03，Asia/Shanghai。
+- 地址：https://apsonchian.ltd/zhishui-glass/ ，分支codex/liquid-glass。
+- 发布：20261103-optical-controls-v47；前版20261103-songti-entrances-v46。
+- 发布包SHA-256：7a17583c96badaf795a3e9cf95f4f3d4876d2ba5733f9d216d69f4b835bc0750；运行文件177个。
+- 目录：/var/www/zhishui-glass/releases/20261103-optical-controls-v47；备份：/var/backups/zhishui-glass/20261103-optical-controls-v47。
+
+新增liquid-controls.css/js，共用按钮、分段选择、雨强预设和原生滑条的玻璃材质与立即按压反馈。Chromium使用实际背景RGB通道边缘位移，保留半透明alpha；其他引擎采用CSS磨砂和彩色高光回退。阴影、高光、圆润轮廓和手机双列预设统一。滑条保持原生输入、键盘、焦点、禁用、触屏与连续回放同步；减少动态、透明、高对比及关闭材质的回退保留。此轮不更改网关、AI接口、水文模型或main分支。
+
+本机功能与三浏览器、触屏和像素验收通过，详见qa/VERIFICATION.md。已发布20261103-optical-controls-v47。安装器177文件、Nginx及既有站点健康核验通过；正式HTTPS逐项177文件与本地一致，网络重试0次，规范跳转与缺失资源404正常。Chromium在正式站1440/390/320px通过原生拖动、键盘、播放同步、换页、取消按压与回退检查，无横向溢出或页面脚本错误。
+
+---
+历史发布记录：
+
 # 当前分支站 · 宋体与清透入口（5.14.2）
 
 - 日期：2026-11-03，Asia/Shanghai。
