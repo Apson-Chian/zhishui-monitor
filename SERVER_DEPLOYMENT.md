@@ -1,3 +1,18 @@
+# 当前分支站 · 宋体与清透入口（5.14.2）
+
+- 日期：2026-11-03，Asia/Shanghai。
+- 地址：https://apsonchian.ltd/zhishui-glass/ ，分支codex/liquid-glass。
+- 发布：20261103-songti-entrances-v46；前版20261103-songti-entrances-v45。
+- 发布包SHA-256：3b3f8ab3868273de349bda9024092ad2f31432c011381349c6e1b4c4089c7491；运行文件175个。
+- 目录：/var/www/zhishui-glass/releases/20261103-songti-entrances-v46；备份：/var/backups/zhishui-glass/20261103-songti-entrances-v46。
+
+5.14.2：液态玻璃版电脑与手机均恢复自托管宋体。首页“南京实景 / 水利知识”移除共用照片底纹与浑浊色块，改为清透紧凑入口；电脑双列，560px及以下单列，整卡点击和历史/文章弹层保持正常。仅更新codex/liquid-glass及独立站 https://apsonchian.ltd/zhishui-glass/ 。
+
+npm run check通过。本机Chromium/WebKit/Firefox在1440/768/390/320px检查字体加载、布局与图库/文章/降雨入口正常，无溢出和脚本错误。安装器175文件、Nginx、共用网关和既有站点检查通过。正式HTTPS的175个运行文件与本地逐项一致，跳转、缺失资源404及既有站点健康检查通过；Chromium在1440/390/320px确认宋体（含导航）、入口布局、图库/文章及降雨操作正常，无溢出或页面脚本错误。
+
+---
+历史发布记录：
+
 # 当前分支站 · AI恢复与降雨操作（5.14.1）
 
 - 日期：2026-11-03，Asia/Shanghai。

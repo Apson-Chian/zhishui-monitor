@@ -1,8 +1,9 @@
 /* Branch material: translucent reading surfaces, clear controls and a restrained rim. */
-:root{--font:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif;--page:#edf3f1;--ink:#203e43;--muted:#58706f;--line:#638e862b;--glass-solid:#f5f8f7;--glass-tint:rgb(249 253 252 / 58%);--glass-dense:rgb(250 253 252 / 78%);--glass-edge:rgb(255 255 255 / 80%);--glass-shadow:0 12px 34px #193e4510,0 2px 5px #193e4506,inset 0 1px 1px #fff,inset 0 -1px 1px #467d7812;--glass-filter:blur(18px) saturate(112%)}
+:root{--font:"Zhishui Songti","Songti SC","STSong","SimSun","Noto Serif CJK SC",serif;--page:#edf3f1;--ink:#203e43;--muted:#58706f;--line:#638e862b;--glass-solid:#f5f8f7;--glass-tint:rgb(249 253 252 / 58%);--glass-dense:rgb(250 253 252 / 78%);--glass-edge:rgb(255 255 255 / 80%);--glass-shadow:0 12px 34px #193e4510,0 2px 5px #193e4506,inset 0 1px 1px #fff,inset 0 -1px 1px #467d7812;--glass-filter:blur(18px) saturate(112%)}
 body{background:#edf3f1 url('./water-light.svg') center top/1600px 1100px repeat-y;background-attachment:fixed;color:var(--ink)}
-h1,h2,h3,.knowledge-title{font-family:var(--font);letter-spacing:-.025em;font-weight:600}
-.cinematic-copy h1,.page-heading h1,.knowledge-heading h1,.lab-heading h1{font-weight:600;letter-spacing:-.045em}
+.mobile-tab,.site-footer .footer-navigation,.rain-presets .rain-preset-unit,.pollution-profile svg text,.pollution-metrics small,.pollution-point-card dd{font-family:var(--font)}
+h1,h2,h3,.knowledge-title{font-family:var(--font);letter-spacing:0;font-weight:600}
+.cinematic-copy h1,.page-heading h1,.knowledge-heading h1,.lab-heading h1{font-weight:600;letter-spacing:0}
 .sidebar{background:rgb(249 253 252 / 70%);border-color:#638e861c;box-shadow:0 1px 0 #fff8;-webkit-backdrop-filter:blur(22px) saturate(112%);backdrop-filter:blur(22px) saturate(112%)}
 .nav-link{font-weight:450;color:#52706f}.nav-link.active{font-weight:600}.nav-link.active::after{height:2px;box-shadow:none}
 .cinematic-hero,.home-discovery,.home-entries{background:transparent}
@@ -38,19 +39,20 @@ h1,h2,h3,.knowledge-title{font-family:var(--font);letter-spacing:-.025em;font-we
 .monitor-console :is(select,input:not([type=range]):not([type=checkbox])),.lab-controls input:not([type=range]),.lab-observation-form :is(select,textarea),.knowledge-heading .search-box{background:rgb(255 255 255 / 54%);border-color:#8ca99d4d;border-radius:11px;color:#244e4e;box-shadow:inset 0 1px 1px #fff}
 .monitor-selection-meta .detail-card-trigger,.monitor-console .monitor-record-filters button{background:rgb(255 255 255 / 40%);border-color:#7e9e8d30}
 .monitor-record-filters button[aria-pressed="true"]{background:#d3e9e1b3;color:#245d5a;border-color:#679e8e66}
-/* A single real photograph sits behind the two home entrances. */
-.home-discovery{position:relative;gap:20px;padding-top:44px;padding-bottom:22px}
-.home-discovery::before{content:'';position:absolute;inset:44px max(var(--gutter),calc((100vw - var(--content-width))/2)) 22px;border-radius:30px;background:linear-gradient(100deg,#e7f2ebd9,#eaf3f0ab),url('./photos/qinhuai.jpg') center 54%/cover;pointer-events:none}
-.home-discovery-card{z-index:1;isolation:auto;min-height:190px;padding:28px 32px;row-gap:24px;background:linear-gradient(132deg,#ffffff45,#f7fffc26);color:#244d50}
-.home-discovery-card.discovery-city,.home-discovery-card.discovery-knowledge{background:linear-gradient(132deg,#ffffff45,#f7fffc26);border-color:#fffc;color:#244d50}
-.home-discovery-title{font-size:26px;font-weight:600;letter-spacing:-.03em}
-.home-discovery-icon,.discovery-city .home-discovery-icon,.discovery-knowledge .home-discovery-icon{color:#336c6b;background:#ffffff69;border:1px solid #ffffffb3;box-shadow:inset 0 1px 1px #fff;border-radius:17px}
-.discovery-city .home-discovery-action,.discovery-knowledge .home-discovery-action{color:#3d6763;font-size:15px;gap:10px}
-.home-entries{padding-top:42px}.home-entries h2{font-size:23px;font-weight:550;letter-spacing:-.025em}
+/* Two compact entrances share the page's clear glass, without a photographic backing. */
+.home-discovery{position:relative;gap:20px;padding-top:34px;padding-bottom:0}
+.home-discovery::before{display:none}
+.home-discovery-card{display:grid;grid-template-columns:46px minmax(0,1fr) auto;align-items:center;z-index:1;isolation:auto;min-height:126px;padding:25px 28px;gap:16px;background:var(--glass-tint);color:#244d50}
+.home-discovery-card.discovery-city,.home-discovery-card.discovery-knowledge{background:linear-gradient(135deg,#ffffff40,transparent 60%),var(--glass-tint);border-color:#ffffffb3;color:#244d50}
+.home-discovery-title{font-size:26px;font-weight:550;letter-spacing:0}
+.home-discovery-icon,.discovery-city .home-discovery-icon,.discovery-knowledge .home-discovery-icon{width:46px;height:46px;color:#336c6b;background:#ffffff40;border:1px solid #ffffffa3;box-shadow:inset 0 1px 1px #fff;border-radius:14px}
+.home-discovery-action,.discovery-city .home-discovery-action,.discovery-knowledge .home-discovery-action{grid-column:auto;color:#416c65;font-size:14px;font-weight:400;gap:8px;white-space:nowrap}
+.home-discovery-action svg{width:18px;height:18px}
+.home-entries{padding-top:42px}.home-entries h2{font-size:23px;font-weight:550;letter-spacing:0}
 .home-task-grid{gap:20px}.home-task-grid>a,.home-task-grid>a.task-monitor,.home-task-grid>a.task-ai,.home-task-grid>a.task-experience{min-height:178px;padding:26px;isolation:auto;row-gap:22px;background:linear-gradient(132deg,#ffffff50,transparent 54%),var(--glass-tint);color:#244e51;border-color:#ffffffc2}
 .home-task-grid .card-cover-image,.home-task-grid .photo-cover-card::before{display:none}
 .home-task-grid :is(.task-monitor,.task-ai,.task-experience) :is(h3,strong){color:#244e51}
-.home-task-grid h3{font-size:23px;font-weight:550;letter-spacing:-.03em}
+.home-task-grid h3{font-size:23px;font-weight:550;letter-spacing:0}
 .home-task-grid strong{font-size:14px;font-weight:450;color:#4e7470}
 .home-task-grid :is(.task-monitor,.task-ai,.task-experience) .task-symbol{background:#ffffff69;color:#397a78;border:1px solid #fff9;box-shadow:inset 0 1px 1px #fff;border-radius:17px}
 .home-task-grid .task-symbol svg,.home-discovery-icon svg{width:27px;height:27px}
@@ -97,18 +99,17 @@ h1,h2,h3,.knowledge-title{font-family:var(--font);letter-spacing:-.025em;font-we
 }
 @media(max-width:760px){
  .cinematic-hero{padding-top:36px;gap:26px}.cinematic-copy h1{font-size:clamp(42px,11.2vw,62px);line-height:1.22;margin-block:12px 27px}
- .hero-scene{border-radius:24px}.home-discovery{padding:32px 20px 16px;gap:13px}
- .home-discovery::before{inset:32px 20px 16px;border-radius:20px;background-position:46% 55%}
- .home-discovery-card{min-height:175px;padding:22px 16px;row-gap:20px;column-gap:10px;border-radius:20px;grid-template-columns:34px minmax(0,1fr)}
- .home-discovery-title{font-size:19px;letter-spacing:-.025em}.home-discovery-icon{width:34px;height:38px;border-radius:12px}.home-discovery-icon svg{width:23px;height:23px}
- .discovery-city .home-discovery-action,.discovery-knowledge .home-discovery-action{font-size:13px}
+ .hero-scene{border-radius:24px}.home-discovery{padding:28px 20px 0;gap:14px}
+ .home-discovery-card{min-height:120px;padding:20px;gap:12px;border-radius:20px;grid-template-columns:38px minmax(0,1fr)}
+ .home-discovery-title{font-size:23px;letter-spacing:0}.home-discovery-card .home-discovery-icon{width:38px;height:40px;border-radius:12px}.home-discovery-icon svg{width:24px;height:24px}
+ .home-discovery-action,.discovery-city .home-discovery-action,.discovery-knowledge .home-discovery-action{grid-column:2;font-size:14px}
  .home-entries{padding-top:30px}.home-entries h2{font-size:21px}.home-task-grid{gap:14px}
  .home-task-grid>a{min-height:155px;border-radius:22px;padding:23px;row-gap:19px}.home-task-grid h3{font-size:22px}
  .knowledge-index .knowledge-grid{border-radius:20px}.knowledge-heading h1{font-size:29px}.knowledge-title{font-size:20px}.knowledge-open{gap:11px;padding:23px 17px;min-height:144px}.knowledge-symbol{width:32px}
  .knowledge-description{font-size:15px}.knowledge-meta{font-size:12px}.knowledge-source{font-size:13px}
  .detail-card-dialog,#dialog{border-radius:23px}.site-footer{padding-top:35px}.footer-brand{font-size:26px}
 }
-@media(max-width:360px){.home-discovery{padding-inline:16px;gap:10px}.home-discovery::before{left:16px;right:16px}.home-discovery-card{padding:20px 12px;column-gap:8px;grid-template-columns:28px minmax(0,1fr)}.home-discovery-title{font-size:17px}.home-discovery-icon{width:28px;height:34px}.home-discovery-icon svg{width:21px}.knowledge-open{padding-inline:14px}.knowledge-title{font-size:19px}.knowledge-description{font-size:14px}.cinematic-copy h1{font-size:40px}}
+@media(max-width:360px){.home-discovery{padding-inline:16px;gap:12px}.knowledge-open{padding-inline:14px}.knowledge-title{font-size:19px}.knowledge-description{font-size:14px}.cinematic-copy h1{font-size:40px}}
 @media(prefers-reduced-transparency:reduce),(prefers-contrast:more){
  :root{--glass-tint:#f5f8f7;--glass-dense:#f5f8f7;--glass-filter:none;--liquid-lens-filter:none}
  body{background:#eef3f0}.sidebar,.mobile-bottom-nav,#main-nav,#dialog,.detail-card-dialog,.home-discovery-card,.home-task-grid>a,.knowledge-index .knowledge-grid{background:#f5f8f7!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
@@ -130,3 +131,10 @@ h1,h2,h3,.knowledge-title{font-family:var(--font);letter-spacing:-.025em;font-we
 }
 
 [data-glass-solid] .home-discovery::before{display:none}
+
+@media(max-width:560px){
+ .home-discovery{grid-template-columns:minmax(0,1fr);gap:12px}
+ .home-discovery-card{min-height:98px;padding:19px 21px;grid-template-columns:38px minmax(0,1fr) auto;gap:13px}
+ .home-discovery-title{font-size:23px}.home-discovery-action,.discovery-city .home-discovery-action,.discovery-knowledge .home-discovery-action{grid-column:auto;font-size:14px}
+}
+@media(max-width:360px){.home-discovery-card{min-height:94px;padding:18px 16px;gap:10px}.home-discovery-title{font-size:21px}.home-discovery-action,.discovery-city .home-discovery-action,.discovery-knowledge .home-discovery-action{font-size:13px;gap:5px}.home-discovery-action svg{width:16px;height:16px}}
