@@ -15,6 +15,7 @@ parser.add_argument('--archive', required=True)
 parser.add_argument('--sha256', required=True)
 parser.add_argument('--snippet', required=True)
 parser.add_argument('--version', required=True)
+parser.add_argument('--site', choices=['zhishui', 'zhishui-glass'], default='zhishui')
 args = parser.parse_args()
 if os.geteuid() != 0:
     raise SystemExit('Run as root')
@@ -29,14 +30,18 @@ if not new_snippet.startswith(b'# Zhishui standalone static site.'):
 
 lock = open('/var/lock/zhishui-deploy.lock', 'w')
 fcntl.flock(lock, fcntl.LOCK_EX)
-base = Path('/var/www/zhishui')
+site = args.site
+prefix = '/' + site + '/'
+base = Path('/var/www') / site
 release = base / 'releases' / args.version
 current = base / 'current'
-backup = Path('/var/backups/zhishui') / args.version
+backup = Path('/var/backups') / site / args.version
 config = Path('/etc/nginx/conf.d/scenic-guide.conf')
-snippet = Path('/etc/nginx/snippets/zhishui-location.conf')
-include = '    include /etc/nginx/snippets/zhishui-location.conf;'
-anchor = '    include /etc/nginx/snippets/ai-odyssey-location.conf;'
+snippet = Path('/etc/nginx/snippets') / (site + '-location.conf')
+include = '    include /etc/nginx/snippets/' + site + '-location.conf;'
+anchor = '    include /etc/nginx/snippets/' + ('ai-odyssey' if site == 'zhishui' else 'zhishui') + '-location.conf;'
+if ('location = /' + site + ' {').encode() not in new_snippet or str(base / 'current').encode() not in new_snippet:
+    raise SystemExit('Route snippet does not match the selected site')
 original_config = config.read_bytes()
 text = original_config.decode()
 if include not in text:
@@ -117,7 +122,7 @@ try:
     head, tail = expected_html.split(b'</head>', 1)
     for attempt in range(20):
         try:
-            html = response('/zhishui/')
+            html = response(prefix)
             # Preserve the server's existing HTML analytics injection, if present.
             if html.startswith(head) and html.endswith(b'</head>' + tail):
                 break
@@ -127,10 +132,13 @@ try:
     else:
         raise RuntimeError('Published HTML verification failed')
     for name, digest in hashes.items():
-        if name != 'index.html' and hashlib.sha256(response('/zhishui/' + name)).hexdigest() != digest:
+        if name != 'index.html' and hashlib.sha256(response(prefix + name)).hexdigest() != digest:
             raise RuntimeError('Published runtime checksum mismatch: ' + name)
-    for path in ['/', '/ai-odyssey/', '/v79/']:
+    for path in ['/', '/ai-odyssey/', '/v79/'] + (['/zhishui/'] if site == 'zhishui-glass' else []):
         response(path)
+    vision_health = json.loads(response(prefix + 'api/vision/health'))
+    if not vision_health.get('ready'):
+        raise RuntimeError('Image gateway is not ready')
     health = json.loads(response('/ai-odyssey/api/health'))
     if health.get('database', {}).get('status') != 'ready':
         raise RuntimeError('Existing workshop health is not ready')
@@ -150,6 +158,6 @@ except Exception:
     run('systemctl', 'reload', 'nginx')
     raise
 
-print(json.dumps({'status': 'deployed', 'url': 'https://apsonchian.ltd/zhishui/',
+print(json.dumps({'status': 'deployed', 'url': 'https://apsonchian.ltd' + prefix, 'site': site,
     'release': str(release), 'backup': str(backup), 'sha256': args.sha256,
     'verified_files': len(hashes), 'nginx': 'active', 'existing_sites': 'healthy'}, ensure_ascii=False))

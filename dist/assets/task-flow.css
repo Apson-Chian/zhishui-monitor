@@ -1,0 +1,68 @@
+/* Shared by the standard and glass sites: explicit states and a continuous workflow. */
+.vision-run-status #ai-elapsed{display:block;font-size:12px;line-height:1.7;color:#657f79;margin-top:4px;font-variant-numeric:tabular-nums}
+.vision-retry-actions{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:20px}
+.vision-retry-actions .btn{min-height:44px;font-size:14px}
+.vision-feedback.has-message{display:block;margin:12px 24px 0;padding:0;font-size:13px;line-height:1.8;color:#526e67}
+.monitor-console .rain-workspace-heading{align-items:flex-end}
+.rain-place-controls{display:grid;grid-template-columns:minmax(150px,1fr) minmax(170px,1.2fr);gap:14px;max-width:520px;width:48%}
+.monitor-console .rain-place-controls label{display:flex;flex-direction:column;gap:7px;min-width:0;width:auto;font-size:14px;color:#5b776a}
+.monitor-console .rain-place-controls select{width:100%;min-height:46px;padding:9px 12px;border:1px solid #cdddcf;border-radius:10px;background:#f6f9f2;color:#355e53;font:16px var(--font)}
+.monitor-console .sandbox-heading{align-items:flex-start}
+.monitor-console .sandbox-heading .rain-setup-note{margin:7px 0 0;color:#607b6b;font-size:14px;line-height:1.8}
+.monitor-console .sandbox-heading>.btn{flex-shrink:0}
+.monitor-console .sandbox-live{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);align-items:start;gap:24px}
+.monitor-console .sandbox-controls{gap:22px;margin-bottom:0}
+.monitor-console .rain-control>label,.monitor-console .rain-time-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;font-size:16px;color:#365f55}
+.monitor-console .rain-control output{font:500 27px/1.4 system-ui,sans-serif;margin-left:0}
+.monitor-console .rain-control small{font-size:13px;color:#5d7866}
+.monitor-console .rain-control-help{margin:8px 0 0;font-size:13px;line-height:1.8;color:#637b68}
+.monitor-console .rain-presets{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px;margin:15px 0 8px;padding:0}
+.monitor-console .rain-presets button{min-width:0;padding:8px 6px;min-height:44px;font-size:15px;gap:4px}
+.monitor-console .rain-presets .rain-preset-unit{font-size:11px}
+.monitor-console .range-ends{display:flex;align-items:center;justify-content:space-between;font-size:12px;line-height:1.7;color:#69816c}
+.monitor-console .rain-stop{margin:13px 0 0;min-height:40px;font-size:13px;padding:8px 12px}
+.monitor-console .gate-control{margin:0;padding:20px 0 0;border:0;border-top:1px solid #d6e2d1;border-radius:0;background:transparent}
+.monitor-console .gate-control .gate-slider{margin-bottom:2px}
+.monitor-console .gate-control .rain-control-help{font-size:13px}
+.monitor-console .rain-result-panel{min-width:0;overflow:hidden;background:var(--monitor-soft);border:1px solid var(--monitor-line);border-radius:15px}
+.monitor-console .rain-result-panel .playback-control{padding:20px 22px 16px;margin:0;border-bottom:1px solid var(--monitor-line)}
+.monitor-console .rain-result-panel .rain-time-heading{font-size:15px;line-height:1.6}
+.monitor-console .rain-result-panel .rain-time-heading>span{font-size:14px;color:#4e7260}
+.monitor-console .rain-time-heading output{font:500 23px/1.3 system-ui,sans-serif;color:#315f58}
+.monitor-console .rain-result-panel #sandbox-time{margin:10px 0 0;min-height:28px}
+.monitor-console .rain-play-actions{display:flex;align-items:center;gap:10px;margin-top:15px}
+.monitor-console .rain-play-actions .playback-button{min-width:132px;flex:1}
+.monitor-console .rain-play-actions .sandbox-step{margin-left:0;min-width:112px;flex:1}
+.monitor-console .rain-result-panel .scenario-weather{display:block;margin:10px 0 0;padding:0;font-size:13px;line-height:1.7}
+.monitor-console .rain-result-panel #rain-phase{display:block;min-height:44px;font-size:13px;line-height:1.7;color:#4f765d}
+.monitor-console .rain-result-panel #sandbox-result{margin:0;padding:22px;border:0;background:transparent;border-radius:0;min-height:320px}
+.monitor-console .rain-result-panel .scenario-idle{min-height:270px;display:flex;flex-direction:column;align-items:flex-start;justify-content:center;gap:14px;text-align:left}
+.monitor-console .scenario-idle h3{margin:0;font-size:23px;line-height:1.5}
+.monitor-console .scenario-idle p{margin:0;font-size:15px;line-height:1.9}
+.monitor-console .rain-result-panel .scenario-result-heading{align-items:flex-start;margin-bottom:15px}
+.monitor-console .rain-result-panel .scenario-result-heading h3{font-size:22px;line-height:1.5}
+.monitor-console .rain-result-panel .scenario-result-heading>.source-link{min-height:40px;white-space:nowrap;flex-shrink:0}
+.monitor-console .scenario-plot{margin:0;min-width:0}
+.monitor-console .scenario-plot svg{display:block;width:100%;height:auto;overflow:visible}
+.monitor-console .scenario-plot text{font:12px var(--font);fill:#587965;letter-spacing:0}
+.monitor-console .scenario-plot .rain-axis-title{font-size:13px;fill:#3f6e59}
+.monitor-console .rain-plot-key{display:flex;align-items:center;flex-wrap:wrap;gap:8px 15px;margin:6px 0 18px;font-size:12px;color:#5b7963}
+.rain-plot-key>span{display:flex;align-items:center;gap:6px;white-space:nowrap}
+.rain-plot-key i{display:block;width:17px;height:3px;border-radius:1px}
+.rain-plot-key .rain-key-threshold{height:0;background:none;border-top:2px dashed #b18458}
+.rain-plot-key .rain-key-reference{height:0;background:none;border-top:2px dashed #8a918a}
+.monitor-console .rain-axis-note{font-size:12px;line-height:1.8;color:#647e69;margin:15px 0 0}
+.monitor-console .scenario-idle .rain-axis-note{padding-top:12px;border-top:1px solid #dce6d6;width:100%;font-size:14px}
+.monitor-console .scenario-result-bottom{align-items:center;flex-wrap:wrap;gap:10px 14px}
+.monitor-console .rain-place-sequence{margin-top:26px;border-top:1px solid var(--monitor-line);padding-top:21px}
+.monitor-console .rain-place-sequence h4{font-size:16px;line-height:1.6;font-weight:600;margin:0 0 6px;color:#3e6856}
+.monitor-console .rain-place-sequence>p{margin:0;color:#65806c;font-size:13px;line-height:1.8}
+.monitor-console .rain-place-sequence .sandbox-flow{margin-top:14px}
+.monitor-console :is(button,input):disabled{cursor:default;opacity:.45;box-shadow:none}
+@media(max-width:1000px){.monitor-console .rain-workspace-heading{align-items:flex-start;gap:18px;flex-wrap:wrap}.rain-place-controls{width:100%;max-width:none}.monitor-console .sandbox-live{grid-template-columns:1fr 1fr;gap:18px}.monitor-console .rain-presets button{padding-inline:4px;font-size:14px}.monitor-console .rain-presets .rain-preset-unit{font-size:10px}}
+@media(max-width:900px){.monitor-console .sandbox-live{grid-template-columns:1fr}.monitor-console .rain-result-panel .scenario-idle{min-height:200px}.monitor-console .rain-place-sequence .sandbox-flow{gap:10px}}
+@media(max-width:600px){.rain-place-controls{grid-template-columns:1fr 1.2fr;gap:10px}.monitor-console .rain-place-controls label{font-size:13px}.monitor-console .rain-place-controls select{font-size:14px;min-height:44px;padding:8px 10px}.monitor-console .sandbox-heading{gap:12px}.monitor-console .sandbox-heading .rain-setup-note{font-size:13px;line-height:1.7}.monitor-console .sandbox-heading>.btn{font-size:12px;padding:8px 10px;min-height:40px}.monitor-console .sandbox-heading h3{font-size:20px}.monitor-console .sandbox-inputs{padding:20px 18px}.monitor-console .rain-result-panel .playback-control{padding:19px 17px 14px}.monitor-console .rain-result-panel #sandbox-result{padding:20px 17px}.monitor-console .rain-result-panel .scenario-result-heading h3{font-size:20px}.monitor-console .rain-result-panel .scenario-result-heading>div>span{font-size:13px}.monitor-console .rain-plot-key{font-size:11px;gap:8px 11px}.monitor-console .scenario-idle h3{font-size:21px}.monitor-console .rain-result-panel #rain-phase{min-height:45px}.vision-feedback.has-message{margin-inline:18px}.vision-retry-actions{flex-direction:column;width:100%}.vision-retry-actions .btn{width:100%}}
+@media(max-width:360px){.monitor-console .rain-play-actions .playback-button{min-width:0;font-size:14px}.monitor-console .rain-play-actions .sandbox-step{min-width:0;font-size:13px}.monitor-console .rain-control>label{font-size:15px}.monitor-console .rain-result-panel .scenario-result-heading{flex-wrap:wrap;gap:6px}.monitor-console .rain-result-panel .scenario-result-heading>.source-link{min-height:32px}}
+
+@media(max-width:360px){.monitor-console .rain-play-actions .playback-button{padding:10px 8px;font-size:13px;gap:6px}.monitor-console .rain-play-actions .playback-button svg{width:15px;height:15px}}
+.monitor-console .rain-result-panel #sandbox-time{display:block;width:100%;accent-color:#347f82}

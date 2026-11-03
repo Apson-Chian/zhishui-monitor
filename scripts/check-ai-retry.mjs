@@ -1,0 +1,20 @@
+import assert from 'node:assert/strict';
+import {readFileSync} from 'node:fs';import vm from 'node:vm';
+const read=name=>readFileSync(new URL('../'+name,import.meta.url),'utf8');
+const timers=new Map();let serial=0;const revoked=[];
+const context={assert,console,AbortController,URL:Object.assign(class extends URL{},{createObjectURL:()=> 'blob:test',revokeObjectURL:url=>revoked.push(url)}),Image:class{decode(){return new Promise(()=>{})}},window:{},document:{hidden:false,baseURI:'https://example.com/zhishui/',querySelector:()=>null,querySelectorAll:()=>[]},setTimeout:(fn,delay)=>{const id=++serial;timers.set(id,{fn,delay});return id},clearTimeout:id=>timers.delete(id),fire:delay=>{const entry=[...timers].find(([,t])=>t.delay===delay);assert(entry,'expected active timer '+delay);timers.delete(entry[0]);entry[1].fn()},timers,revoked};
+vm.runInNewContext(read('dist/assets/hydro-sandbox.js'),context);const app=read('dist/assets/app.js');vm.runInNewContext(app.slice(0,app.indexOf("$('#platform').addEventListener('click'")),context);
+await vm.runInNewContext(`(async()=>{
+ render=()=>{};toast=()=>{};state.page='home';const originalPrepare=prepareAIImage;
+ const drain=async()=>{for(let i=0;i<8;i++)await Promise.resolve()};
+ prepareAIImage=()=>new Promise(()=>{});let run=detect();assert.equal(state.detecting,true);fire(45000);await run;assert.equal(state.detecting,false);assert.ok(state.aiNotice.includes('45秒'));assert.equal(timers.size,0,'timeout cleans all request timers even when preparation ignores abort');
+ prepareAIImage=async()=> 'data:image/jpeg;base64,fixture';const pending=[];fetch=()=>new Promise(resolve=>pending.push(resolve));
+ const old=detect();await drain();assert.equal(pending.length,1);loadSample('inspection');await old;assert.equal(state.detecting,false,'image switch finishes old wait without waiting for the server');
+ const fresh=detect();await drain();assert.equal(pending.length,2);pending[1]({ok:true,json:async()=>({status:'ok',summary:'新图片',findings:[{name:'河面',explanation:'可见水面',box:null}]})});await fresh;pending[0]({ok:true,json:async()=>({status:'ok',summary:'过时图片',findings:[]})});await drain();assert.equal(state.aiSummary,'新图片');assert.equal(state.detecting,false);
+ fetch=async()=>({ok:true,json:()=>new Promise(()=>{})});run=detect();await drain();fire(45000);await run;assert.equal(state.detecting,false);assert.ok(state.aiNotice.includes('45秒'),'body parsing is covered by the deadline');
+ prepareAIImage=originalPrepare;run=detect();await drain();fire(10000);await run;assert.equal(state.detecting,false);assert.ok(state.aiNotice.includes('读取图片超时'));assert.equal(timers.size,0);
+ state.results=[{name:'保留的结果',explanation:'上次成功',box:null}];state.aiDone=true;const upload=acceptImage({type:'image/png',size:100,name:'stuck.png'});assert.equal(state.aiLoading,true);fire(10000);await upload;assert.equal(state.aiLoading,false);assert.equal(state.results[0].name,'保留的结果');assert.ok(revoked.includes('blob:test'));
+ const cancelledUpload=acceptImage({type:'image/png',size:100,name:'cancelled.png'});loadSample('qinhuai');await cancelledUpload;assert.equal(state.aiLoading,false);assert.equal(state.detecting,false);assert.equal(timers.size,0);
+ prepareAIImage=()=>{throw Error('读取失败')};await detect();assert.equal(state.detecting,false);assert.ok(state.aiNotice.includes('读取失败'));assert.equal(timers.size,0);
+ console.log('PASS: full-operation deadline, stuck image decode/body, cancellation without network cooperation, switch-and-retry, stale response isolation and upload recovery');
+})()`,context);
