@@ -1,3 +1,21 @@
+# 当前正式版 · AI恢复与降雨操作（5.13.3）
+
+- 日期：2026-11-03，Asia/Shanghai。
+- 主站：https://apsonchian.ltd/zhishui/ ，分支main。
+- 发布：20261103-ai-rain-main-v43；前版20261103-reading-index-v42。
+- 发布包SHA-256：115b38c8abdd8867a1b3a61854d092ae1de19dd23cf3c4c0a0bed3b90d1de4f6；运行文件172个。
+- 目录：/var/www/zhishui/releases/20261103-ai-rain-main-v43；备份：/var/backups/zhishui/20261103-ai-rain-main-v43。
+- 共用识别网关：20261103-ai-recovery-v43。密钥仅在服务器0600环境文件，不进入Git或发布包。
+
+当前版本5.13.3：AI识别改为已通过真实图片验证的兼容接口；图片读取限时10秒、整个识别流程限时45秒，取消、换图、失败重试与过时响应隔离已修复。降雨推演新增观察地点选择、坐标轴/单位/图例与完整时间刻度；调整雨强保留当前时刻和闸门，停雨不再启动暂停中的播放。液态玻璃分支使用独立站点 https://apsonchian.ltd/zhishui-glass/ ，原站继续保持主分支视觉。
+
+服务器安装器逐项校验172文件、Nginx、识别健康与原有站点通过。真实主站识别在约6.9秒返回ok，按钮恢复可用。公网逐文件校验和浏览器回归在发布后补记。
+
+独立分支站使用同一HTTPS域名下的/zhishui-glass/路径，具有独立静态目录、current链接、备份和Nginx片段；仅将识别请求代理至共用网关。部署命令支持--site zhishui或--site zhishui-glass，且校验片段与站点目录一致。
+
+---
+历史发布记录：
+
 # 当前正式版 · 知识阅读列表与交互提示（5.13.2）
 
 - 日期：2026-11-03，Asia/Shanghai。
