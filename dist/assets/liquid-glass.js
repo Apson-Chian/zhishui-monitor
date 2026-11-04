@@ -2,7 +2,7 @@
    The map encodes only a narrow rim; it never captures or filters foreground text. */
 (() => {
  'use strict';
- const root=document.documentElement,selector='.home-discovery-card,.home-task-grid>a,.monitor-analysis-link,[data-glass-control],[data-glass-thumb]';
+ const root=document.documentElement,selector='.home-discovery-card,.home-task-grid>a,.monitor-analysis-link,[data-glass-control],[data-glass-thumb],[data-glass-navigation],[data-glass-nav-item]';
  const reduce=matchMedia('(prefers-reduced-transparency: reduce)'),contrast=matchMedia('(prefers-contrast: more)'),forced=matchMedia('(forced-colors: active)');
  const capable=/Chrome|Chromium|Edg\//.test(navigator.userAgent)&&CSS.supports('backdrop-filter','url("#glass-probe")');
  const ns='http://www.w3.org/2000/svg',entries=new Map();let serial=0,frame=0,defs,svg;
@@ -26,7 +26,7 @@
  function build(node){
   if(!enabled()||!node.isConnected)return;if(node.matches(':disabled,[aria-disabled="true"]')){clear(node);return}
   const rect={width:node.offsetWidth,height:node.offsetHeight};if(rect.width<24||rect.height<24)return;
-  const optical=node.matches('[data-glass-control],[data-glass-thumb]');
+  const optical=node.matches('[data-glass-control],[data-glass-thumb],[data-glass-nav-item]');
   let entry=entries.get(node);const key=Math.round(rect.width)+'x'+Math.round(rect.height)+'r'+getComputedStyle(node).borderTopLeftRadius;if(entry?.key===key)return;
   if(!entry){
    const id='liquid-rim-'+(++serial),filter=create('filter',{id,x:0,y:0,filterUnits:'userSpaceOnUse',primitiveUnits:'userSpaceOnUse','color-interpolation-filters':'sRGB'}),map=create('feImage',{x:0,y:0,width:'100%',height:'100%',preserveAspectRatio:'none',result:'rim'});
@@ -60,7 +60,7 @@
  function schedule(){if(!frame)frame=requestAnimationFrame(scan)}
  function start(){
   svg=create('svg',{'aria-hidden':'true',width:0,height:0,focusable:'false'});svg.style.cssText='position:fixed;width:0;height:0;pointer-events:none';defs=create('defs',{});svg.append(defs);document.body.append(svg);
-  new MutationObserver(records=>{if(records.some(record=>!record.target.closest?.('svg')&&(record.type==='attributes'||[...record.addedNodes].some(node=>node.nodeType===1&&(node.matches?.(selector)||node.querySelector?.(selector)))||[...record.removedNodes].some(node=>node.nodeType===1))))schedule()}).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['data-glass-control','data-glass-thumb','disabled','aria-disabled']});
+  new MutationObserver(records=>{if(records.some(record=>!record.target.closest?.('svg')&&(record.type==='attributes'||[...record.addedNodes].some(node=>node.nodeType===1&&(node.matches?.(selector)||node.querySelector?.(selector)))||[...record.removedNodes].some(node=>node.nodeType===1))))schedule()}).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['data-glass-control','data-glass-thumb','data-glass-navigation','data-glass-nav-item','disabled','aria-disabled']});
   document.addEventListener('zhishui:glasspress',event=>press(event.detail.node,event.detail.pressed));
   new MutationObserver(schedule).observe(root,{attributes:true,attributeFilter:['data-glass-effects']});
   for(const media of [reduce,contrast,forced])media.addEventListener('change',schedule);

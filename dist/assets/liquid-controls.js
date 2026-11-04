@@ -63,14 +63,14 @@
   document.addEventListener('input',event=>{if(ranges.has(event.target))for(const [input,entry]of ranges)sync(input,entry)});
   document.addEventListener('pointerdown',event=>{
    if(event.button!==0)return;
-   const node=event.target.closest('[data-glass-control],input[data-glass-input]');if(node)begin(node,event);
+   const node=event.target.closest('[data-glass-control],[data-glass-nav-item],input[data-glass-input]');if(node)begin(node,event);
   },true);
   window.addEventListener('pointerup',release,true);window.addEventListener('pointercancel',release,true);
   document.addEventListener('lostpointercapture',release,true);
-  document.addEventListener('pointerout',event=>{if(pressed&&(!event.relatedTarget||!pressed.shell&&event.target.closest('[data-glass-control]')===pressed.surface&&!pressed.surface.contains(event.relatedTarget)))release()});
+  document.addEventListener('pointerout',event=>{if(pressed&&(!event.relatedTarget||!pressed.shell&&event.target.closest('[data-glass-control],[data-glass-nav-item]')===pressed.surface&&!pressed.surface.contains(event.relatedTarget)))release()});
   document.addEventListener('keydown',event=>{
    if(event.repeat||!['Enter',' '].includes(event.key))return;
-   const node=event.target.closest('[data-glass-control]');if(node)begin(node,null,true);
+   const node=event.target.closest('[data-glass-control],[data-glass-nav-item]');if(node)begin(node,null,true);
   });
   document.addEventListener('keyup',event=>{if(['Enter',' '].includes(event.key))release()});
   document.addEventListener('focusout',event=>{if(pressed?.surface===event.target)release()});
