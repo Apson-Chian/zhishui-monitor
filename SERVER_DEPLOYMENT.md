@@ -1,3 +1,15 @@
+# 当前分支站 · 紧凑桌面侧边栏（5.14.5）
+
+- 日期：2026-11-04，Asia/Shanghai。
+- 地址：https://apsonchian.ltd/zhishui-glass/ ，分支 codex/liquid-glass。
+- 发布：20261104-compact-rail-v49；前版 20261104-liquid-navigation-v48。
+- 发布包 SHA-256：bffb6bc5ba83d69a25eb28daf6fed94e56d5a117257e0dd50b0153def275fecd；运行文件 179 个。
+- 目录：/var/www/zhishui-glass/releases/20261104-compact-rail-v49；备份：/var/backups/zhishui-glass/20261104-compact-rail-v49。
+
+桌面侧边栏改为 60px 宽的悬浮图标栏，手机导航保留原布局。安装器完成 179 个文件的校验，Nginx 和既有站点健康；正式 HTTPS 通过尺寸、悬停与键盘提示、短窗口滚动和手机导航检查。
+
+---
+
 # 当前分支站 · 玻璃侧边栏与手机导航（5.14.4）
 
 - 日期：2026-11-04，Asia/Shanghai。
