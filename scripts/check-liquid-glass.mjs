@@ -19,7 +19,7 @@ try{
  await page.waitForFunction(()=>document.querySelector('#rim-card').hasAttribute('data-liquid-lens'));
  const fixture=page.locator('#rim-regression'),card=page.locator('#rim-card'),foreground=await page.locator('#rim-text').boundingBox();
  const refracted=await fixture.screenshot();
- await card.evaluate(element=>element.style.setProperty('--liquid-lens-filter','blur(12px) saturate(112%)'));
+ await card.evaluate(element=>element.style.setProperty('--liquid-lens-filter','var(--liquid-surface-filter)'));
  const plain=await fixture.screenshot();
  assert.deepEqual(await page.locator('#rim-text').boundingBox(),foreground,'foreground geometry stays fixed');
  const difference=await page.evaluate(async urls=>{
@@ -28,7 +28,7 @@ try{
   const regions={left:[42,95,66,285],right:[494,95,518,285],center:[110,110,440,240]},results={};
   for(const [name,[x1,y1,x2,y2]]of Object.entries(regions)){let total=0;for(let y=y1;y<y2;y++)for(let x=x1;x<x2;x++)for(let k=0;k<3;k++)total+=Math.abs(arrays[0][(y*560+x)*4+k]-arrays[1][(y*560+x)*4+k]);results[name]=total/((x2-x1)*(y2-y1)*3)}return results;
  },[refracted,plain].map(buffer=>'data:image/png;base64,'+buffer.toString('base64')));
- assert(difference.left>1&&difference.right>1,'the rim changes actual background pixels');
+ assert(difference.left>14&&difference.right>14,'the strong rim changes actual background pixels');
  assert(difference.center<.5,'the center does not shift');
  await page.evaluate(()=>document.documentElement.dataset.glassEffects='off');
  await page.waitForFunction(()=>!document.querySelector('#rim-card').hasAttribute('data-liquid-lens'));
@@ -53,7 +53,7 @@ try{
  // A translucent backdrop root must not become greyer when its three channels recombine.
  await optical.evaluate(el=>{el.style.background='#ffffff40';el.style.backdropFilter='blur(1px)'});
  const alphaRest=await optical.screenshot(),originalFilter=await button.evaluate(el=>el.style.getPropertyValue('--liquid-lens-filter'));
- await button.evaluate(el=>el.style.setProperty('--liquid-lens-filter','blur(3px) saturate(125%)'));
+ await button.evaluate(el=>el.style.setProperty('--liquid-lens-filter','var(--control-filter)'));
  const alphaPlain=await optical.screenshot();await button.evaluate((el,value)=>el.style.setProperty('--liquid-lens-filter',value),originalFilter);
  const alphaDifference=await page.evaluate(async urls=>{
   const arrays=[];for(const url of urls){const image=new Image();image.src=url;await image.decode();const canvas=document.createElement('canvas');canvas.width=image.width;canvas.height=image.height;const context=canvas.getContext('2d');context.drawImage(image,0,0);arrays.push(context.getImageData(0,0,image.width,image.height).data)}
@@ -63,6 +63,7 @@ try{
  await page.evaluate(()=>document.querySelector('#optical-regression').remove());
  await page.locator('[data-open-gallery]').click();
  assert.equal(await page.locator('#dialog').evaluate(element=>element.open),true,'glass does not intercept the gallery button');
+ await page.locator('#dialog .nanjing-place[data-liquid-surface]').first().waitFor();
  await page.keyboard.press('Escape');assert.deepEqual(errors,[]);
  console.log('PASS: background pixels bend only at the rim, press refracts background RGB channels, clear foreground and translucent alpha, material-off fallback and gallery interaction',JSON.stringify({difference,fringe,alphaDifference}));
 }finally{await browser.close()}

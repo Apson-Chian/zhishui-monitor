@@ -28,7 +28,9 @@ assert.equal(s.entered.length,1,'going into background must finish a pending exi
 s=setup({reduced:true,animated:true});await s.opening.enter();assert.equal(s.exit,undefined,'reduced motion must enter immediately');
 s=setup();let prevented=false;s.opening.onKey({key:'Escape',preventDefault(){prevented=true}});assert.equal(prevented,true);assert.equal(s.entered.length,1,'Escape must skip without waiting');
 const html=readFileSync(new URL('../dist/index.html',import.meta.url),'utf8');
-assert.doesNotMatch(html,/id="opening-motion"/);assert.match(html,/<div id="platform" hidden>/);assert.match(html,/水，是金陵绵延的脉络。/);assert.match(html,/诗意流水生生不息。/);
+assert.doesNotMatch(html,/id="opening-motion"/);assert.match(html,/<div id="platform" hidden>/);assert.match(html,/以水为媒·读懂河海/);assert.match(html,/一城山水/);assert.match(html,/万千脉动/);
+const about=readFileSync(new URL('../dist/assets/app.js',import.meta.url),'utf8');
+assert.match(about,/水，是金陵绵延的脉络。/);assert.match(about,/诗意流水生生不息。/);
 assert.equal((html.match(/class="opening-chapter"/g)||[]).length,1,'opening must contain one introduction');
 assert.doesNotMatch(html,/data-opening-step|opening-back|继续阅读|opening-title-two/);
 

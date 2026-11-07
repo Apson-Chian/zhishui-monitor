@@ -1,12 +1,12 @@
 {
   "name": "zhishui-live",
-  "version": "5.14.5",
+  "version": "5.16.0",
   "private": true,
   "type": "module",
   "description": "智水监测 · 独立数字水利前端演示作品",
   "scripts": {
-    "dev": "python3 -m http.server 5188 --bind 127.0.0.1 --directory dist",
-    "check": "node --check dist/assets/liquid-navigation.js && node --check dist/assets/liquid-controls.js && node --check dist/assets/liquid-glass.js && node --check dist/assets/detail-cards.js && node --check dist/assets/app.js && node --check dist/assets/river-scene.js && node --check dist/assets/hydro-sandbox.js && node scripts/check-sandbox.mjs && node scripts/check-notifications.mjs && node scripts/check-monitor-flow.mjs && node scripts/check.mjs && node scripts/check-ai-retry.mjs && node scripts/check-scene.mjs && node --check dist/assets/pollution-model.js && node --check dist/assets/pollution-view.js && node scripts/check-pollution.mjs && node --check dist/assets/geographic-map.js && node --check dist/assets/water-journey.js && node scripts/check-geography.mjs && node scripts/check-journey.mjs && node scripts/check-map-interaction.mjs && node --check dist/assets/page-transition.js && node scripts/check-navigation.mjs && node --check dist/assets/opening.js && node scripts/check-opening.mjs && node scripts/check-links.mjs",
+    "dev": "python3 backend/server.py --preview",
+    "check": "node --check dist/assets/record-store.js && node --check dist/assets/liquid-navigation.js && node --check dist/assets/liquid-controls.js && node --check dist/assets/liquid-glass.js && node --check dist/assets/detail-cards.js && node --check dist/assets/app.js && node --check dist/assets/river-scene.js && node --check dist/assets/hydro-sandbox.js && node scripts/check-sandbox.mjs && node scripts/check-notifications.mjs && node scripts/check-monitor-flow.mjs && node scripts/check.mjs && node scripts/check-ai-retry.mjs && node scripts/check-scene.mjs && node --check dist/assets/pollution-model.js && node --check dist/assets/pollution-view.js && node scripts/check-pollution.mjs && node --check dist/assets/geographic-map.js && node --check dist/assets/water-journey.js && node scripts/check-geography.mjs && node scripts/check-journey.mjs && node scripts/check-map-interaction.mjs && node --check dist/assets/page-transition.js && node scripts/check-navigation.mjs && node --check dist/assets/opening.js && node scripts/check-opening.mjs && node scripts/check-links.mjs",
     "package": "python3 scripts/package.py",
     "check:glass": "node scripts/check-liquid-glass.mjs",
     "check:controls": "node scripts/check-liquid-controls.mjs",

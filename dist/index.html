@@ -3,53 +3,56 @@
 <head>
   <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
   <meta name="theme-color" content="#f7faf7">
-  <meta name="description" content="智水监测：面向水利场景的交互式可视化平台。提供南京河湖地图、水情模拟、预警记录和图片识别。">
-  <title>智水监测 · 南京河湖水情与观察</title>
-  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=5.10.0-alarm-flow-v26-final">
+  <meta name="description" content="以水为媒·读懂河海。以南京河湖为场景的水利交互可视化作品，提供水情推演、教学预警和水域巡检。">
+  <title>智水监测 · 以水为媒·读懂河海</title>
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg?v=5.16.0">
+  <link rel="preload" href="assets/fonts/songti/opening-theme.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="assets/vendor/leaflet/leaflet.css">
-  <link rel="stylesheet" href="assets/fonts/songti/songti.css?v=5.14.2-songti">
-  <link rel="stylesheet" href="assets/style.css?v=5.10.0-alarm-flow-v26-final">
-  <link rel="stylesheet" href="assets/cinematic.css?v=5.10.0-alarm-flow-v26-final">
-  <link rel="stylesheet" href="assets/participation.css?v=5.10.0-alarm-flow-v26-final">
-  <link rel="stylesheet" href="assets/interface.css?v=5.10.0-alarm-flow-v26-final">
-  <link rel="stylesheet" href="assets/ai-workbench.css?v=5.13.2-reading-index-v42">
-  <link rel="stylesheet" href="assets/reading.css?v=5.10.0-alarm-flow-v26-final">
-  <link rel="stylesheet" href="assets/simple-flow.css?v=5.10.0-alarm-flow-v26-final">
-  <script src="assets/vendor/chart.umd.js" defer></script><script src="assets/river-scene.js?v=5.10.0-home-refinement-v28" defer></script><script src="assets/vendor/leaflet/leaflet.js" defer></script><script src="assets/atlas-data.js" defer></script><script src="assets/hydro-sandbox.js?v=5.10.0-alarm-flow-v26-final" defer></script><script src="assets/geographic-map.js?v=5.10.0-alarm-flow-v26-final" defer></script><script src="assets/water-journey.js?v=5.11.0-navigation-lab-v34" defer></script><script src="assets/page-transition.js?v=5.11.0-river-handoff-v36" defer></script><script src="assets/opening.js?v=5.11.0-river-handoff-v36" defer></script><script src="assets/pollution-model.js?v=5.12.0-pollution-v38" defer></script><script src="assets/pollution-view.js?v=5.13.2-reading-index-v42" defer></script><script src="assets/detail-cards.js?v=5.13.1-context-cards-v41" defer></script><script src="assets/app.js?v=5.14.4-glass-navigation" defer></script>
-  <link rel="stylesheet" href="assets/vision-map.css?v=5.10.0-alarm-flow-v26-final">
-<link rel="stylesheet" href="assets/hydro-workbench.css?v=5.10.0-alarm-flow-v26-final">
-<link rel="stylesheet" href="assets/responsive-unified.css?v=5.10.0-alarm-flow-v26-final">
-<link rel="stylesheet" href="assets/motion.css?v=5.11.0-river-handoff-v36">
-<link rel="stylesheet" href="assets/opening.css?v=5.11.0-river-handoff-v36">
-<link rel="stylesheet" href="assets/site-footer.css?v=5.10.0-alarm-flow-v26-final">
-<link rel="stylesheet" href="assets/reading-scale.css?v=5.10.0-alarm-flow-v26-final">
-<link rel="stylesheet" href="assets/simulation.css?v=5.10.0-alarm-flow-v26-final">
-<link rel="stylesheet" href="assets/map-workbench.css?v=5.13.2-reading-index-v42">
-<link rel="stylesheet" href="assets/reading-details.css?v=5.10.0-alarm-flow-v26-final">
-<link rel="stylesheet" href="assets/alarm-experience.css?v=5.10.0-alarm-flow-v26-final">
-<link rel="stylesheet" href="assets/home-refinement.css?v=5.10.0-home-priority-v31">
-<link rel="stylesheet" href="assets/river-stories.css?v=5.10.0-home-priority-v31">
-<link rel="stylesheet" href="assets/card-covers.css?v=5.11.0-discovery-pair-v37">
-<link rel="stylesheet" href="assets/ai-samples.css?v=5.10.0-ai-samples-v33">
-<link rel="stylesheet" href="assets/navigation-lab.css?v=5.11.0-navigation-lab-v34">
-<link rel="stylesheet" href="assets/pollution.css?v=5.13.2-reading-index-v42">
-<link rel="stylesheet" href="assets/glass-controls.css?v=5.12.1-glass-controls-v39">
-<link rel="stylesheet" href="assets/monitor-unified.css?v=5.13.0-monitor-v40">
-<link rel="stylesheet" href="assets/detail-cards.css?v=5.13.1-context-cards-v41">
-<link rel="stylesheet" href="assets/knowledge-index.css?v=5.13.2-reading-index-v42">
-<link rel="stylesheet" href="assets/task-flow.css?v=5.14.1-ai-rain">
-<link rel="stylesheet" href="assets/liquid-glass.css?v=5.14.2-songti-v46">
-<link rel="stylesheet" href="assets/liquid-controls.css?v=5.14.3-optical-controls">
-<link rel="stylesheet" href="assets/liquid-navigation.css?v=5.14.5-compact-rail">
-<script src="assets/liquid-glass.js?v=5.14.4-glass-navigation" defer></script>
-<script src="assets/liquid-controls.js?v=5.14.4-glass-navigation" defer></script>
-<script src="assets/liquid-navigation.js?v=5.14.4-glass-navigation" defer></script>
+  <link rel="stylesheet" href="assets/fonts/songti/songti.css?v=5.16.0">
+  <link rel="stylesheet" href="assets/style.css?v=5.16.0">
+  <link rel="stylesheet" href="assets/cinematic.css?v=5.16.0">
+  <link rel="stylesheet" href="assets/participation.css?v=5.16.0">
+  <link rel="stylesheet" href="assets/interface.css?v=5.16.0">
+  <link rel="stylesheet" href="assets/ai-workbench.css?v=5.16.0">
+  <link rel="stylesheet" href="assets/reading.css?v=5.16.0">
+  <link rel="stylesheet" href="assets/simple-flow.css?v=5.16.0">
+  <script src="assets/vendor/chart.umd.js" defer></script><script src="assets/river-scene.js?v=5.16.0" defer></script><script src="assets/vendor/leaflet/leaflet.js" defer></script><script src="assets/atlas-data.js" defer></script><script src="assets/record-store.js?v=5.16.0-liquid2" defer></script><script src="assets/hydro-sandbox.js?v=5.16.0" defer></script><script src="assets/geographic-map.js?v=5.16.0" defer></script><script src="assets/water-journey.js?v=5.16.0" defer></script><script src="assets/page-transition.js?v=5.16.0" defer></script><script src="assets/opening.js?v=5.16.0" defer></script><script src="assets/pollution-model.js?v=5.16.0" defer></script><script src="assets/pollution-view.js?v=5.16.0" defer></script><script src="assets/detail-cards.js?v=5.16.0" defer></script><script src="assets/app.js?v=5.16.0" defer></script>
+  <link rel="stylesheet" href="assets/vision-map.css?v=5.16.0">
+<link rel="stylesheet" href="assets/hydro-workbench.css?v=5.16.0">
+<link rel="stylesheet" href="assets/responsive-unified.css?v=5.16.0">
+<link rel="stylesheet" href="assets/motion.css?v=5.16.0">
+<link rel="stylesheet" href="assets/opening.css?v=5.16.0">
+<link rel="stylesheet" href="assets/site-footer.css?v=5.16.0">
+<link rel="stylesheet" href="assets/reading-scale.css?v=5.16.0">
+<link rel="stylesheet" href="assets/simulation.css?v=5.16.0">
+<link rel="stylesheet" href="assets/map-workbench.css?v=5.16.0">
+<link rel="stylesheet" href="assets/reading-details.css?v=5.16.0">
+<link rel="stylesheet" href="assets/alarm-experience.css?v=5.16.0">
+<link rel="stylesheet" href="assets/home-refinement.css?v=5.16.0">
+<link rel="stylesheet" href="assets/river-stories.css?v=5.16.0">
+<link rel="stylesheet" href="assets/card-covers.css?v=5.16.0">
+<link rel="stylesheet" href="assets/ai-samples.css?v=5.16.0">
+<link rel="stylesheet" href="assets/navigation-lab.css?v=5.16.0">
+<link rel="stylesheet" href="assets/pollution.css?v=5.16.0">
+<link rel="stylesheet" href="assets/glass-controls.css?v=5.16.0">
+<link rel="stylesheet" href="assets/monitor-unified.css?v=5.16.0">
+<link rel="stylesheet" href="assets/detail-cards.css?v=5.16.0">
+<link rel="stylesheet" href="assets/knowledge-index.css?v=5.16.0">
+<link rel="stylesheet" href="assets/task-flow.css?v=5.16.0">
+<link rel="stylesheet" href="assets/liquid-glass.css?v=5.16.0-glass">
+<link rel="stylesheet" href="assets/liquid-controls.css?v=5.16.0-controls">
+<link rel="stylesheet" href="assets/liquid-navigation.css?v=5.16.0-controls">
+<script src="assets/liquid-glass.js?v=5.16.0-controls" defer></script>
+<script src="assets/liquid-controls.js?v=5.16.0-controls" defer></script>
+<script src="assets/liquid-navigation.js?v=5.16.0" defer></script>
+<link rel="stylesheet" href="assets/workflows.css?v=5.16.0">
+<link rel="stylesheet" href="assets/liquid-surfaces.css?v=5.16.0-refraction">
 </head>
 <body class="opening-active">
 
   <section id="opening" class="opening" aria-labelledby="opening-title" tabindex="-1">
     <header class="opening-header">
-      <span class="opening-brand"><img src="assets/favicon.svg?v=5.10.0-alarm-flow-v26-final" alt="" width="34" height="34">智水监测</span>
+      <span class="opening-brand"><img src="assets/favicon.svg?v=5.16.0" alt="" width="34" height="34">智水监测</span>
       <div class="opening-tools"><button type="button" id="opening-skip">跳过开场<svg class="inline-arrow" aria-hidden="true" viewBox="0 0 24 24"><use href="assets/ui-icons.svg#arrow-up-right"></use></svg></button></div>
     </header>
     <div class="opening-layout">
@@ -57,6 +60,7 @@
         <div class="opening-chapter">
           <span class="opening-eyebrow">金陵水脉</span>
           <h1 id="opening-title" tabindex="-1"><span>一城山水</span><span>万千脉动</span></h1>
+          <p class="opening-theme">以水为媒·读懂河海</p>
           <p>水，是金陵绵延的脉络。水波起落之间，藏着自然的讯息。智水监测以数字为眸，捕捉水情脉动，让沉默的江河，拥有可能被读懂的语言。我们用科技搭建与河湖对话的桥梁，以数字力量守护一方清波，让金陵的河湖澄澈常在，诗意流水生生不息。</p>
         </div>
         <div class="opening-actions"><button type="button" class="opening-primary" id="opening-next"><span>进入平台</span><svg class="inline-arrow" aria-hidden="true" viewBox="0 0 24 24"><use href="assets/ui-icons.svg#arrow-right"></use></svg></button></div>
@@ -88,7 +92,7 @@
   <div id="platform" hidden>
   <a class="skip" href="#main">跳转到主要内容</a>
   <header class="sidebar" id="sidebar">
-    <a class="brand" href="#/home"><span class="brand-icon"><img src="assets/favicon.svg?v=5.10.0-alarm-flow-v26-final" alt="" width="34" height="34"></span><span>智水监测</span></a>
+    <a class="brand" href="#/home"><span class="brand-icon"><img src="assets/favicon.svg?v=5.16.0" alt="" width="34" height="34"></span><span>智水监测</span></a>
     <nav id="main-nav" aria-label="主要导航"></nav>
     <div class="header-tools"><button class="icon-button notification-button" id="notification-button" aria-label="查看预警通知"></button><button type="button" class="icon-button mobile-menu" id="menu-toggle" aria-label="打开导航"></button></div>
   </header>
@@ -98,7 +102,7 @@
     <main id="main" tabindex="-1"></main>
     <footer class="site-footer">
       <div class="footer-columns">
-        <div class="footer-brand-column"><a class="footer-brand" href="#/home" aria-label="智水监测首页"><img src="assets/favicon.svg?v=5.10.0-alarm-flow-v26-final" alt="" width="44" height="44"><span>智水监测</span></a><p class="footer-slogan">南京河湖 · 水情与观察</p></div>
+        <div class="footer-brand-column"><a class="footer-brand" href="#/home" aria-label="智水监测首页"><img src="assets/favicon.svg?v=5.16.0" alt="" width="44" height="44"><span>智水监测</span></a><p class="footer-slogan">南京河湖 · 水情与观察</p></div>
         <nav class="footer-navigation" aria-label="页脚导航"><h2>栏目</h2><a class="footer-link" data-page="home" href="#/home">首页</a><a class="footer-link" data-page="monitor" href="#/monitor">看水情</a><a class="footer-link" data-page="experience" href="#/experience">水文体验</a><a class="footer-link" data-page="ai" href="#/ai">AI 识别</a><a class="footer-link" data-page="knowledge" href="#/knowledge">水利知识</a><a class="footer-link" data-page="about" href="#/about">关于作品</a></nav>
         <div class="footer-resources"><h2>资料与说明</h2><button type="button" data-footer-sources>地图与影像来源</button><a href="assets/data/nanjing-water.geojson" download>下载水系数据</a><a class="footer-link" href="#/about?section=about-section-2">作品说明</a><p>水情读数为教学模拟<br>AI 观察仅供参考</p></div>
       </div>

@@ -54,12 +54,14 @@
  }
  function createLedger(storage){
   const key='zhishui-inspection-ledger-v1';let records=[],available=true,serial=0;
-  function valid(r){return r&&typeof r.id==='string'&&r.id.length<100&&['water','inspection','scenario'].includes(r.type)&&Number.isInteger(r.station)&&r.station>=0&&r.station<8&&['pending','handled','ended','noted'].includes(r.status)&&typeof r.title==='string'&&r.title.length<=150&&typeof r.at==='string'&&Number.isFinite(Date.parse(r.at))&&(r.identity===undefined||typeof r.identity==='string'&&r.identity.length<150)}
-  try{const data=JSON.parse(storage?.getItem(key)||'null');if(data?.version===1&&Array.isArray(data.records))records=data.records.filter(valid).slice(0,50).map(r=>({...r,summary:String(r.summary||'').slice(0,600),observations:Array.isArray(r.observations)?r.observations.slice(0,5).filter(o=>o&&typeof o.name==='string'&&typeof o.explanation==='string').map(o=>({name:o.name.slice(0,50),explanation:o.explanation.slice(0,400)})):[],severity:clamp(r.severity,0,3)}))}catch{available=false}
-  const persist=()=>{try{if(storage)storage.setItem(key,JSON.stringify({version:1,records}));else available=false}catch{available=false}};
-  const add=r=>{const stamp=Date.now();let id;do{id=`r-${stamp}-${++serial}`}while(records.some(item=>item.id===id));const record={...r,id,at:new Date().toISOString(),severity:clamp(r.severity,0,3)};if(!valid(record))throw Error('Invalid record');records.unshift(record);records=records.slice(0,50);persist();return record};
+  function valid(r){return r&&typeof r.id==='string'&&r.id.length<100&&['water','inspection','scenario'].includes(r.type)&&(r.type==='inspection'&&r.station===null||Number.isInteger(r.station)&&r.station>=0&&r.station<8)&&['pending','handled','ended','noted'].includes(r.status)&&typeof r.title==='string'&&r.title.length<=150&&typeof r.at==='string'&&Number.isFinite(Date.parse(r.at))&&(r.identity===undefined||typeof r.identity==='string'&&r.identity.length<150)}
+  function reload(){records=[];try{const data=JSON.parse(storage?.getItem(key)||'null');if(data?.version===1&&Array.isArray(data.records))records=data.records.filter(valid).slice(0,50).map(r=>({...r,summary:String(r.summary||'').slice(0,600),observations:Array.isArray(r.observations)?r.observations.slice(0,5).filter(o=>o&&typeof o.name==='string'&&typeof o.explanation==='string').map(o=>({name:o.name.slice(0,50),explanation:o.explanation.slice(0,400),box:Array.isArray(o.box)&&o.box.length===4&&o.box.every(v=>Number.isFinite(v)&&v>=0&&v<=100)?o.box:null})):[],severity:clamp(r.severity,0,3)}))}catch{available=false}}
+  reload();
+  const persist=()=>{try{available=!!storage&&storage.setItem(key,JSON.stringify({version:1,records}))!==false}catch{available=false}};
+  const add=r=>{const stamp=Date.now();let id;do{id=window.crypto?.randomUUID?.()||`r-${stamp}-${++serial}`}while(records.some(item=>item.id===id));const record={...r,id,at:new Date().toISOString(),severity:clamp(r.severity,0,3)};if(!valid(record))throw Error('Invalid record');records.unshift(record);records=records.slice(0,50);persist();return record};
   const pending=r=>r.status==='pending'&&(r.type!=='water'||r.active!==false);
   return {
+   reload,
    pendingCount:()=>records.filter(pending).length,
    handlePending(){let count=0;for(const r of records)if(pending(r)){r.status='handled';count++}if(count)persist();return count},
    list:()=>records.map(r=>({...r,observations:r.observations?.map(o=>({...o}))})),available:()=>available,

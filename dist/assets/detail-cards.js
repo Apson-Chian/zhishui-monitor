@@ -27,7 +27,7 @@
   if(!root||typeof HTMLDialogElement==='undefined'||!HTMLDialogElement.prototype.showModal)return;
   const candidates=root.matches?.('details')?[root,...root.querySelectorAll('details')]:[...root.querySelectorAll('details')];
   for(const details of candidates){
-   if(!details.isConnected||details.closest('dialog'))continue;
+   if(!details.isConnected||details.hasAttribute('data-inline-details')||details.closest('dialog'))continue;
    const summary=details.querySelector(':scope > summary');if(!summary)continue;
    const slot=document.createElement('div');
    for(const attribute of [...details.attributes])if(attribute.name!=='open')slot.setAttribute(attribute.name,attribute.value);

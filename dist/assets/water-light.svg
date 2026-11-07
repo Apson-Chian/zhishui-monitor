@@ -1,6 +1,51 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1100" viewBox="0 0 1600 1100" fill="none">
- <defs><linearGradient id="wash" x1="0" y1="0" x2="1300" y2="1100" gradientUnits="userSpaceOnUse"><stop stop-color="#f5f8f7"/><stop offset=".5" stop-color="#e8f0ee"/><stop offset="1" stop-color="#f3f6f4"/></linearGradient><filter id="soft" x="-25%" y="-100%" width="150%" height="300%"><feGaussianBlur stdDeviation="22"/></filter></defs>
- <path fill="url(#wash)" d="M0 0h1600v1100H0z"/>
- <g filter="url(#soft)" stroke="#aac8c6" stroke-width="34" opacity=".28"><path d="M-180 380C170 155 300 530 678 360S1260 205 1780 480"/><path d="M-120 850C240 580 590 1010 960 805S1360 655 1750 820"/></g>
- <g stroke="#9fbfbe" stroke-opacity=".16" stroke-width="1.1"><path d="M-140 345C210 120 340 495 718 325S1300 170 1820 445"/><path d="M-150 364C200 139 330 514 708 344S1290 189 1810 464"/><path d="M-160 386C190 161 320 536 698 366S1280 211 1800 486"/><path d="M-170 410C180 185 310 560 688 390S1270 235 1790 510"/><path d="M-160 815C200 545 550 975 920 770S1320 620 1710 785"/><path d="M-150 839C210 569 560 999 930 794S1330 644 1720 809"/><path d="M-140 865C220 595 570 1025 940 820S1340 670 1730 835"/></g>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 1080" fill="none">
+ <defs>
+  <linearGradient id="water" x2="0" y2="1">
+   <stop stop-color="#edf7f5"/>
+   <stop offset=".34" stop-color="#e0f0ed"/>
+   <stop offset=".66" stop-color="#d9ecf3"/>
+   <stop offset="1" stop-color="#edf7f5"/>
+  </linearGradient>
+  <linearGradient id="current" x2="1" y2=".35">
+   <stop stop-color="#478f9a" stop-opacity=".35"/>
+   <stop offset=".47" stop-color="#589cae" stop-opacity=".54"/>
+   <stop offset="1" stop-color="#518eac" stop-opacity=".38"/>
+  </linearGradient>
+  <filter id="diffusion" x="-15%" y="-50%" width="130%" height="200%">
+   <feGaussianBlur stdDeviation="36"/>
+  </filter>
+  <path id="upper" d="M-120 337C151 320 344 423 630 370S1081 80 1560 186"/>
+  <path id="middle" d="M-120 620C193 485 316 733 634 660S1063 437 1560 539"/>
+  <path id="lower" d="M-120 950C209 824 405 1070 697 1002S1168 792 1560 898"/>
+ </defs>
+ <path fill="url(#water)" d="M0 0h1440v1080H0z"/>
+ <g filter="url(#diffusion)" stroke-width="126" opacity=".36">
+  <use href="#upper" stroke="#a4d6cb"/>
+  <use href="#middle" stroke="#94c9df"/>
+  <use href="#lower" stroke="#a2d1d9"/>
+ </g>
+ <g stroke="#f8fffd" opacity=".52" stroke-width="8">
+  <use href="#upper" transform="translate(0 -13)"/>
+  <use href="#middle" transform="translate(0 9)"/>
+  <use href="#lower" transform="translate(0 -10)"/>
+ </g>
+ <g stroke="url(#current)">
+  <use href="#upper" stroke-width="3.1"/>
+  <use href="#upper" transform="translate(0 19)" stroke-width="1.4" opacity=".74"/>
+  <use href="#upper" transform="translate(0 39)" stroke-width="1" opacity=".53"/>
+  <use href="#middle" stroke-width="3.2"/>
+  <use href="#middle" transform="translate(0 -19)" stroke-width="1.4" opacity=".72"/>
+  <use href="#middle" transform="translate(0 25)" stroke-width="1.3" opacity=".61"/>
+  <use href="#lower" stroke-width="2.5"/>
+  <use href="#lower" transform="translate(0 18)" stroke-width="1.4" opacity=".75"/>
+  <use href="#lower" transform="translate(0 39)" stroke-width="1.1" opacity=".53"/>
+ </g>
+ <!-- Feather the end of the repeating sheet into its own opening colour. -->
+ <defs>
+  <linearGradient id="seam" x2="0" y2="1">
+   <stop stop-color="#edf7f5" stop-opacity="0"/>
+   <stop offset="1" stop-color="#edf7f5"/>
+  </linearGradient>
+ </defs>
+ <path fill="url(#seam)" d="M0 1000h1440v80H0z"/>
 </svg>

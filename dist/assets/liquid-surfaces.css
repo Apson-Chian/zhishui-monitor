@@ -1,0 +1,134 @@
+/* Backdrop, tint and specular edge share the same shape. Content paints above them. */
+:root {
+ --liquid-blur:blur(3.74px) saturate(112%);
+ --liquid-tint:rgb(247 255 255 / 6.5%);
+ --liquid-rim:inset 0 1px 2px rgb(255 255 255 / 92%),
+              inset 0 0 0 1px rgb(255 255 255 / 37%),
+              inset 0 -1px 3px rgb(48 109 126 / 16%);
+ --liquid-shadow:0 8px 24px rgb(26 76 94 / 10%),0 2px 5px rgb(24 66 84 / 8%);
+}
+body {
+ background:#e9f4f4 url("./water-light.svg?v=refraction") center top/clamp(860px,100vw,1760px) auto repeat-y fixed;
+}
+.opening::before {
+ background:radial-gradient(ellipse at 78% 48%,#bddbd21f,transparent 52%),
+            url("./water-light.svg?v=refraction") center top/clamp(860px,100vw,1760px) auto repeat-y;
+}
+
+:where([data-liquid-surface]) {
+ --liquid-bed:rgb(241 252 252 / 11%);
+ --liquid-border:rgb(248 255 255 / 72%);
+ --liquid-lift:var(--liquid-shadow);
+}
+:where([data-liquid-surface="toolbar"]) {
+ --liquid-bed:rgb(237 253 254 / 25%);
+ --liquid-lift:0 9px 28px rgb(26 76 94 / 17%),0 2px 5px rgb(24 66 84 / 10%);
+}
+:where(.monitor-selection-panel,.rain-result-panel,.vision-results-panel,.lab-run-panel,.ledger-entry)[data-liquid-surface] {
+ --liquid-bed:rgb(246 253 253 / 32%);
+}
+:where(.scene-coordinate,.article-tip,.hh-report-conclusion)[data-liquid-surface] {
+ --liquid-bed:rgb(241 251 251 / 44%);
+}
+:where(#dialog,.detail-card-dialog,.sidebar.open #main-nav)[data-liquid-surface] {
+ --liquid-bed:rgb(247 253 253 / 76%);
+ --liquid-lift:0 20px 72px rgb(22 61 75 / 22%),0 3px 8px rgb(24 66 84 / 10%);
+}
+:where(.hero-scene)[data-liquid-surface] {
+ --liquid-bed:rgb(236 250 246 / 21%);
+}
+:is(.vision-sample.active,.vision-result-card.selected)[data-liquid-surface] {
+ --liquid-bed:rgb(188 235 227 / 39%);
+ --liquid-border:#589e9c;
+}
+:root [data-liquid-surface][data-liquid-surface],
+:root #dialog[data-liquid-surface] {
+ --liquid-surface-filter:var(--liquid-blur);
+ --liquid-lens-filter:var(--liquid-surface-filter);
+ background:var(--glass-solid);
+ border-color:var(--liquid-border);
+ box-shadow:var(--liquid-lift),var(--liquid-rim);
+}
+.knowledge-index .knowledge-grid:has(.knowledge-card) {
+ background:none;
+ border-color:transparent;
+ box-shadow:none;
+ -webkit-backdrop-filter:none;
+ backdrop-filter:none;
+ overflow:visible;
+ gap:8px;
+}
+:root .knowledge-index .knowledge-card[data-liquid-surface] {
+ border:0;
+ border-radius:14px;
+}
+.knowledge-index .knowledge-open { border-radius:inherit; }
+@media(hover:hover) and (pointer:fine) {
+ .knowledge-index .knowledge-open:hover { background:#f8ffff45; }
+}
+#mobile-bottom-nav .mobile-tab { color:#36565d; }
+#mobile-bottom-nav .mobile-tab.active { color:#155668; }
+#mobile-bottom-nav .glass-nav-indicator {
+ background:linear-gradient(150deg,#f8ffff92,#d3f0f140);
+}
+
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))) {
+ :root [data-liquid-surface][data-liquid-surface],
+ :root #dialog[data-liquid-surface] {
+  --liquid-fill:linear-gradient(148deg,var(--liquid-tint),rgb(57 128 153 / 6.5%)),var(--liquid-bed);
+  background:var(--liquid-fill);
+  -webkit-backdrop-filter:var(--liquid-lens-filter);
+  backdrop-filter:var(--liquid-lens-filter);
+ }
+ /* Put a container's glass on a sibling layer so each nested card can sample it. */
+ :root [data-liquid-surface][data-liquid-underlay] {
+  isolation:isolate;
+  background:transparent;
+  -webkit-backdrop-filter:none;
+  backdrop-filter:none;
+ }
+ [data-liquid-underlay="relative"] { position:relative; }
+ [data-liquid-underlay]::after {
+  content:"";
+  position:absolute;
+  z-index:-1;
+  inset:0;
+  border-radius:inherit;
+  pointer-events:none;
+  background:var(--liquid-fill);
+  -webkit-backdrop-filter:var(--liquid-lens-filter);
+  backdrop-filter:var(--liquid-lens-filter);
+ }
+}
+
+/* Keep controls from inheriting the filter coordinates of a surrounding card. */
+:is([data-glass-control],[data-glass-thumb],[data-glass-nav-item]) {
+ --liquid-lens-filter:initial;
+}
+/* CSS preferences cover the first paint, including the opening screen. */
+@media(prefers-reduced-transparency:reduce),(prefers-contrast:more) {
+ body,.opening::before { background:var(--glass-solid); }
+ :root [data-liquid-surface][data-liquid-surface],:root #dialog[data-liquid-surface] {
+  background:var(--glass-solid)!important;
+  -webkit-backdrop-filter:none!important;
+  backdrop-filter:none!important;
+ }
+ [data-liquid-underlay]::after { display:none; }
+}
+:is([data-glass-effects="off"],[data-glass-solid]) body,
+:is([data-glass-effects="off"],[data-glass-solid]) .opening::before { background:var(--glass-solid); }
+:is([data-glass-effects="off"],[data-glass-solid]) [data-liquid-surface] {
+ background:var(--glass-solid)!important;
+ -webkit-backdrop-filter:none!important;
+ backdrop-filter:none!important;
+}
+:is([data-glass-effects="off"],[data-glass-solid]) [data-liquid-underlay]::after { display:none; }
+@media(forced-colors:active) {
+ :root [data-liquid-surface][data-liquid-surface],:root #dialog[data-liquid-surface] {
+  background:Canvas!important;
+  border-color:CanvasText!important;
+  box-shadow:none!important;
+ }
+ #mobile-bottom-nav .mobile-tab { color:LinkText; }
+ #mobile-bottom-nav .mobile-tab.active { color:Highlight; }
+}

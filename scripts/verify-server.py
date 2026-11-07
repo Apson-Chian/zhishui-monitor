@@ -10,7 +10,8 @@ from urllib.request import Request, urlopen
 
 root = Path(__file__).resolve().parent.parent
 parser = argparse.ArgumentParser()
-parser.add_argument('--base-url', choices=['https://apsonchian.ltd/zhishui/', 'https://apsonchian.ltd/zhishui-glass/'], default='https://apsonchian.ltd/zhishui/')
+parser.add_argument('--base-url', choices=['https://apsonchian.ltd/zhishui/', 'https://apsonchian.ltd/zhishui-glass/',
+                                          'https://apsonchian.ltd/zhishui-liquid/'], default='https://apsonchian.ltd/zhishui/')
 base = parser.parse_args().base_url
 
 network_retries = []
@@ -54,9 +55,14 @@ try:
 except HTTPError as error:
     assert error.code == 404
 old_sites = {}
-for endpoint in ['/', '/ai-odyssey/', '/v79/']:
+old_paths = ['/', '/ai-odyssey/', '/v79/']
+if '/zhishui-liquid/' in base:
+    old_paths.extend(['/zhishui/', '/zhishui-glass/'])
+for endpoint in old_paths:
     old_sites[endpoint] = get('https://apsonchian.ltd' + endpoint)[0]
 report = {'status': 'verified', 'url': base, 'runtime': checks,
           'network_retries': network_retries, 'canonical_redirect': 'passed', 'missing_asset_404': 'passed', 'existing_sites': old_sites}
-(root / ('qa/server-deployment-glass.json' if '/zhishui-glass/' in base else 'qa/server-deployment.json')).write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
+site = base.rstrip('/').rsplit('/', 1)[-1]
+suffix = site.removeprefix('zhishui')
+(root / f'qa/server-deployment{suffix}.json').write_text(json.dumps(report, ensure_ascii=False, indent=2) + '\n')
 print(json.dumps(report, ensure_ascii=False))

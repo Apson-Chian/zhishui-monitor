@@ -15,7 +15,7 @@ parser.add_argument('--archive', required=True)
 parser.add_argument('--sha256', required=True)
 parser.add_argument('--snippet', required=True)
 parser.add_argument('--version', required=True)
-parser.add_argument('--site', choices=['zhishui', 'zhishui-glass'], default='zhishui')
+parser.add_argument('--site', choices=['zhishui', 'zhishui-glass', 'zhishui-liquid'], default='zhishui')
 args = parser.parse_args()
 if os.geteuid() != 0:
     raise SystemExit('Run as root')
@@ -39,7 +39,8 @@ backup = Path('/var/backups') / site / args.version
 config = Path('/etc/nginx/conf.d/scenic-guide.conf')
 snippet = Path('/etc/nginx/snippets') / (site + '-location.conf')
 include = '    include /etc/nginx/snippets/' + site + '-location.conf;'
-anchor = '    include /etc/nginx/snippets/' + ('ai-odyssey' if site == 'zhishui' else 'zhishui') + '-location.conf;'
+parent_site = {'zhishui': 'ai-odyssey', 'zhishui-glass': 'zhishui', 'zhishui-liquid': 'zhishui-glass'}[site]
+anchor = '    include /etc/nginx/snippets/' + parent_site + '-location.conf;'
 if ('location = /' + site + ' {').encode() not in new_snippet or str(base / 'current').encode() not in new_snippet:
     raise SystemExit('Route snippet does not match the selected site')
 original_config = config.read_bytes()
@@ -75,8 +76,13 @@ def response(path):
                 raise
             time.sleep(.3)
 
+existing_paths = ['/', '/ai-odyssey/', '/v79/']
+if site != 'zhishui':
+    existing_paths.append('/zhishui/')
+if site == 'zhishui-liquid':
+    existing_paths.append('/zhishui-glass/')
 run('nginx', '-t')
-for path in ['/', '/ai-odyssey/', '/v79/']:
+for path in existing_paths:
     response(path)
 
 with tarfile.open(args.archive, 'r:gz') as archive:
@@ -142,11 +148,15 @@ try:
     for name, digest in hashes.items():
         if name != 'index.html' and hashlib.sha256(response(prefix + name)).hexdigest() != digest:
             raise RuntimeError('Published runtime checksum mismatch: ' + name)
-    for path in ['/', '/ai-odyssey/', '/v79/'] + (['/zhishui/'] if site == 'zhishui-glass' else []):
+    for path in existing_paths:
         response(path)
     vision_health = json.loads(response(prefix + 'api/vision/health'))
     if not vision_health.get('ready'):
         raise RuntimeError('Image gateway is not ready')
+    if b'/api/records' in new_snippet:
+        record_health = json.loads(response(prefix + 'api/records'))
+        if not isinstance(record_health.get('collections'), dict):
+            raise RuntimeError('Record database is not ready')
     health = json.loads(response('/ai-odyssey/api/health'))
     if health.get('database', {}).get('status') != 'ready':
         raise RuntimeError('Existing workshop health is not ready')

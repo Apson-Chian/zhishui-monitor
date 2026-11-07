@@ -1,11 +1,14 @@
 """Package only public runtime assets for the user's own Nginx server."""
+import argparse
 import hashlib
 import json
 from pathlib import Path
 import tarfile
 
 root = Path(__file__).resolve().parent.parent
-output = root / 'zhishui-server.tar.gz'
+parser = argparse.ArgumentParser(description=__doc__)
+parser.add_argument('--output', type=Path, default=root / 'zhishui-server.tar.gz')
+output = parser.parse_args().output.resolve()
 files = sorted(p for p in (root / 'dist').rglob('*') if p.is_file())
 if not files or not (root / 'dist/index.html').is_file():
     raise SystemExit('Missing public runtime')

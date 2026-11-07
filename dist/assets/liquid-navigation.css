@@ -1,11 +1,16 @@
 /* Floating navigation: a quiet structural sheet with a smaller, clearer selected lens. */
-:root{--navigation-shadow:0 18px 48px #294c4e17,0 3px 8px #294c4e0b,inset 0 1px 1px #fff;--navigation-filter:blur(20px) saturate(120%)}
-.sidebar,.mobile-bottom-nav{background:rgb(247 252 251 / 62%);border:1px solid #ffffffbf;box-shadow:var(--navigation-shadow);-webkit-backdrop-filter:var(--liquid-lens-filter,var(--navigation-filter));backdrop-filter:var(--liquid-lens-filter,var(--navigation-filter))}
+:root{--navigation-shadow:0 13px 36px #294c4e1d,0 3px 8px #294c4e10,inset 0 1px 1px #fff,inset 0 -2px 4px #467d7824}
+.sidebar,.mobile-bottom-nav{
+ --liquid-surface-filter:blur(12px) saturate(132%);
+ background:linear-gradient(150deg,#ffffff8c,transparent 70%),#e6f3ef73;
+ border:1px solid #ffffffbf;box-shadow:var(--navigation-shadow);
+ -webkit-backdrop-filter:var(--liquid-lens-filter,var(--liquid-surface-filter));backdrop-filter:var(--liquid-lens-filter,var(--liquid-surface-filter));
+}
 #main-nav,#mobile-bottom-nav{isolation:isolate}
 .glass-nav-indicator{position:absolute;z-index:0;left:0;top:0;pointer-events:none;border:1px solid #ffffffda;border-radius:16px;background:linear-gradient(145deg,#ffffff87,#dbefed59);box-shadow:0 3px 8px #25586616,inset 0 1px 1px #fff,inset 0 -1px 2px #538d941f;-webkit-backdrop-filter:var(--liquid-lens-filter,blur(3px) saturate(125%));backdrop-filter:var(--liquid-lens-filter,blur(3px) saturate(125%))}
 .glass-nav-indicator[hidden]{display:none}
 [data-glass-nav-item]{isolation:isolate;position:relative;touch-action:manipulation;font-family:var(--font);transition:transform 160ms var(--ease-out);-webkit-backdrop-filter:var(--liquid-lens-filter,none);backdrop-filter:var(--liquid-lens-filter,none)}
-[data-glass-nav-item]::before{content:'';display:block;position:absolute;inset:0;padding:1.5px;border-radius:inherit;pointer-events:none;background:conic-gradient(from 35deg,#93def0,#c3c3f7,#efc7d3,#e7dfb1,#b9e9db,#93def0);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;opacity:0;transition:opacity 160ms var(--ease-out)}
+[data-glass-nav-item]::before{content:'';display:block;position:absolute;inset:0;padding:1.5px;border-radius:inherit;pointer-events:none;background:var(--control-rim-light);-webkit-mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);-webkit-mask-composite:xor;mask:linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);mask-composite:exclude;opacity:0;transition:opacity 160ms var(--ease-out)}
 [data-glass-nav-item][data-glass-pressed]{transform:scale(.97);background-color:#ffffff45}
 [data-glass-nav-item][data-glass-pressed]::before{opacity:.9}
 [data-glass-nav-item][data-glass-keyboard]{transform:none;transition:none}
@@ -47,7 +52,7 @@
 @media(max-width:900px){
  html{scroll-padding-top:84px;scroll-padding-bottom:112px}
  body{padding-bottom:calc(102px + env(safe-area-inset-bottom,0px))}
- .sidebar{height:64px;inset:0 0 auto;width:100%;border-radius:0;border:0;border-bottom:1px solid #ffffff73;background:rgb(247 252 251 / 75%);box-shadow:0 1px 0 #688e8d0a}
+ .sidebar{--liquid-surface-filter:blur(18px) saturate(115%);height:64px;inset:0 0 auto;width:100%;border-radius:0;border:0;border-bottom:1px solid #ffffff73;background:rgb(247 252 251 / 75%);box-shadow:0 1px 0 #688e8d0a}
  .sidebar .header-tools{gap:6px}
  .sidebar :is(.notification-button,.mobile-menu){width:44px;height:44px;min-height:44px;display:grid;place-items:center;border:1px solid #ffffffb3;border-radius:50%;background:#ffffff35;box-shadow:0 3px 9px #2b5e6010,inset 0 1px 0 #fff}
  .sidebar #main-nav{position:fixed;inset:74px 12px auto;max-height:calc(100svh - 98px);padding:12px;gap:4px;border:1px solid #ffffffd4;border-radius:24px;background:rgb(246 252 250 / 94%);box-shadow:0 20px 60px #173c4326,inset 0 1px 0 #fff}
@@ -55,7 +60,7 @@
  .sidebar #main-nav .nav-link{z-index:1;min-height:50px;padding:12px 16px;border-radius:16px;font-size:17px;background:transparent}
  .sidebar #main-nav .nav-link.active{background:transparent;color:#195e70;font-weight:600}
  .sidebar.open+.sidebar-shade{inset:64px 0 0;background:#23474a2b;-webkit-backdrop-filter:blur(3px);backdrop-filter:blur(3px)}
- .mobile-bottom-nav{inset:auto 14px calc(12px + env(safe-area-inset-bottom,0px));width:calc(100% - 28px);max-width:470px;margin-inline:auto;padding:6px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;border-radius:32px;background:rgb(248 253 252 / 57%);box-shadow:0 12px 30px #23454f24,0 2px 6px #23454f0c,inset 0 1px 1px #fff}
+ .mobile-bottom-nav{inset:auto 14px calc(12px + env(safe-area-inset-bottom,0px));width:calc(100% - 28px);max-width:470px;margin-inline:auto;padding:6px;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:2px;border-radius:32px}
  .mobile-bottom-nav[hidden]{display:none}
  .mobile-tab{position:relative;z-index:1;min-height:58px;padding:6px 1px;gap:4px;border-radius:26px;font:500 11.5px/1.4 var(--font);color:#516f75;letter-spacing:0}
  .mobile-tab svg{width:22px;height:22px;stroke-width:1.7;pointer-events:none}
@@ -71,5 +76,6 @@
 :is([data-glass-effects="off"],[data-glass-solid]) :is([data-glass-navigation],[data-glass-nav-item],.glass-nav-indicator){-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
 :is([data-glass-effects="off"],[data-glass-solid]) .glass-nav-indicator{background:#dcebe8}
 :is([data-glass-effects="off"],[data-glass-solid]) [data-glass-nav-item]::before{display:none}
+:is([data-glass-effects="off"],[data-glass-solid]) .sidebar.open+.sidebar-shade{-webkit-backdrop-filter:none;backdrop-filter:none}
 @supports not ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){.sidebar,.mobile-bottom-nav{background:#f5f8f7}.glass-nav-indicator{background:#dcebe8}}
 @media(forced-colors:active){.sidebar,.mobile-bottom-nav,.sidebar #main-nav{background:Canvas!important;border-color:CanvasText!important;box-shadow:none}.glass-nav-indicator{background:Canvas!important;border:2px solid Highlight;box-shadow:none}[data-glass-nav-item]::before{display:none}.sidebar #main-nav .nav-link,.mobile-tab,.sidebar .notification-button{color:LinkText}.sidebar #main-nav .nav-link.active,.mobile-tab.active{color:Highlight}}

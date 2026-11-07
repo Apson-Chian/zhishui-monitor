@@ -1,8 +1,14 @@
 /* Keep native controls in charge of input. This layer only paints material and feedback. */
 (() => {
  'use strict';
- const root=document.documentElement;
- const controls='.btn,.hero-secondary,.playback-button,.detail-card-trigger,.detail-card-close,#dialog-close,.rain-presets button,.lab-rain-presets button,.monitor-tool-tabs button,.segmented button,.filter-tabs button,.lab-tabs button,.monitor-record-filters button,.vision-view-switch button,[data-map-mode],.atlas-reset,#ai-cancel,#ai-show-results';
+ const controls=[
+  '.btn','.hero-secondary','.opening-primary','#opening-skip','.playback-button',
+  '.detail-card-trigger','.detail-card-close','#dialog-close','.atlas-reset','#map-expand',
+  '.rain-presets button','.lab-rain-presets button','.monitor-tool-tabs button',
+  '.segmented button','.filter-tabs button','.lab-tabs button','.monitor-record-filters button',
+  '.vision-view-switch button','[data-map-mode]','[data-place]','.point-choice','.flow-stop',
+  '.ledger-entry-actions button','.pollution-map-toolbar button','#ai-cancel','#ai-show-results'
+ ].join(',');
  const ranges=new Map();let frame=0,pressed=null;
  const blocked=node=>node.matches(':disabled,[aria-disabled="true"]')||!!node.closest('[inert]');
  function signal(node,on){

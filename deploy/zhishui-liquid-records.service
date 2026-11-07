@@ -1,0 +1,20 @@
+[Unit]
+Description=Zhishui Liquid teaching records
+After=network.target
+
+[Service]
+DynamicUser=yes
+ExecStart=/usr/bin/python3 /opt/zhishui-liquid-records/server.py --port 5193
+Restart=on-failure
+RestartSec=3
+StateDirectory=zhishui-liquid-records
+StateDirectoryMode=0700
+NoNewPrivileges=true
+ProtectSystem=strict
+ProtectHome=true
+PrivateTmp=true
+PrivateDevices=true
+UMask=0077
+
+[Install]
+WantedBy=multi-user.target

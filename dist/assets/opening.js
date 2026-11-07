@@ -4,7 +4,7 @@
   class HydroOpening {
     constructor(root,onEnter) {
       this.root=root;this.onEnter=onEnter;this.entering=false;this.done=false;
-      this.animations=new Set();this.bridgeAnimations=new Set();this.exitAnimation=null;
+      this.bridgeAnimations=new Set();this.exitAnimation=null;
       const tokens=typeof getComputedStyle==='function'?getComputedStyle(root):null;
       const duration=(name,fallback)=>parseFloat(tokens?.getPropertyValue(name))||fallback;
       this.easing=tokens?.getPropertyValue('--ease-out').trim()||'cubic-bezier(0.23, 1, 0.32, 1)';
@@ -14,7 +14,7 @@
       this.crossfadeDelay=duration('--river-crossfade-delay',600);
       this.exitDuration=duration('--opening-exit-duration',900);
       this.preference=matchMedia('(prefers-reduced-motion: reduce)');
-      this.chapter=root.querySelector('.opening-chapter');this.next=root.querySelector('#opening-next');
+      this.next=root.querySelector('#opening-next');
       this.onClick=e=>{const button=e.target.closest('button');if(!button||this.entering)return;const keyboard=e.detail===0;if(button.id==='opening-skip')this.enter(keyboard,true);else if(button===this.next)this.enter(keyboard)};
       this.onKey=e=>{if(this.entering){this.interruptedByKeyboard=true;this.finishAnimations();if(e.key==='Escape')e.preventDefault();return}this.finishAnimations();if(e.key==='Escape'){e.preventDefault();this.enter(true,true)}};
       this.onVisibility=()=>{root.classList.toggle('opening-background',document.hidden);if(document.hidden)this.finishAnimations()};
@@ -24,26 +24,15 @@
       root.addEventListener('click',this.onClick);root.addEventListener('keydown',this.onKey);
       document.addEventListener('visibilitychange',this.onVisibility);window.addEventListener('pagehide',this.onPageHide);
       this.preference.addEventListener('change',this.onPreference);
-      this.syncMotion();this.onVisibility();root.focus({preventScroll:true});this.reveal();
+      this.syncMotion();this.onVisibility();root.focus({preventScroll:true});
     }
     syncMotion(){this.root.classList.toggle('opening-still',this.preference.matches)}
-    animate(el,frames,options){
-      if(!el?.animate)return;
-      const animation=el.animate(frames,{...options,easing:this.easing});this.animations.add(animation);
-      animation.finished.then(()=>this.animations.delete(animation),()=>this.animations.delete(animation));return animation;
-    }
-    reveal(){
-      if(this.preference.matches||document.hidden)return;
-      this.chapter.querySelectorAll('h1>span').forEach((el,i)=>this.animate(el,[{opacity:0,transform:'translateY(18px)'},{opacity:1,transform:'translateY(0)'}],{duration:800,delay:i*70,fill:'backwards'}));
-      this.animate(this.chapter.querySelector('p'),[{opacity:0},{opacity:1}],{duration:600,delay:100,fill:'backwards'});
-      this.animate(this.root.querySelector('.opening-art'),[{opacity:0},{opacity:1}],{duration:1000});
-    }
     track(el,frames,options,id){
       const animation=el.animate(frames,{easing:this.easing,fill:'both',...options});animation.id='river-handoff-'+id;
       this.bridgeAnimations.add(animation);animation.finished.catch(()=>{});return animation;
     }
     finishAnimations(){
-      this.animations.forEach(a=>a.cancel());this.animations.clear();this.exitAnimation?.finish();
+      this.exitAnimation?.finish();
       this.bridgeAnimations.forEach(a=>a.finish());this.completeBridge?.();
     }
     async bridge(source){
@@ -100,7 +89,7 @@
     }
     destroy(){
       if(this.completeBridge&&!this.done){this.completeBridge();return}
-      this.animations.forEach(a=>a.cancel());this.animations.clear();this.bridgeAnimations.forEach(a=>a.cancel());this.bridgeAnimations.clear();this.exitAnimation?.cancel();this.exitAnimation=null;
+      this.bridgeAnimations.forEach(a=>a.cancel());this.bridgeAnimations.clear();this.exitAnimation?.cancel();this.exitAnimation=null;
       this.root.removeEventListener('click',this.onClick);this.root.removeEventListener('keydown',this.onKey);
       document.removeEventListener('visibilitychange',this.onVisibility);window.removeEventListener('pagehide',this.onPageHide);
       window.removeEventListener('resize',this.onResize);window.removeEventListener('hashchange',this.onNavigate);

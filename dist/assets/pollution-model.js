@@ -52,9 +52,10 @@
  function createLedger(storage){
   const key='zhishui-pollution-events-v1';let records=[],available=!!storage;
   const valid=e=>e&&typeof e.id==='string'&&e.id.length<160&&typeof e.reach==='string'&&typeof e.reachName==='string'&&['enter','exit'].includes(e.kind)&&Number.isFinite(e.minute)&&e.minute>=0&&e.minute<=horizon&&Number.isInteger(e.point)&&e.point>=0&&e.point<3&&Number.isFinite(e.threshold)&&typeof e.at==='string';
-  try{const saved=JSON.parse(storage?.getItem(key)||'null');if(saved?.version===1&&Array.isArray(saved.records))records=saved.records.filter(valid).slice(0,40)}catch{available=false}
-  const persist=()=>{try{if(storage)storage.setItem(key,JSON.stringify({version:1,records}));else available=false}catch{available=false}};
-  return {list:()=>records.map(e=>({...e,params:{...e.params}})),available:()=>available,clear(){records=[];persist()},observe(run,reach,analysis,seen=new Set()){
+  function reload(){records=[];try{const saved=JSON.parse(storage?.getItem(key)||'null');if(saved?.version===1&&Array.isArray(saved.records))records=saved.records.filter(valid).slice(0,40)}catch{available=false}}
+  reload();
+  const persist=()=>{try{available=!!storage&&storage.setItem(key,JSON.stringify({version:1,records}))!==false}catch{available=false}};
+  return {reload,list:()=>records.map(e=>({...e,params:{...e.params}})),available:()=>available,clear(){records=[];persist()},observe(run,reach,analysis,seen=new Set()){
    const pending=[];for(const p of analysis.points)for(const [kind,minute] of [['enter',p.entry],['exit',p.exit]])if(minute!==null&&minute<=analysis.minute&&!seen.has(`${run}:${p.index}:${kind}`)&&!records.some(e=>e.id===`${run}:${p.index}:${kind}`))pending.push({id:`${run}:${p.index}:${kind}`,run,reach:reach.id,reachName:reach.name,point:p.index,kind,minute,threshold:analysis.params.threshold,params:{...analysis.params},at:new Date().toISOString()});
    pending.sort((a,b)=>a.minute-b.minute);for(const e of pending)records.unshift(e);if(pending.length){records=records.slice(0,40);persist()}return pending;
   }};

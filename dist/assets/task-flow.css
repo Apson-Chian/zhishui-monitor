@@ -42,6 +42,9 @@
 .monitor-console .rain-result-panel .scenario-result-heading{align-items:flex-start;margin-bottom:15px}
 .monitor-console .rain-result-panel .scenario-result-heading h3{font-size:22px;line-height:1.5}
 .monitor-console .rain-result-panel .scenario-result-heading>.source-link{min-height:40px;white-space:nowrap;flex-shrink:0}
+.monitor-console .rain-arrival{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px 16px;margin:0 0 14px;padding:10px 12px;border-inline-start:2px solid #659087;background:#e4f0eb;color:#335d56;font-size:14px;line-height:1.7}
+.monitor-console .rain-arrival p{flex:1 1 13em;margin:0}
+.monitor-console .rain-arrival .btn{min-height:44px}
 .monitor-console .scenario-plot{margin:0;min-width:0}
 .monitor-console .scenario-plot svg{display:block;width:100%;height:auto;overflow:visible}
 .monitor-console .scenario-plot text{font:12px var(--font);fill:#587965;letter-spacing:0}

@@ -1,5 +1,5 @@
 [Unit]
-Description=Zhishui private image analysis gateway
+Description=Zhishui private image and teaching records gateway
 After=network-online.target
 Wants=network-online.target
 [Service]

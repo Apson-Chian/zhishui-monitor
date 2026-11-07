@@ -1,18 +1,25 @@
 """Private, bounded image-analysis gateway. Never stores image files or request bodies."""
+import argparse
 import base64
 import binascii
 from contextlib import closing
+from functools import partial
 import hashlib
 import http.server
+from http.cookies import CookieError, SimpleCookie
 import json
 import math
 import os
+from pathlib import Path
 import re
+import secrets
 import sqlite3
 import threading
 import time
 import urllib.error
 import urllib.request
+
+import records
 
 API_URL = os.environ.get('VISION_API_URL', 'https://note3-prev-api.askdiandian.com/v1/chat/completions')
 MODEL = os.environ.get('VISION_MODEL', 'dots_webdev_1022')
@@ -120,7 +127,7 @@ def reserve(ip):
         db.execute('INSERT INTO usage VALUES (?, ?)', (identity, now))
 
 
-class Handler(http.server.BaseHTTPRequestHandler):
+class Handler(http.server.SimpleHTTPRequestHandler):
     server_version = 'ImageGateway'
     def setup(self):
         super().setup()
@@ -129,12 +136,14 @@ class Handler(http.server.BaseHTTPRequestHandler):
     def log_message(self, *args):
         pass
 
-    def reply(self, status, data):
+    def reply(self, status, data, cookie=None):
         payload = json.dumps(data, ensure_ascii=False).encode()
         self.send_response(status)
         self.send_header('Content-Type', 'application/json; charset=utf-8')
         self.send_header('Cache-Control', 'no-store')
         self.send_header('X-Content-Type-Options', 'nosniff')
+        if cookie:
+            self.send_header('Set-Cookie', cookie)
         self.send_header('Content-Length', str(len(payload)))
         self.end_headers()
         try:
@@ -142,19 +151,102 @@ class Handler(http.server.BaseHTTPRequestHandler):
         except (BrokenPipeError, ConnectionResetError):
             pass
 
+    @property
+    def preview(self):
+        return getattr(self.server, 'preview', False)
+
+    def record_owner(self, create=False):
+        cookie = SimpleCookie()
+        try:
+            cookie.load(self.headers.get('Cookie', ''))
+        except CookieError:
+            pass
+        token = cookie['zhishui_workspace'].value if 'zhishui_workspace' in cookie else ''
+        if not re.fullmatch(r'[A-Za-z0-9_-]{43}', token):
+            if not create:
+                raise ClientError(401, '请重新连接记录库。')
+            token = secrets.token_urlsafe(32)
+        path, secure = ('/', '') if self.preview else ('/zhishui-glass/', '; Secure')
+        return hashlib.sha256(token.encode()).hexdigest(), (
+            f'zhishui_workspace={token}; Path={path}; Max-Age={records.RETENTION_SECONDS}; '
+            f'HttpOnly; SameSite=Strict{secure}'
+        )
+
+    def check_record_origin(self, write=False):
+        host = self.headers.get('Host', '')
+        origin = self.headers.get('Origin')
+        local_host = re.fullmatch(r'(?:127\.0\.0\.1|localhost):\d+', host)
+        allowed = 'http://' + host if self.preview and local_host else 'https://apsonchian.ltd'
+        if self.headers.get('Sec-Fetch-Site') == 'cross-site' or ((write or origin) and origin != allowed):
+            raise ClientError(403, '请从本站操作记录。')
+
+    def read_json(self, limit):
+        if self.headers.get('Content-Type', '').split(';')[0] != 'application/json':
+            raise ClientError(415, '请求需要 JSON 格式。')
+        try:
+            size = int(self.headers.get('Content-Length', '0'))
+        except ValueError:
+            size = 0
+        if not 0 < size <= limit:
+            raise ClientError(413, '请求大小超出限制。')
+        try:
+            return json.loads(self.rfile.read(size))
+        except (ValueError, OSError) as error:
+            raise ClientError(400, '请求内容不完整。') from error
+
     def do_GET(self):
-        if self.path == '/zhishui/api/vision/health':
+        if self.path == ('/api/records' if self.preview else '/zhishui/api/records'):
+            try:
+                self.check_record_origin()
+                owner, cookie = self.record_owner(create=True)
+                self.reply(200, {'collections': records.read(owner)}, cookie)
+            except ClientError as error:
+                self.reply(error.status, {'error': error.message})
+            except sqlite3.Error:
+                self.reply(503, {'error': '记录库暂不可用。'})
+        elif self.path == ('/api/vision/health' if self.preview else '/zhishui/api/vision/health'):
             self.reply(200, {'ready': bool(os.environ.get('VISION_API_KEY'))})
+        elif self.preview and not self.path.startswith('/api/'):
+            super().do_GET()
         else:
             self.reply(404, {'error': '地址不存在。'})
+
+    def do_HEAD(self):
+        if self.preview and not self.path.startswith('/api/'):
+            super().do_HEAD()
+        else:
+            self.send_error(405)
+
+    def do_PUT(self):
+        if self.path != ('/api/records' if self.preview else '/zhishui/api/records'):
+            return self.reply(404, {'error': '地址不存在。'})
+        try:
+            self.check_record_origin(write=True)
+            owner, cookie = self.record_owner()
+            body = self.read_json(records.MAX_BODY)
+            if not isinstance(body, dict) or set(body) != {'domain', 'revision', 'snapshot'}:
+                raise records.InvalidRecord('记录格式无效。')
+            domain = records.choice(body['domain'], tuple(records.DOMAINS))
+            revision = records.integer(body['revision'], 0, 2**53 - 2)
+            saved = records.write(owner, domain, revision, body['snapshot'])
+            self.reply(200, {'revision': saved}, cookie)
+        except ClientError as error:
+            self.reply(error.status, {'error': error.message})
+        except records.InvalidRecord as error:
+            self.reply(400, {'error': str(error)})
+        except records.Conflict:
+            self.reply(409, {'error': '记录版本已变化。'})
+        except (records.CapacityExceeded, sqlite3.Error):
+            self.reply(503, {'error': '记录库暂不可用。'})
 
     def do_POST(self):
         acquired = False
         try:
-            if self.path != '/zhishui/api/vision':
+            if self.path != ('/api/vision' if self.preview else '/zhishui/api/vision'):
                 raise ClientError(404, '地址不存在。')
             origin = self.headers.get('Origin', '')
-            if origin and origin not in ('https://apsonchian.ltd',):
+            allowed = 'http://' + self.headers.get('Host', '') if self.preview else 'https://apsonchian.ltd'
+            if origin and origin != allowed:
                 raise ClientError(403, '请从本站发起识别。')
             if self.headers.get('Content-Type', '').split(';')[0] != 'application/json':
                 raise ClientError(415, '请上传有效的图片。')
@@ -184,4 +276,17 @@ class Handler(http.server.BaseHTTPRequestHandler):
 
 
 if __name__ == '__main__':
-    http.server.ThreadingHTTPServer(('127.0.0.1', 5192), Handler).serve_forever()
+    parser = argparse.ArgumentParser(description='智水监测网关与本地预览')
+    parser.add_argument('--preview', action='store_true', help='同源提供网页和记录 API')
+    parser.add_argument('--port', type=int)
+    parser.add_argument('--data-dir', type=Path)
+    args = parser.parse_args()
+    if args.data_dir:
+        os.environ['STATE_DIRECTORY'] = str(args.data_dir.resolve())
+    port = args.port or (5188 if args.preview else 5192)
+    static_root = Path(__file__).resolve().parent.parent / 'dist'
+    with http.server.ThreadingHTTPServer(('127.0.0.1', port), partial(Handler, directory=str(static_root))) as server:
+        server.preview = args.preview
+        if args.preview:
+            print(f'智水监测预览 http://127.0.0.1:{port}/', flush=True)
+        server.serve_forever()

@@ -1,4 +1,11 @@
-/* A separate opening surface; the application stays hidden until the visitor enters. */
+/* The opening copy uses one preloaded subset. Keep the first paint stable on slow connections. */
+@font-face {
+  font-family:"Zhishui Opening";
+  src:url("./fonts/songti/opening-theme.woff2") format("woff2");
+  font-style:normal;
+  font-weight:200 900;
+  font-display:optional;
+}
 #platform[hidden],.opening[hidden],.opening [hidden] { display:none!important; }
 #platform { display:contents; }
 body.opening-active { padding-bottom:0; }
@@ -6,6 +13,7 @@ body.opening-active { padding-bottom:0; }
   position:relative;isolation:isolate;min-height:100svh;overflow:hidden;
   display:flex;flex-direction:column;background:#f4f8f1;color:#244c51;
   padding:0 clamp(24px,5vw,90px);
+  font-family:"Zhishui Opening","Songti SC",STSong,SimSun,serif;
 }
 .opening::before {
   content:'';position:absolute;z-index:-1;inset:0;pointer-events:none;
@@ -20,6 +28,7 @@ body.opening-active { padding-bottom:0; }
 .opening-layout { display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);align-items:center;gap:8%;width:100%;max-width:1440px;margin:auto;flex:1;padding:48px 0 40px; }
 .opening-reading { position:relative;z-index:2; }
 .opening-eyebrow { display:block;font-size:16px;letter-spacing:.2em;color:#65877b;margin-bottom:22px; }
+.opening .opening-chapter h1 { font-family:inherit; }
 .opening-chapter h1 { font-size:clamp(52px,5.5vw,86px);font-weight:600;line-height:1.12;letter-spacing:.035em;margin:0 0 28px; }
 .opening-chapter h1>span { display:block;background:linear-gradient(180deg,#25494d,#4f8c8b);background-clip:text;-webkit-background-clip:text;color:transparent; }
 .opening-chapter p { font-size:19px;line-height:2;letter-spacing:.025em;color:#53716a;max-width:35em;margin:0;text-align:justify; }

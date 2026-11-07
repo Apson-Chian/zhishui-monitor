@@ -12,6 +12,16 @@ h1,h2,h3,.knowledge-title{font-family:var(--font);letter-spacing:0;font-weight:6
 .cinematic-copy h1{font-size:clamp(54px,5.9vw,80px);line-height:1.2;color:#244a50}
 .luminous-title{color:#376e75;background:none;-webkit-text-fill-color:currentColor;text-shadow:none}
 .hero-bottom{border-color:#567f7626}.hero-scene{border-color:#fff9;border-radius:30px;background:#ecf5f0;box-shadow:var(--glass-shadow)}
+.cinematic-hero .scene-coordinate{
+ --liquid-surface-filter:blur(4px) saturate(124%);
+ display:flex;align-items:center;flex-direction:row;gap:8px;inset:auto 16px 16px auto;
+ min-height:32px;padding:5px 12px;border:1px solid #ffffffd6;border-radius:999px;
+ background:#edf8f4d9;box-shadow:0 4px 12px #244c4b12,inset 0 1px 1px #fff;
+}
+.cinematic-hero .scene-coordinate::before{
+ content:"";width:6px;height:6px;border-radius:50%;background:#4a8589;box-shadow:0 0 0 3px #4a85891a;
+}
+.cinematic-hero .scene-coordinate b{color:#345e62;font:550 12px/1.4 var(--font);letter-spacing:0}
 /* The material is on the surface; foreground text is never filtered. */
 :is(.panel,.feature-card,.stat-card,.monitor-location-panel,.sandbox-panel,.pollution-map-panel,.pollution-point-card,.monitor-analysis-link,.lab-result-card,.lab-run-panel):not(.detail-card-slot),
 .home-discovery-card,.home-task-grid>a,.knowledge-index .knowledge-grid{
@@ -43,17 +53,42 @@ h1,h2,h3,.knowledge-title{font-family:var(--font);letter-spacing:0;font-weight:6
 .home-discovery{position:relative;gap:20px;padding-top:34px;padding-bottom:0}
 .home-discovery::before{display:none}
 .home-discovery-card{display:grid;grid-template-columns:46px minmax(0,1fr) auto;align-items:center;z-index:1;isolation:auto;min-height:126px;padding:25px 28px;gap:16px;background:var(--glass-tint);color:#244d50}
-.home-discovery-card.discovery-city,.home-discovery-card.discovery-knowledge{background:linear-gradient(135deg,#ffffff40,transparent 60%),var(--glass-tint);border-color:#ffffffb3;color:#244d50}
+.home-discovery-card:is(.discovery-city,.discovery-knowledge){background:var(--glass-solid);color:#244d50}
 .home-discovery-title{font-size:26px;font-weight:550;letter-spacing:0}
 .home-discovery-icon,.discovery-city .home-discovery-icon,.discovery-knowledge .home-discovery-icon{width:46px;height:46px;color:#336c6b;background:#ffffff40;border:1px solid #ffffffa3;box-shadow:inset 0 1px 1px #fff;border-radius:14px}
 .home-discovery-action,.discovery-city .home-discovery-action,.discovery-knowledge .home-discovery-action{grid-column:auto;color:#416c65;font-size:14px;font-weight:400;gap:8px;white-space:nowrap}
 .home-discovery-action svg{width:18px;height:18px}
 .home-entries{padding-top:42px}.home-entries h2{font-size:23px;font-weight:550;letter-spacing:0}
-.home-task-grid{gap:20px}.home-task-grid>a,.home-task-grid>a.task-monitor,.home-task-grid>a.task-ai,.home-task-grid>a.task-experience{min-height:178px;padding:26px;isolation:auto;row-gap:22px;background:linear-gradient(132deg,#ffffff50,transparent 54%),var(--glass-tint);color:#244e51;border-color:#ffffffc2}
+.home-task-grid{gap:20px}
+.home-task-grid>a:is(.task-monitor,.task-ai,.task-experience){
+ min-height:152px;padding:24px;isolation:auto;row-gap:16px;background:var(--glass-solid);color:#244e51;
+}
+.home-discovery-card:is(.discovery-city,.discovery-knowledge),.home-task-grid>a:is(.task-monitor,.task-ai,.task-experience){
+ --liquid-surface-filter:blur(5px) saturate(124%);
+ --entry-tint:rgb(224 244 240 / 42%);
+ --entry-shadow:0 12px 28px #193e4512,0 2px 5px #193e450a,inset 0 1px 1px #fff,inset 0 -2px 4px #467d781c;
+ border-color:#ffffffa8;border-bottom-color:#729c9c2e;
+ box-shadow:var(--entry-shadow);
+}
+.home-task-grid>a.task-ai{--entry-tint:rgb(222 239 250 / 47%)}
+.home-task-grid>a.task-experience{--entry-tint:rgb(225 243 230 / 45%)}
+@supports ((backdrop-filter:blur(1px)) or (-webkit-backdrop-filter:blur(1px))){
+ .home-discovery-card,.home-task-grid>a,.cinematic-hero .scene-coordinate{
+  -webkit-backdrop-filter:var(--liquid-lens-filter,var(--liquid-surface-filter));
+  backdrop-filter:var(--liquid-lens-filter,var(--liquid-surface-filter));
+ }
+ .home-discovery-card:is(.discovery-city,.discovery-knowledge),.home-task-grid>a:is(.task-monitor,.task-ai,.task-experience){
+  background:radial-gradient(ellipse at 2% 0%,#ffffffa6,transparent 62%),
+             linear-gradient(160deg,#faffff3d 24%,var(--entry-tint)),#f6fffc24;
+ }
+ .cinematic-hero .scene-coordinate{background:#edf8f47d}
+}
 .home-task-grid .card-cover-image,.home-task-grid .photo-cover-card::before{display:none}
-.home-task-grid :is(.task-monitor,.task-ai,.task-experience) :is(h3,strong){color:#244e51}
+.home-task-grid :is(.task-monitor,.task-ai,.task-experience) h3{color:#244e51}
 .home-task-grid h3{font-size:23px;font-weight:550;letter-spacing:0}
-.home-task-grid strong{font-size:14px;font-weight:450;color:#4e7470}
+.home-task-grid :is(.task-monitor,.task-ai,.task-experience) strong{
+ justify-content:space-between;font-size:14px;font-weight:450;color:#386360;
+}
 .home-task-grid :is(.task-monitor,.task-ai,.task-experience) .task-symbol{background:#ffffff69;color:#397a78;border:1px solid #fff9;box-shadow:inset 0 1px 1px #fff;border-radius:17px}
 .home-task-grid .task-symbol svg,.home-discovery-icon svg{width:27px;height:27px}
 /* The reading index stays one sheet: no six competing coloured tiles. */
@@ -87,7 +122,10 @@ h1,h2,h3,.knowledge-title{font-family:var(--font);letter-spacing:0;font-weight:6
 /* SVG refraction is added only by the verified renderer, on entry cards. */
 [data-liquid-lens]{-webkit-backdrop-filter:var(--liquid-lens-filter,var(--glass-filter));backdrop-filter:var(--liquid-lens-filter,var(--glass-filter))}
 @media(hover:hover) and (pointer:fine){
- .home-discovery-card:hover,.home-task-grid>a:hover,.monitor-analysis-link:hover{background-color:#ffffff26;border-color:#fff;box-shadow:0 14px 35px #1b4a4517,0 2px 5px #193e4508,inset 0 1px 1px #fff}
+ .home-discovery-card:is(.discovery-city,.discovery-knowledge):hover,
+ .home-task-grid>a:is(.task-monitor,.task-ai,.task-experience):hover,.monitor-analysis-link:hover{
+  border-color:#fffd;box-shadow:0 14px 35px #1b4a4520,0 2px 6px #193e450d,inset 0 1px 1px #fff,inset 0 -2px 4px #467d781c;
+ }
  .knowledge-open:hover{background:#ffffff45}.knowledge-index .knowledge-card:hover{border-color:#668d7f24}.site-footer a:hover,.site-footer button:hover{color:#244f43}
 }
 @media(max-width:900px){
@@ -100,11 +138,13 @@ h1,h2,h3,.knowledge-title{font-family:var(--font);letter-spacing:0;font-weight:6
 @media(max-width:760px){
  .cinematic-hero{padding-top:36px;gap:26px}.cinematic-copy h1{font-size:clamp(42px,11.2vw,62px);line-height:1.22;margin-block:12px 27px}
  .hero-scene{border-radius:24px}.home-discovery{padding:28px 20px 0;gap:14px}
+ .cinematic-hero .scene-coordinate{inset:auto 10px 10px auto;padding-inline:10px}
+ .cinematic-hero .scene-coordinate b{font-size:11px}
  .home-discovery-card{min-height:120px;padding:20px;gap:12px;border-radius:20px;grid-template-columns:38px minmax(0,1fr)}
  .home-discovery-title{font-size:23px;letter-spacing:0}.home-discovery-card .home-discovery-icon{width:38px;height:40px;border-radius:12px}.home-discovery-icon svg{width:24px;height:24px}
  .home-discovery-action,.discovery-city .home-discovery-action,.discovery-knowledge .home-discovery-action{grid-column:2;font-size:14px}
  .home-entries{padding-top:30px}.home-entries h2{font-size:21px}.home-task-grid{gap:14px}
- .home-task-grid>a{min-height:155px;border-radius:22px;padding:23px;row-gap:19px}.home-task-grid h3{font-size:22px}
+ .home-task-grid>a:is(.task-monitor,.task-ai,.task-experience){min-height:124px;border-radius:22px;padding:18px 21px;row-gap:10px}.home-task-grid h3{font-size:22px}
  .knowledge-index .knowledge-grid{border-radius:20px}.knowledge-heading h1{font-size:29px}.knowledge-title{font-size:20px}.knowledge-open{gap:11px;padding:23px 17px;min-height:144px}.knowledge-symbol{width:32px}
  .knowledge-description{font-size:15px}.knowledge-meta{font-size:12px}.knowledge-source{font-size:13px}
  .detail-card-dialog,#dialog{border-radius:23px}.site-footer{padding-top:35px}.footer-brand{font-size:26px}
@@ -130,6 +170,17 @@ h1,h2,h3,.knowledge-title{font-family:var(--font);letter-spacing:0;font-weight:6
  .home-discovery::before{display:none}
 }
 
+:is([data-glass-effects="off"],[data-glass-solid]) .cinematic-hero .scene-coordinate{
+ background:var(--glass-solid);-webkit-backdrop-filter:none;backdrop-filter:none;
+}
+:is([data-glass-effects="off"],[data-glass-solid]) :is(#dialog,.detail-card-dialog)::backdrop{
+ -webkit-backdrop-filter:none;backdrop-filter:none;
+}
+@media(forced-colors:active){
+ .cinematic-hero .scene-coordinate{background:Canvas;border-color:CanvasText;box-shadow:none}
+ .cinematic-hero .scene-coordinate b{color:CanvasText}
+ .cinematic-hero .scene-coordinate::before{display:none}
+}
 [data-glass-solid] .home-discovery::before{display:none}
 
 @media(max-width:560px){

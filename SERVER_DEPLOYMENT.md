@@ -1,4 +1,97 @@
-# 当前分支站 · 紧凑桌面侧边栏（5.14.5）
+# 液态玻璃按钮与滑杆
+
+- 日期：2026-11-06，Asia/Shanghai。
+- 公网入口：https://apsonchian.ltd/zhishui-liquid/ 。
+- 发布标识：`20261106-liquid-controls-v4`。前版：`20261106-liquid-refraction-v3`。
+- 发布包 SHA-256：`c0e62c9c73b95a8b7c84fd5a853139a47a64ea09b36a0f4784229832ae495de5`。运行文件 184 个。
+
+按钮、分段选择和滑杆使用与卡片一致的透明底色和边缘高光。Chromium 下的小控件边缘对真实背景取样，按压时增加色散。滑杆保留原生输入、键盘与触屏，填充和手柄随值更新。Firefox 磨砂回退、Chrome 1440/390/320px、手机触控、减少动效和高对比检查通过。
+
+发布仅切换 `/zhishui-liquid/` 的静态版本，安装器通过接口健康检查并核对两个旧站版本指针。备份在 `/var/backups/zhishui-liquid/20261106-liquid-controls-v4`。
+
+---
+
+# 液态玻璃边缘折射增强
+
+- 日期：2026-11-06，Asia/Shanghai。
+- 公网入口：https://apsonchian.ltd/zhishui-liquid/ 。
+- 发布标识：`20261106-liquid-refraction-v3`。前版：`20261106-liquid-material-v2`。
+- 发布包 SHA-256：`df866ed9461413d7c018c3e48f4faf445e4518b3b5801da72fcc93b73e9eabbc`。运行文件 184 个。
+
+全站卡片、桌面浮动导航和手机底栏共用边缘折射材质，重绘浅色水纹背景。Chromium 使用真实背景的 SVG 位移，中心使用 3.74px 模糊和 6.5% 染色层。Firefox 使用磨砂回退。1440px 与 390px 视口通过卡片、导航、地图选择、实景和知识弹窗验证，实际底栏和桌面悬浮栏的边缘位移通过像素测试。
+
+只切换了 `/zhishui-liquid/` 的静态版本。安装器校验了全部文件和接口健康，并核对了 `/zhishui/` 与 `/zhishui-glass/` 的版本指针。回退文件位于 `/var/backups/zhishui-liquid/20261106-liquid-refraction-v3`。
+
+---
+
+# 液态玻璃界面独立站
+
+- 日期：2026-11-06，Asia/Shanghai。
+- 公网入口：https://apsonchian.ltd/zhishui-liquid/ 。
+- 发布标识：`20261106-liquid-material-v2`。发布包 SHA-256：`375c278b038679558eec9baeceb79b47dc10aa16848c4f41a14fdcd42c8f08e9`。
+- 网页目录：`/var/www/zhishui-liquid/current`。备份：`/var/backups/zhishui-liquid/20261106-liquid-material-v2`。
+
+新路径使用独立的 Nginx 片段 `deploy/zhishui-liquid-location.conf`。首次安装时将 `backend/server.py`、`backend/records.py` 和 `backend/schema.sql` 放到 `/opt/zhishui-liquid-records/`，启用 `deploy/zhishui-liquid-records.service`。服务监听本机 5193，教学记录保存在独立 SQLite 状态目录。浏览器缓存使用 `zhishui-liquid:` 前缀，记录 Cookie 仅发送到 `/zhishui-liquid/`。AI 识别共用 5192 网关及既有额度，未迁移旧站记录。
+
+静态包可用 `python3 scripts/package-server.py --output <新归档路径>` 生成，按后文顺序使用安装器并传入 `--site zhishui-liquid`。公网复核命令为 `python3 scripts/verify-server.py --base-url https://apsonchian.ltd/zhishui-liquid/`。
+
+安装器校验 183 个运行文件，Nginx、识别网关、独立记录服务均正常。发布前后核对了 `/zhishui/` 和 `/zhishui-glass/` 的版本指针。
+
+公网 Chromium 通过 1440、390、320 像素视口的首页、实景弹窗、导航与材质关闭检查。本机 Firefox 通过磨砂回退和实景弹窗检查。公网浏览器首次写入曾超时，v2 对传输失败的写入自动重发一次同一版本和快照，复测通过保存、清除本机副本后回读、两站记录隔离和测试样例清理。
+
+---
+
+# SQLite 记录库版 5.16.0
+
+- 日期：2026-11-05，Asia/Shanghai。
+- 公网入口：https://apsonchian.ltd/zhishui-glass/ 。
+- 发布标识：`20261105-sqlite-records-v53`。网页前版为 `20261104-visual-restore-v52`，网关前版为 `20261103-ai-recovery-v43`。
+- 发布包 SHA-256：`24fae4b478c7ff60848c2aff008538ea304d5ca53845572950634963206cccef`。运行文件 183 个。
+- 网页备份：`/var/backups/zhishui-glass/20261105-sqlite-records-v53`。网关回退指针与单元备份：`/var/backups/zhishui-ai/20261105-sqlite-records-v53`。
+
+网关先初始化 SQLite 业务库，再切换网页与 Nginx 记录接口。网关内部验收通过写入、回读、会话隔离和版本冲突检查。公网逐项核对 183 个资源，规范跳转、缺失资源 404 及既有入口正常。公网 Chromium 验证四类教学记录写入、清本机缓存后回读、独立会话隔离、断线保存与补传。玄武湖公开例图的云端识别已在网页生成报告。验收使用独立会话，测试记录已清理。
+
+---
+
+# 当前分支站 · 恢复液态玻璃视觉（5.15.1）
+
+- 日期：2026-11-04，Asia/Shanghai。
+- 地址：https://apsonchian.ltd/zhishui-glass/ ，分支 codex/liquid-glass。
+- 发布：20261104-visual-restore-v52。前版：20261104-hehai-v51。
+- 发布包 SHA-256：4a5428878ffe996c82edb4bbbc8a07471e91741ac68fd4fa1970b9f962f7da4a。运行文件 182 个。
+- 目录：`/var/www/zhishui-glass/releases/20261104-visual-restore-v52`。备份：`/var/backups/zhishui-glass/20261104-visual-restore-v52`。
+
+恢复 5.14.6 的首屏布局、动态数字江河、宋体及液态玻璃视觉。保留河海主题、作者署名、AI 报告与水情预警操作。安装器逐项核对 182 个文件，Nginx 和既有入口健康。
+
+---
+
+# 河海主题版（5.15.0）
+
+- 日期：2026-11-04，Asia/Shanghai。
+- 地址：https://apsonchian.ltd/zhishui-glass/ ，分支 codex/liquid-glass。
+- 发布：20261104-hehai-v51。前版：20261104-opening-rain-v50。
+- 发布包 SHA-256：20e56be7043d2c5741b7c26b607eb2cf49cc935dd01dbbb3fbcee90b56c5a200。运行文件 184 个。
+- 目录：`/var/www/zhishui-glass/releases/20261104-hehai-v51`。备份：`/var/backups/zhishui-glass/20261104-hehai-v51`。
+
+安装器完成 184 个文件校验，Nginx 和既有入口健康。新版使用既有同源识别网关，离线包可用随附玄武湖样例复现报告流程。
+
+公网 HTTPS 的 184 个文件与发布包逐项匹配。Chromium 在 1440、390、320 像素下通过六栏目浏览、教学预警、报告回查及导出。桌面使用玄武湖公开照片完成一次真实上传和云端分析。解压后的离线包在外部请求全部阻断时通过六栏目流程。
+
+---
+
+# 开场字体、降雨响应与作者署名（5.14.6）
+
+- 日期：2026-11-04，Asia/Shanghai。
+- 地址：https://apsonchian.ltd/zhishui-glass/ ，分支 codex/liquid-glass。
+- 发布：20261104-opening-rain-v50。前版：20261104-compact-rail-v49。
+- 发布包 SHA-256：2a94378fdaffce6fc55bae0c54d28a2736be30995f3b8e8f11f2e612bb8bd4bd。运行文件 181 个。
+- 目录：`/var/www/zhishui-glass/releases/20261104-opening-rain-v50`。备份：`/var/backups/zhishui-glass/20261104-opening-rain-v50`。
+
+安装器核对了 181 个文件，Nginx 和既有站点健康。正式 HTTPS 在 Chromium 的桌面与手机视口验证了开场字体、作者署名和三汊河口从第 35 分钟跳到第 60 分钟的水位变化。
+
+---
+
+# 液态玻璃版 · 紧凑桌面侧边栏（5.14.5）
 
 - 日期：2026-11-04，Asia/Shanghai。
 - 地址：https://apsonchian.ltd/zhishui-glass/ ，分支 codex/liquid-glass。
