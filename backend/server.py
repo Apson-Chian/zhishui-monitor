@@ -21,6 +21,7 @@ import urllib.error
 import urllib.request
 
 import records
+import auth
 
 def load_vision_env():
     """Read server-only local settings; process/systemd values take precedence."""
@@ -226,7 +227,9 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         self.send_header('Cache-Control', 'no-store')
         self.send_header('X-Content-Type-Options', 'nosniff')
         if cookie:
-            self.send_header('Set-Cookie', cookie)
+
+            for item in ([cookie] if isinstance(cookie, str) else cookie):
+                self.send_header('Set-Cookie', item)
         self.send_header('Content-Length', str(len(payload)))
         self.end_headers()
         try:
@@ -244,6 +247,12 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             cookie.load(self.headers.get('Cookie', ''))
         except CookieError:
             pass
+        if 'zhishui_session' in cookie:
+            try:
+                owner, self.account_name = auth.resolve(cookie['zhishui_session'].value)
+            except auth.AuthError as error:
+                raise ClientError(401, str(error))
+            return owner, None
         token = cookie['zhishui_workspace'].value if 'zhishui_workspace' in cookie else ''
         if not re.fullmatch(r'[A-Za-z0-9_-]{43}', token):
             if not create:
@@ -282,7 +291,7 @@ class Handler(http.server.SimpleHTTPRequestHandler):
             try:
                 self.check_record_origin()
                 owner, cookie = self.record_owner(create=True)
-                self.reply(200, {'collections': records.read(owner)}, cookie)
+                self.reply(200, {'collections': records.read(owner), 'workspace': owner, 'username': getattr(self, 'account_name', None)}, cookie)
             except ClientError as error:
                 self.reply(error.status, {'error': error.message})
             except sqlite3.Error:
@@ -308,6 +317,8 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         try:
             self.check_record_origin(write=True)
             owner, cookie = self.record_owner()
+            if self.headers.get('X-Workspace-ID', owner) != owner:
+                raise ClientError(409, '用户已切换，请刷新页面。')
             body = self.read_json(records.MAX_BODY)
             if not isinstance(body, dict) or set(body) != {'domain', 'revision', 'snapshot'}:
                 raise records.InvalidRecord('记录格式无效。')
@@ -324,7 +335,50 @@ class Handler(http.server.SimpleHTTPRequestHandler):
         except (records.CapacityExceeded, sqlite3.Error):
             self.reply(503, {'error': '记录库暂不可用。'})
 
+    def session_cookie(self, name, value, age):
+        path, secure = ('/', '') if self.preview else ('/zhishui-glass/', '; Secure')
+        return f'{name}={value}; Path={path}; Max-Age={age}; HttpOnly; SameSite=Strict{secure}'
+
+    def account_or_import(self):
+        prefix = '/api/' if self.preview else '/zhishui/api/'
+        route = self.path.removeprefix(prefix)
+        if not self.path.startswith(prefix) or route not in ('auth/login', 'auth/register', 'auth/logout', 'records/import'):
+            return False
+        try:
+            self.check_record_origin(write=True)
+            if route == 'auth/logout':
+                cookie = SimpleCookie(self.headers.get('Cookie', ''))
+                if 'zhishui_session' in cookie:
+                    auth.revoke(cookie['zhishui_session'].value)
+                self.reply(200, {'ok': True}, [self.session_cookie('zhishui_session', '', 0),
+                                             self.session_cookie('zhishui_workspace', '', 0)])
+            elif route.startswith('auth/'):
+                body = self.read_json(4096)
+                if not isinstance(body, dict) or set(body) != {'username', 'password'}:
+                    raise ClientError(400, '请填写用户名和密码。')
+                token = auth.sign_in(body['username'], body['password'], route.endswith('register'), self.headers.get('X-Real-IP', self.client_address[0]) if not self.preview else self.client_address[0])
+                self.reply(200, {'ok': True}, self.session_cookie('zhishui_session', token, auth.SESSION_SECONDS))
+            else:
+                owner, cookie = self.record_owner()
+                if self.headers.get('X-Workspace-ID') != owner:
+                    raise ClientError(409, '用户已切换，请刷新页面。')
+                result = records.import_backup(owner, self.read_json(records.MAX_BODY))
+                self.reply(200, {'collections': result, 'workspace': owner, 'username': getattr(self, 'account_name', None)}, cookie)
+        except (auth.AuthError, CookieError) as error:
+            self.reply(400, {'error': str(error)})
+        except ClientError as error:
+            self.reply(error.status, {'error': error.message})
+        except records.InvalidRecord as error:
+            self.reply(400, {'error': str(error)})
+        except records.Conflict:
+            self.reply(409, {'error': '记录已变化，请刷新后重新导入。'})
+        except (records.CapacityExceeded, sqlite3.Error):
+            self.reply(503, {'error': '记录库暂不可用。'})
+        return True
+
     def do_POST(self):
+        if self.account_or_import():
+            return
         acquired = False
         reservation = None
         completed = False

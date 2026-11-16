@@ -57,7 +57,7 @@ def integer(value, minimum, maximum):
 
 
 def choice(value, choices):
-    require(value in choices)
+    require(isinstance(value, str) and value in choices)
     return value
 
 
@@ -233,3 +233,45 @@ def write(owner, domain, expected, snapshot):
             for position, (key, entry) in enumerate(entries)
         ])
         return revision
+
+
+def import_backup(owner, body):
+    """Validate all domains first, then restore them in one version-checked transaction."""
+    require(isinstance(body, dict) and set(body) == {'backup', 'revisions'})
+    backup, revisions = body['backup'], body['revisions']
+    require(isinstance(backup, dict) and backup.get('format') == 'zhishui-backup'
+            and type(backup.get('version')) is int and backup['version'] == 1)
+    snapshots = backup.get('collections')
+    require(isinstance(snapshots, dict) and set(snapshots) == set(DOMAINS))
+    require(isinstance(revisions, dict) and set(revisions) == set(DOMAINS))
+    entries = {domain: validate(domain, snapshot) if snapshot is not None else None
+               for domain, snapshot in snapshots.items()}
+    for revision in revisions.values():
+        integer(revision, 0, 2**53-2)
+    now = int(time.time())
+    with closing(connect()) as db, db:
+        db.execute('BEGIN IMMEDIATE')
+        for domain in DOMAINS:
+            row = db.execute('SELECT revision FROM record_collections WHERE owner_hash=? AND domain=?',
+                             (owner, domain)).fetchone()
+            if (row[0] if row else 0) != revisions[domain]:
+                raise Conflict
+        total = db.execute('SELECT COUNT(*) FROM record_collections').fetchone()[0]
+        existing = db.execute('SELECT COUNT(*) FROM record_collections WHERE owner_hash=?', (owner,)).fetchone()[0]
+        if total - existing + sum(value is not None for value in entries.values()) > MAX_COLLECTIONS:
+            raise CapacityExceeded
+        for domain, values in entries.items():
+            # Preserve a revision tombstone for empty collections, avoiding stale-write ABA.
+            if values is None and domain == 'experience':
+                values = [('state', experience_state({'rain':60,'capacity':6,'area':1,'duration':60,
+                    'step':2,'chosen':0,'found':False,'recorded':False,'photo':'xuanwu',
+                    'notes':{},'checks':{},'runs':[],'trials':[]}))]
+            values = values or []
+            db.execute('INSERT INTO record_collections VALUES (?,?,?,?) ON CONFLICT(owner_hash,domain) '
+                       'DO UPDATE SET revision=excluded.revision, updated_at=excluded.updated_at',
+                       (owner, domain, revisions[domain]+1, now))
+            db.execute('DELETE FROM record_entries WHERE owner_hash=? AND domain=?', (owner, domain))
+            db.executemany('INSERT INTO record_entries VALUES (?,?,?,?,?)', [
+                (owner, domain, key, pos, json.dumps(entry, ensure_ascii=False, allow_nan=False))
+                for pos, (key, entry) in enumerate(values)])
+    return read(owner)

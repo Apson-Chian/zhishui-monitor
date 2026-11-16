@@ -61,7 +61,9 @@ class RecordsAPI(unittest.TestCase):
 
     def new_workspace(self):
         status, body, header = self.call()
-        self.assertEqual((status, body), (200, {'collections': {}}))
+        self.assertEqual(status, 200)
+        self.assertEqual(body['collections'], {})
+        self.assertEqual(len(body['workspace']), 64)
         self.assertIn('HttpOnly; SameSite=Strict', header)
         return header.split(';', 1)[0]
 
@@ -77,7 +79,7 @@ class RecordsAPI(unittest.TestCase):
         self.assertEqual(status, 200)
         self.assertEqual(set(body['collections']), set(cases))
         self.assertEqual(body['collections']['experience']['snapshot']['state']['note'], '水面有反光')
-        self.assertEqual(self.call(cookie=other)[1], {'collections': {}})
+        self.assertEqual(self.call(cookie=other)[1]['collections'], {})
         with sqlite3.connect(Path(self.directory, 'teaching.sqlite3')) as db:
             self.assertEqual(db.execute('SELECT count(*) FROM record_entries').fetchone()[0], 4)
             digest = db.execute('SELECT owner_hash FROM record_collections').fetchone()[0]
@@ -101,4 +103,4 @@ class RecordsAPI(unittest.TestCase):
         self.assertEqual(self.call('PUT', owner, payload, origin='https://example.invalid')[0], 403)
         invalid = {**REPORT, 'station': 99}
         self.assertEqual(self.call('PUT', owner, {**payload, 'snapshot': {'version': 1, 'records': [invalid]}})[0], 400)
-        self.assertEqual(self.call(cookie=owner)[1], {'collections': {}})
+        self.assertEqual(self.call(cookie=owner)[1]['collections'], {})

@@ -18,9 +18,9 @@ assert not release.exists()
 previous=os.readlink(current) if current.is_symlink() else None
 source=Path(a.source)
 gateway_files=[(source,'server.py'),(source.with_name('records.py'),'records.py'),
-               (source.with_name('schema.sql'),'schema.sql')]
+               (source.with_name('schema.sql'),'schema.sql'),(source.with_name('auth.py'),'auth.py')]
 if not all(path.is_file() for path,_ in gateway_files):
- raise SystemExit('Provide server.py, records.py and schema.sql together.')
+ raise SystemExit('Provide server.py, records.py, schema.sql and auth.py together.')
 unit=Path('/etc/systemd/system/zhishui-ai.service');previous_unit=unit.read_bytes() if unit.exists() else None
 run=lambda *cmd:subprocess.run(cmd,check=True,capture_output=True,timeout=30)
 if subprocess.run(['id','-u','zhishui-ai'],capture_output=True).returncode:run('useradd','--system','--no-create-home','--shell','/usr/sbin/nologin','zhishui-ai')
